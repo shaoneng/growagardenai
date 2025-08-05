@@ -1,5 +1,5 @@
-// /src/app/page.tsx (Correct Version)
-"use client";
+// /src/app/page.tsx (Fixed TypeScript Type)
+"use client"; 
 
 import { useState } from 'react';
 import ItemSelector from "./components/ItemSelector";
@@ -8,9 +8,17 @@ import SelectedItemsList from "./components/SelectedItemsList";
 import SelectionToolbar from './components/SelectionToolbar';
 import itemsData from "../../public/data/items.json";
 
+// --- 这是关键改动 ---
 type Item = {
-  id: number; name: string; display_name: string; tier: string; source: string;
-  prices: Record<string, number>; multi_harvest: boolean; obtainable: boolean;
+  id: number;
+  name: string;
+  display_name: string;
+  tier: string;
+  source: string;
+  multi_harvest: boolean;
+  // 将 prices 和 obtainable 设为可选属性 (在冒号前加问号)
+  prices?: Record<string, number>;
+  obtainable?: boolean;
 };
 
 export default function Home() {
