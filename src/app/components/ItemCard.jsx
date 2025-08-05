@@ -37,11 +37,11 @@ export default function ItemCard({ item, quantity, onSelect, isDimmed }) {
       // --- 修改 3: 移除 onContextMenu (右键点击) ---
       className={`relative cursor-pointer rounded-lg border bg-white shadow-md transition-all duration-300 hover:scale-105 ${tierColorMap[item.tier] || 'border-gray-300'} ${selectedClass} ${dimmedClass}`}
     >
-      <div className="p-4">
+      <div className="p-2">
         <div className="flex h-20 w-full items-center justify-center">
-          <Image src={imagePath} alt={item.display_name} width={80} height={80} className="max-h-20 w-auto object-contain" onError={(e) => { e.target.src = '/images/items/placeholder.png'; }} />
+          <Image src={imagePath} alt={item.display_name} width={96} height={96} className="max-h-28 w-auto object-contain" onError={(e) => { e.target.src = '/images/items/placeholder.png'; }} />
         </div>
-        <div className="mt-3 text-center">
+        <div className="mt-1 text-center">
           <p className="font-bold text-gray-800">{item.display_name}</p>
           <p className={`text-sm font-medium text-gray-500`}>{item.tier}</p>
         </div>
