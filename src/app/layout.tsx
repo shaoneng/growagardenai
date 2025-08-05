@@ -20,6 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMVXSSCTNS"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-GMVXSSCTNS');
+        </script>
         {/* 将结构化数据添加到 head 中 */}
         <script
           type="application/ld+json"
