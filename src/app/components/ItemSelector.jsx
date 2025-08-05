@@ -17,9 +17,12 @@ export default function ItemSelector({ items }) {
   const [visibleCount, setVisibleCount] = useState(INITIAL_LOAD_COUNT);
 
   const categories = useMemo(() => {
-    if (!items) return []; // Defensive check
+    if (!items) return [];
     const allCategories = items.map(item => item.source);
-    return [...new Set(allCategories)];
+    const uniqueCategories = [...new Set(allCategories)];
+    // --- 这是关键改动 ---
+    // 过滤掉任何从数据中提取出的名为 "All" 的分类 (不区分大小写)
+    return uniqueCategories.filter(category => category && category.toLowerCase() !== 'all');
   }, [items]);
 
   const categoryFilteredItems = useMemo(() => {
