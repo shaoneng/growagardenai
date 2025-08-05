@@ -1,32 +1,19 @@
-// /src/app/api/analyze/route.ts
+// /src/app/api/analyze/route.ts (Final fix for Cloudflare Edge Runtime)
+
+// 1. 新增: 告诉 Next.js/Cloudflare 在 Edge Runtime 中运行此API
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import itemsData from "../../../../public/data/items.json";
 
+// ...所有其他代码保持完全不变...
 const MODEL_NAME = "gemini-1.5-flash-latest";
-
-interface Item {
-  id: number;
-  name: string;
-  display_name: string;
-  multi_harvest: boolean;
-  properties?: string[];
-}
+interface Item { id: number; name: string; display_name: string; multi_harvest: boolean; properties?: string[]; }
 const allItems: Item[] = itemsData;
 const itemsMap = new Map(allItems.map(item => [item.id, item]));
-
-interface RequestBody {
-  selectedItems: Record<string, number>;
-  gold: number;
-  inGameDate: string;
-}
-
-// FIX: Define a specific type for the detailed item object to satisfy TypeScript rules
-interface DetailedItem {
-  name: string;
-  quantity: number;
-  properties: string[];
-}
+interface RequestBody { selectedItems: Record<string, number>; gold: number; inGameDate: string; }
+interface DetailedItem { name: string; quantity: number; properties: string[]; }
 
 export async function POST(req: NextRequest) {
   const API_KEY = process.env.GEMINI_API_KEY;
@@ -38,21 +25,14 @@ export async function POST(req: NextRequest) {
     const body: RequestBody = await req.json();
     const { selectedItems, gold, inGameDate } = body;
 
-    if (!selectedItems || Object.keys(selectedItems).length === 0) {
-      return NextResponse.json({ error: 'Bad Request: selectedItems is missing or empty.' }, { status: 400 });
-    }
-    if (gold === undefined || typeof gold !== 'number' || gold < 0) {
-      return NextResponse.json({ error: 'Bad Request: gold must be a non-negative number.' }, { status: 400 });
-    }
-    if (!inGameDate || !/^(Spring|Summer|Autumn|Winter), Day \d{1,2}$/.test(inGameDate)) {
-      return NextResponse.json({ error: `Bad Request: inGameDate is missing or invalid (received: ${inGameDate}).` }, { status: 400 });
-    }
+    if (!selectedItems || Object.keys(selectedItems).length === 0) { return NextResponse.json({ error: 'Bad Request: selectedItems is missing or empty.' }, { status: 400 }); }
+    if (gold === undefined || typeof gold !== 'number' || gold < 0) { return NextResponse.json({ error: 'Bad Request: gold must be a non-negative number.' }, { status: 400 }); }
+    if (!inGameDate || !/^(Spring|Summer|Autumn|Winter), Day \d{1,2}$/.test(inGameDate)) { return NextResponse.json({ error: `Bad Request: inGameDate is missing or invalid (received: ${inGameDate}).` }, { status: 400 }); }
 
     const detailedItemsList = Object.entries(selectedItems).map(([id, quantity]) => {
       const item = itemsMap.get(parseInt(id));
       if (!item) return null;
-
-      // FIX: Use the new DetailedItem type instead of 'any'
+      
       const itemDetails: DetailedItem = {
         name: item.display_name,
         quantity: quantity,
@@ -62,7 +42,7 @@ export async function POST(req: NextRequest) {
         itemDetails.properties.push("multi-harvest");
       }
       if (item.display_name === 'Zen Rocks') {
-        itemDetails.properties.push("non-sellable", "decoration");
+          itemDetails.properties.push("non-sellable", "decoration");
       }
       return itemDetails;
     }).filter(Boolean);
@@ -70,7 +50,7 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({
         model: MODEL_NAME,
-        generationConfig: { responseMimeType: "application/json" },
+        generationConfig: { response_mime_type: "application/json" },
         safetySettings: [
             { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_NONE },
             { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_NONE },
