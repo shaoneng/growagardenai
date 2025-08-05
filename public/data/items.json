@@ -1,0 +1,1617 @@
+[
+    {
+        "id": 0,
+        "name": "carrot",
+        "display_name": "Carrot",
+        "tier": "Common",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 10,
+            "robux": 7
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 1,
+        "name": "strawberry",
+        "display_name": "Strawberry",
+        "tier": "Common",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 50,
+            "robux": 21
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 2,
+        "name": "blueberry",
+        "display_name": "Blueberry",
+        "tier": "Uncommon",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 400,
+            "robux": 49
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 3,
+        "name": "orange_tulip",
+        "display_name": "Orange Tulip",
+        "tier": "Uncommon",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 600,
+            "robux": 14
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 4,
+        "name": "tomato",
+        "display_name": "Tomato",
+        "tier": "Rare",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 800,
+            "robux": 79
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 5,
+        "name": "corn",
+        "display_name": "Corn",
+        "tier": "Rare",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 1300,
+            "robux": 135
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 6,
+        "name": "daffodil",
+        "display_name": "Daffodil",
+        "tier": "Rare",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 1000,
+            "robux": 19
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 7,
+        "name": "watermelon",
+        "display_name": "Watermelon",
+        "tier": "Legendary",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 2500,
+            "robux": 195
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 8,
+        "name": "pumpkin",
+        "display_name": "Pumpkin",
+        "tier": "Legendary",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 3000,
+            "robux": 210
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 9,
+        "name": "apple",
+        "display_name": "Apple",
+        "tier": "Legendary",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 3250,
+            "robux": 390
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 10,
+        "name": "bamboo",
+        "display_name": "Bamboo",
+        "tier": "Legendary",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 4000,
+            "robux": 99
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 11,
+        "name": "coconut",
+        "display_name": "Coconut",
+        "tier": "Mythical",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 6000,
+            "robux": 435
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 12,
+        "name": "cactus",
+        "display_name": "Cactus",
+        "tier": "Mythical",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 15000,
+            "robux": 497
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 13,
+        "name": "dragon_fruit",
+        "display_name": "Dragon Fruit",
+        "tier": "Mythical",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 50000,
+            "robux": 597
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 14,
+        "name": "mango",
+        "display_name": "Mango",
+        "tier": "Mythical",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 100000,
+            "robux": 580
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 15,
+        "name": "grape",
+        "display_name": "Grape",
+        "tier": "Divine",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 850000,
+            "robux": 599
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 16,
+        "name": "mushroom",
+        "display_name": "Mushroom",
+        "tier": "Divine",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 150000,
+            "robux": 249
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 17,
+        "name": "pepper",
+        "display_name": "Pepper",
+        "tier": "Divine",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 1000000,
+            "robux": 629
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 18,
+        "name": "cacao",
+        "display_name": "Cacao",
+        "tier": "Divine",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 2500000,
+            "robux": 679
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 19,
+        "name": "beanstalk",
+        "display_name": "Beanstalk",
+        "tier": "Prismatic",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 10000000,
+            "robux": 715
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 20,
+        "name": "ember_lily",
+        "display_name": "Ember Lily",
+        "tier": "Prismatic",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 15000000,
+            "robux": 779
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 21,
+        "name": "sugar_apple",
+        "display_name": "Sugar Apple",
+        "tier": "Prismatic",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 25000000,
+            "robux": 819
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 22,
+        "name": "burning_bud",
+        "display_name": "Burning Bud",
+        "tier": "Prismatic",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 40000000,
+            "robux": 915
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 23,
+        "name": "giant_pinecone",
+        "display_name": "Giant Pinecone",
+        "tier": "Prismatic",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 55000000,
+            "robux": 929
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 24,
+        "name": "elder_strawberry",
+        "display_name": "Elder Strawberry",
+        "tier": "Prismatic",
+        "source": "Sam’s Shop",
+        "prices": {
+            "sheckles": 70000000,
+            "robux": 957
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 25,
+        "name": "cauliflower",
+        "display_name": "Cauliflower",
+        "tier": "Rare",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 1300,
+            "robux": 135
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 26,
+        "name": "rafflesia",
+        "display_name": "Rafflesia",
+        "tier": "Legendary",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 3200,
+            "robux": 215
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 27,
+        "name": "green_apple",
+        "display_name": "Green Apple",
+        "tier": "Legendary",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 3500,
+            "robux": 399
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 28,
+        "name": "avocado",
+        "display_name": "Avocado",
+        "tier": "Legendary",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 5000,
+            "robux": 419
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 29,
+        "name": "banana",
+        "display_name": "Banana",
+        "tier": "Legendary",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 7000,
+            "robux": 459
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 30,
+        "name": "pineapple",
+        "display_name": "Pineapple",
+        "tier": "Mythical",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 7500,
+            "robux": 475
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 31,
+        "name": "kiwi",
+        "display_name": "Kiwi",
+        "tier": "Mythical",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 10000,
+            "robux": 529
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 32,
+        "name": "bell_pepper",
+        "display_name": "Bell Pepper",
+        "tier": "Mythical",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 55000,
+            "robux": 589
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 33,
+        "name": "prickly_pear",
+        "display_name": "Prickly Pear",
+        "tier": "Mythical",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 555000,
+            "robux": 599
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 34,
+        "name": "loquat",
+        "display_name": "Loquat",
+        "tier": "Divine",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 900000,
+            "robux": 629
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 35,
+        "name": "feijoa",
+        "display_name": "Feijoa",
+        "tier": "Divine",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 2750000,
+            "robux": 679
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 36,
+        "name": "pitcher_plant",
+        "display_name": "Pitcher Plant",
+        "tier": "Divine",
+        "source": "Summer Seed Merchant",
+        "prices": {
+            "sheckles": 7500000,
+            "robux": 715
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 37,
+        "name": "delphinium",
+        "display_name": "Delphinium",
+        "tier": "Rare",
+        "source": "Georgia's Shop",
+        "prices": {
+            "robux": 99,
+            "summer_coins": 2
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 38,
+        "name": "lily_of_the_valley",
+        "display_name": "Lily Of The Valley",
+        "tier": "Mythical",
+        "source": "Georgia's Shop",
+        "prices": {
+            "robux": 639,
+            "summer_coins": 12
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 39,
+        "name": "traveler's_fruit",
+        "display_name": "Traveler's Fruit",
+        "tier": "Divine",
+        "source": "Georgia's Shop",
+        "prices": {
+            "robux": 749,
+            "summer_coins": 32
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 40,
+        "name": "chocolate_carrot",
+        "display_name": "Chocolate Carrot",
+        "tier": "Common",
+        "source": "Easter Event 2025",
+        "prices": {
+            "sheckles": 10000,
+            "robux": 99
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 41,
+        "name": "red_lollipop",
+        "display_name": "Red Lollipop",
+        "tier": "Uncommon",
+        "source": "Easter Event 2025",
+        "prices": {
+            "sheckles": 45000,
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 42,
+        "name": "candy_sunflower",
+        "display_name": "Candy Sunflower",
+        "tier": "Rare",
+        "source": "Easter Event 2025",
+        "prices": {
+            "sheckles": 75000,
+            "robux": 279
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 43,
+        "name": "easter_egg",
+        "display_name": "Easter Egg",
+        "tier": "Mythical",
+        "source": "Easter Event 2025",
+        "prices": {
+            "sheckles": 500000,
+            "robux": 699
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 44,
+        "name": "candy_blossom",
+        "display_name": "Candy Blossom",
+        "tier": "Divine",
+        "source": "Easter Event 2025",
+        "prices": {
+            "sheckles": 10000000,
+            "robux": 1299
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 45,
+        "name": "blood_banana",
+        "display_name": "Blood Banana",
+        "tier": "Mythical",
+        "source": "Blood Moon Shop",
+        "prices": {
+            "sheckles": 200000,
+            "robux": 599
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 46,
+        "name": "moon_melon",
+        "display_name": "Moon Melon",
+        "tier": "Mythical",
+        "source": "Blood Moon Shop",
+        "prices": {
+            "sheckles": 500000,
+            "robux": 729
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 47,
+        "name": "celestiberry",
+        "display_name": "Celestiberry",
+        "tier": "Mythical",
+        "source": "Twilight Shop",
+        "prices": {
+            "sheckles": 15000000,
+            "robux": 599
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 48,
+        "name": "moon_mango",
+        "display_name": "Moon Mango",
+        "tier": "Mythical",
+        "source": "Twilight Shop",
+        "prices": {
+            "sheckles": 1000000000,
+            "robux": 999
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 49,
+        "name": "lavender",
+        "display_name": "Lavender",
+        "tier": "Uncommon",
+        "source": "Queen Bee Shop",
+        "prices": {
+            "robux": 99,
+            "honey": 3
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 50,
+        "name": "nectarshade",
+        "display_name": "Nectarshade",
+        "tier": "Rare",
+        "source": "Queen Bee Shop",
+        "prices": {
+            "robux": 139,
+            "honey": 5
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 51,
+        "name": "nectarine",
+        "display_name": "Nectarine",
+        "tier": "Mythical",
+        "source": "Queen Bee Shop",
+        "prices": {
+            "robux": 399,
+            "honey": 25
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 52,
+        "name": "hive_fruit",
+        "display_name": "Hive Fruit",
+        "tier": "Divine",
+        "source": "Queen Bee Shop",
+        "prices": {
+            "robux": 599,
+            "honey": 40
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 53,
+        "name": "liberty_lily",
+        "display_name": "Liberty Lily",
+        "tier": "Rare",
+        "source": "July 4th Shop",
+        "prices": {
+            "sheckles": 650000,
+            "robux": 519
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 54,
+        "name": "firework_flower",
+        "display_name": "Firework Flower",
+        "tier": "Legendary",
+        "source": "July 4th Shop",
+        "prices": {
+            "sheckles": 150000,
+            "robux": 249
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 55,
+        "name": "zenflare",
+        "display_name": "Zenflare",
+        "tier": "Rare",
+        "source": "Zen Shop",
+        "prices": {
+            "robux": 199,
+            "chi": 6
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 56,
+        "name": "soft_sunshine",
+        "display_name": "Soft Sunshine",
+        "tier": "Legendary",
+        "source": "Zen Shop",
+        "prices": {
+            "robux": 659,
+            "chi": 20
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 57,
+        "name": "sakura_bush",
+        "display_name": "Sakura Bush",
+        "tier": "Legendary",
+        "source": "Zen Shop",
+        "prices": {
+            "robux": 489,
+            "chi": 14
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 58,
+        "name": "spiked_mango",
+        "display_name": "Spiked Mango",
+        "tier": "Mythical",
+        "source": "Zen Shop",
+        "prices": {
+            "robux": 759,
+            "chi": 75
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 59,
+        "name": "manuka_flower",
+        "display_name": "Manuka Flower",
+        "tier": "Uncommon",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 60,
+        "name": "bee_balm",
+        "display_name": "Bee Balm",
+        "tier": "Rare",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 61,
+        "name": "peace_lily",
+        "display_name": "Peace Lily",
+        "tier": "Rare",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 62,
+        "name": "horsetail",
+        "display_name": "Horsetail",
+        "tier": "Rare",
+        "source": "Crafting Station",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 63,
+        "name": "dandelion",
+        "display_name": "Dandelion",
+        "tier": "Rare",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 64,
+        "name": "aloe_vera",
+        "display_name": "Aloe Vera",
+        "tier": "Legendary",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 65,
+        "name": "lingonberry",
+        "display_name": "Lingonberry",
+        "tier": "Legendary",
+        "source": "Crafting Station",
+        "prices": {
+            "robux": 209
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 66,
+        "name": "lumira",
+        "display_name": "Lumira",
+        "tier": "Legendary",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 67,
+        "name": "amber_spine",
+        "display_name": "Amber Spine",
+        "tier": "Mythical",
+        "source": "Crafting Station",
+        "prices": {
+            "robux": 625
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 68,
+        "name": "guanabana",
+        "display_name": "Guanabana",
+        "tier": "Mythical",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 69,
+        "name": "honeysuckle",
+        "display_name": "Honeysuckle",
+        "tier": "Mythical",
+        "source": "Crafting Station",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 70,
+        "name": "grand_volcania",
+        "display_name": "Grand Volcania",
+        "tier": "Divine",
+        "source": "Crafting Station",
+        "prices": {
+            "robux": 819
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 71,
+        "name": "raspberry",
+        "display_name": "Raspberry",
+        "tier": "Rare",
+        "source": "Normal Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 72,
+        "name": "pineapple",
+        "display_name": "Pineapple",
+        "tier": "Mythical",
+        "source": "Normal Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 73,
+        "name": "peach",
+        "display_name": "Peach",
+        "tier": "Mythical",
+        "source": "Normal Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 74,
+        "name": "papaya",
+        "display_name": "Papaya",
+        "tier": "Legendary",
+        "source": "Exotic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 75,
+        "name": "banana",
+        "display_name": "Banana",
+        "tier": "Legendary",
+        "source": "Exotic Seed Pack",
+        "prices": {
+            "robux": 459
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 76,
+        "name": "passionfruit",
+        "display_name": "Passionfruit",
+        "tier": "Mythical",
+        "source": "Exotic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 77,
+        "name": "soul_fruit",
+        "display_name": "Soul Fruit",
+        "tier": "Divine",
+        "source": "Exotic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 78,
+        "name": "cursed_fruit",
+        "display_name": "Cursed Fruit",
+        "tier": "Divine",
+        "source": "Exotic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 79,
+        "name": "cranberry",
+        "display_name": "Cranberry",
+        "tier": "Legendary",
+        "source": "Basic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 80,
+        "name": "durian",
+        "display_name": "Durian",
+        "tier": "Legendary",
+        "source": "Basic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 81,
+        "name": "eggplant",
+        "display_name": "Eggplant",
+        "tier": "Mythical",
+        "source": "Basic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 82,
+        "name": "lotus",
+        "display_name": "Lotus",
+        "tier": "Divine",
+        "source": "Basic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 83,
+        "name": "venus_fly_trap",
+        "display_name": "Venus Fly Trap",
+        "tier": "Divine",
+        "source": "Basic Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 84,
+        "name": "nightshade",
+        "display_name": "Nightshade",
+        "tier": "Uncommon",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 85,
+        "name": "glowshroom",
+        "display_name": "Glowshroom",
+        "tier": "Rare",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 86,
+        "name": "mint",
+        "display_name": "Mint",
+        "tier": "Rare",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 87,
+        "name": "moonflower",
+        "display_name": "Moonflower",
+        "tier": "Legendary",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 88,
+        "name": "starfruit",
+        "display_name": "Starfruit",
+        "tier": "Legendary",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 89,
+        "name": "moonglow",
+        "display_name": "Moonglow",
+        "tier": "Mythical",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 90,
+        "name": "moon_blossom",
+        "display_name": "Moon Blossom",
+        "tier": "Divine",
+        "source": "Night Seed Pack",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 91,
+        "name": "rose",
+        "display_name": "Rose",
+        "tier": "Uncommon",
+        "source": "Flower Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 92,
+        "name": "foxglove",
+        "display_name": "Foxglove",
+        "tier": "Rare",
+        "source": "Flower Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 93,
+        "name": "lilac",
+        "display_name": "Lilac",
+        "tier": "Legendary",
+        "source": "Flower Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 94,
+        "name": "pink_lily",
+        "display_name": "Pink Lily",
+        "tier": "Mythical",
+        "source": "Flower Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 95,
+        "name": "purple_dahlia",
+        "display_name": "Purple Dahlia",
+        "tier": "Mythical",
+        "source": "Flower Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 96,
+        "name": "sunflower",
+        "display_name": "Sunflower",
+        "tier": "Divine",
+        "source": "Flower Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 97,
+        "name": "crocus",
+        "display_name": "Crocus",
+        "tier": "Uncommon",
+        "source": "Crafters Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 98,
+        "name": "succulent",
+        "display_name": "Succulent",
+        "tier": "Rare",
+        "source": "Crafters Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 99,
+        "name": "violet_corn",
+        "display_name": "Violet Corn",
+        "tier": "Legendary",
+        "source": "Crafters Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 100,
+        "name": "bendboo",
+        "display_name": "Bendboo",
+        "tier": "Mythical",
+        "source": "Crafters Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 101,
+        "name": "cocovine",
+        "display_name": "Cocovine",
+        "tier": "Mythical",
+        "source": "Crafters Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 102,
+        "name": "dragon_pepper",
+        "display_name": "Dragon Pepper",
+        "tier": "Divine",
+        "source": "Crafters Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 103,
+        "name": "wild_carrot",
+        "display_name": "Wild Carrot",
+        "tier": "Uncommon",
+        "source": "Summer Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 104,
+        "name": "pear",
+        "display_name": "Pear",
+        "tier": "Rare",
+        "source": "Summer Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 105,
+        "name": "cantaloupe",
+        "display_name": "Cantaloupe",
+        "tier": "Legendary",
+        "source": "Summer Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 106,
+        "name": "parasol_flower",
+        "display_name": "Parasol Flower",
+        "tier": "Mythical",
+        "source": "Summer Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 107,
+        "name": "rosy_delight",
+        "display_name": "Rosy Delight",
+        "tier": "Divine",
+        "source": "Summer Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 108,
+        "name": "elephant_ears",
+        "display_name": "Elephant Ears",
+        "tier": "Prismatic",
+        "source": "Summer Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 109,
+        "name": "stonebite",
+        "display_name": "Stonebite",
+        "tier": "Uncommon",
+        "source": "Ancient Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 110,
+        "name": "paradise_petal",
+        "display_name": "Paradise Petal",
+        "tier": "Rare",
+        "source": "Ancient Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 111,
+        "name": "horned_dinoshroom",
+        "display_name": "Horned Dinoshroom",
+        "tier": "Legendary",
+        "source": "Ancient Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 112,
+        "name": "boneboo",
+        "display_name": "Boneboo",
+        "tier": "Legendary",
+        "source": "Ancient Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 113,
+        "name": "firefly_fern",
+        "display_name": "Firefly Fern",
+        "tier": "Mythical",
+        "source": "Ancient Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 114,
+        "name": "fossilight",
+        "display_name": "Fossilight",
+        "tier": "Divine",
+        "source": "Ancient Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 115,
+        "name": "monoblooma",
+        "display_name": "Monoblooma",
+        "tier": "Uncommon",
+        "source": "Zen Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 116,
+        "name": "serenity",
+        "display_name": "Serenity",
+        "tier": "Rare",
+        "source": "Zen Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 117,
+        "name": "taro_flower",
+        "display_name": "Taro Flower",
+        "tier": "Legendary",
+        "source": "Zen Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 118,
+        "name": "zen_rocks",
+        "display_name": "Zen Rocks",
+        "tier": "Legendary",
+        "source": "Zen Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 119,
+        "name": "hinomai",
+        "display_name": "Hinomai",
+        "tier": "Mythical",
+        "source": "Zen Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 120,
+        "name": "maple_apple",
+        "display_name": "Maple Apple",
+        "tier": "Divine",
+        "source": "Zen Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 121,
+        "name": "onion",
+        "display_name": "Onion",
+        "tier": "Uncommon",
+        "source": "Gourmet Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": false,
+        "obtainable": true
+    },
+    {
+        "id": 122,
+        "name": "jalapeno",
+        "display_name": "Jalapeno",
+        "tier": "Rare",
+        "source": "Gourmet Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 123,
+        "name": "crown_melon",
+        "display_name": "Crown Melon",
+        "tier": "Legendary",
+        "source": "Gourmet Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 124,
+        "name": "sugarglaze",
+        "display_name": "Sugarglaze",
+        "tier": "Mythical",
+        "source": "Gourmet Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 125,
+        "name": "tall_asparagus",
+        "display_name": "Tall Asparagus",
+        "tier": "Mythical",
+        "source": "Gourmet Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 126,
+        "name": "grand_tomato",
+        "display_name": "Grand Tomato",
+        "tier": "Divine",
+        "source": "Gourmet Seed Pack",
+        "prices": {
+            "robux": 199
+        },
+        "multi_harvest": true,
+        "obtainable": true
+    },
+    {
+        "id": 127,
+        "name": "purple_cabbage",
+        "display_name": "Purple Cabbage",
+        "tier": "Unknown",
+        "source": "Other",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 128,
+        "name": "pink_tulip",
+        "display_name": "Pink Tulip",
+        "tier": "Common",
+        "source": "Other",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 129,
+        "name": "blue_lollipop",
+        "display_name": "Blue Lollipop",
+        "tier": "Uncommon",
+        "source": "Other",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 130,
+        "name": "noble_flower",
+        "display_name": "Noble Flower",
+        "tier": "Rare",
+        "source": "Other",
+        "prices": {},
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 131,
+        "name": "lemon",
+        "display_name": "Lemon",
+        "tier": "Mythical",
+        "source": "Other",
+        "prices": {
+            "robux": 21
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 132,
+        "name": "cherry_blossom",
+        "display_name": "Cherry Blossom",
+        "tier": "Divine",
+        "source": "Other",
+        "prices": {
+            "robux": 21
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    },
+    {
+        "id": 133,
+        "name": "mega_mushroom",
+        "display_name": "Mega Mushroom",
+        "tier": "Divine",
+        "source": "Other",
+        "prices": {},
+        "multi_harvest": false,
+        "obtainable": false
+    },
+    {
+        "id": 134,
+        "name": "bone_blossom",
+        "display_name": "Bone Blossom",
+        "tier": "Transcendent",
+        "source": "Other",
+        "prices": {
+            "robux": 623
+        },
+        "multi_harvest": true,
+        "obtainable": false
+    }
+]

@@ -1,0 +1,46 @@
+{
+  "summary": "Overall, you're in a strong early-game position. Focus on generating steady income with quick-turnaround crops while investing in key items for mid-game scaling.",
+  "sections": [
+    {
+      "id": "immediate_actions",
+      "title": "Immediate Actions",
+      "icon": "Zap",
+      "summary": "These are high-priority tasks you should focus on right now for the biggest immediate impact.",
+      "points": [
+        "Plant all your remaining Carrot seeds. They offer the best gold-per-minute ratio among your current items.",
+        "Sell your stock of Strawberries. While they are good, your current gold allows you to buy more profitable seeds.",
+        "Consider buying a 'Small Sprinkler' if available. It will save you significant time and energy daily."
+      ]
+    },
+    {
+      "id": "mid_term_goals",
+      "title": "Mid-term Goals",
+      "icon": "Target",
+      "summary": "Look ahead! These goals will set you up for success in the next phase of the game.",
+      "points": [
+        "Save up 5,000 gold to unlock the 'Advanced Tools' upgrade. This is a critical power spike.",
+        "Try to obtain Blueberries. They are a multi-harvest crop that will become your primary source of passive income.",
+        "Complete the 'First Harvest' quest, which rewards you with a rare seed pack."
+      ]
+    },
+    {
+      "id": "hidden_potential",
+      "title": "Hidden Potential",
+      "icon": "Sparkles",
+      "summary": "Don't overlook these opportunities! They might not be obvious but can provide a unique advantage.",
+      "points": [
+        "You own an Orange Tulip. While not profitable to sell, planting it near a beehive (if you get one) can produce rare 'Tulip Honey'."
+      ]
+    },
+    {
+      "id": "warnings",
+      "title": "Warnings & Alerts",
+      "icon": "ShieldAlert",
+      "summary": "Be careful! These are potential risks or inefficiencies in your current strategy.",
+      "points": [
+        "Avoid buying more Strawberry seeds for now. The profit margin is too low compared to other available options.",
+        "Your inventory is nearing its limit. Selling some lower-tier items can free up valuable space."
+      ]
+    }
+  ]
+}

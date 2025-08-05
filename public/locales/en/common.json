@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "Garden Growth Advisor",
+    "description": "Your personal AI-driven mentor for garden-like games."
+  },
+  "onboarding": {
+    "mainTitle": "Let's Optimize Your Garden!",
+    "instructions": "Select the items you currently own, enter your game details below, and our AI strategist will provide a tailored growth plan."
+  },
+  "input": {
+    "goldPlaceholder": "Enter your current gold...",
+    "datePlaceholder": "Select the current in-game date"
+  },
+  "buttons": {
+    "requestGuidance": "Request AI Guidance!",
+    "requesting": "Analyzing...",
+    "startOver": "Start Over",
+    "showMore": "More...",
+    "showLess": "Show Less"
+  },
+  "results": {
+    "pageTitle": "Your Strategic Report",
+    "loading": "Our AI is analyzing your inventory... Crafting your strategy now!",
+    "sections": {
+      "immediate_actions": "Immediate Actions",
+      "mid_term_goals": "Mid-term Goals",
+      "hidden_potential": "Hidden Potential",
+      "warnings": "Warnings & Alerts"
+    }
+  },
+  "categories": {
+    "seeds": "Seeds",
+    "crops": "Crops",
+    "minerals": "Minerals",
+    "tools": "Tools"
+  },
+  "errors": {
+    "apiError": "Oops! The AI strategist seems to be taking a break. Please try again in a moment.",
+    "noItems": "Please select at least one item before requesting guidance."
+  },
+  "search": { "placeholder": "Search for items..." }
+}
