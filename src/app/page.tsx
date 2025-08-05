@@ -22,7 +22,8 @@ type Item = {
 };
 
 export default function Home() {
-  const items: Item[] = itemsData;
+  // 将 itemsData 类型断言为 Item[] 类型，确保数据类型安全
+  const items = itemsData as Item[];
   const [view, setView] = useState('selection'); 
 
   return (
