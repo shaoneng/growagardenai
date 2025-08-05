@@ -39,7 +39,7 @@ export default function ItemCard({ item, quantity, onSelect, isDimmed }) {
     >
       <div className="p-4">
         <div className="flex h-20 w-full items-center justify-center">
-          <Image src={imagePath} alt={item.display_name} width={80} height={80} className="max-h-20 w-auto object-contain" onError={(e) => { e.target.src = '/images/items/placeholder.png'; }} />
+          <Image src={imagePath} alt={`Grow a Garden AI Advisor - ${item.display_name} item`} width={80} height={80} className="max-h-20 w-auto object-contain" onError={(e) => { e.target.src = '/images/items/placeholder.png'; }} />
         </div>
         <div className="mt-3 text-center">
           <p className="font-bold text-gray-800">{item.display_name}</p>

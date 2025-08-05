@@ -4,8 +4,8 @@
     "description": "Your personal AI-driven mentor for garden-like games."
   },
   "onboarding": {
-    "mainTitle": "Let's Optimize Your Garden!",
-    "instructions": "Select the items you currently own, enter your game details below, and our AI strategist will provide a tailored growth plan."
+    "mainTitle": "Grow a Garden AI: Your Personal Strategy Advisor",
+    "instructions": "Welcome to the ultimate strategy tool for Grow a Garden. Our AI advisor analyzes your items, gold, and date to create a custom growth plan. Stop guessing and start optimizing with the best garden planning AI helper."
   },
   "input": {
     "goldPlaceholder": "Enter your current gold...",
