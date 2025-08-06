@@ -1,13 +1,25 @@
-// /src/app/layout.tsx (Correct Version)
+// /src/app/layout.tsx
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Script from "next/script"; // <-- 1. 导入 Next.js 的 Script 组件
+// 1. 引入 Google Fonts
+import { Noto_Serif_SC, Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import I18nProvider from "./components/I18nProvider";
 import { AppProvider } from "@/context/AppContext";
 
-const inter = Inter({ subsets: ["latin"] });
-// 替换为你的 GTM ID
+// 2. 配置字体
+const notoSerifSC = Noto_Serif_SC({
+  subsets: ["latin"],
+  weight: ["700", "900"],
+  variable: "--font-noto-serif-sc", // 创建CSS变量
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-poppins", // 创建CSS变量
+});
+
 const GTM_ID = 'GTM-K6Z5MPFM';
 
 export const metadata: Metadata = {
@@ -21,10 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // 3. 将字体变量应用到html标签
+    <html lang="zh-CN" className={`${notoSerifSC.variable} ${poppins.variable}`}>
       <head>
-      {/* Google Tag Manager */}
-        {/* 2. 将 GTM 的 <script> 部分添加到 <head> */}
+        {/* Font Awesome CDN */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        
+        {/* Google Tag Manager */}
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -35,7 +50,6 @@ export default function RootLayout({
           `}
         </Script>
         {/* End Google Tag Manager */}    
-        {/* 将结构化数据添加到 head 中 */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -54,7 +68,8 @@ export default function RootLayout({
           })}}
         />
       </head>
-      <body className={inter.className}>
+      {/* 4. body 使用中文字体作为基础 */}
+      <body className="font-chinese">
         <I18nProvider>
           <AppProvider>
             {children}

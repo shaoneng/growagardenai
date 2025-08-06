@@ -1,16 +1,28 @@
 // /src/app/components/ReportCard.jsx
 "use client";
 import { useState } from 'react';
-// FIX: Import HelpCircle directly
-import { icons, ChevronDown, HelpCircle } from 'lucide-react';
+import { icons, ChevronDown, HelpCircle, Link as LinkIcon } from 'lucide-react';
+
+// 新增一个函数来处理严重性标签的颜色
+const getSeverityColor = (severity) => {
+  switch (severity?.toLowerCase()) {
+    case 'high':
+      return 'bg-red-100 text-red-800';
+    case 'medium':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'low':
+      return 'bg-blue-100 text-blue-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
+  }
+};
+
 
 export default function ReportCard({ icon, title, summary, points, initialExpanded = false }) {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
 
-  // Use the icon from the props if it exists in the 'icons' object
   let LucideIcon = icon ? icons[icon] : null;
 
-  // If the icon is not found, use the directly imported HelpCircle as a fallback
   if (!LucideIcon) {
     console.warn(`Icon "${icon}" not found. Falling back to HelpCircle.`);
     LucideIcon = HelpCircle;
@@ -34,11 +46,47 @@ export default function ReportCard({ icon, title, summary, points, initialExpand
       {isExpanded && (
         <div className="animate-fade-in-down px-6 pb-6">
           <p className="mb-4 text-gray-600">{summary}</p>
-          <ul className="list-inside list-disc space-y-2 text-gray-700">
+          {/* --- 这是关键的修复 --- */}
+          {/* 我们不再使用 <ul>，而是使用 div 来更好地控制布局 */}
+          <div className="space-y-4">
             {points.map((point, index) => (
-              <li key={index}>{point}</li>
+              // 检查 point 是否是有效对象
+              typeof point === 'object' && point !== null ? (
+                <div key={index} className="border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
+                  {/* 渲染 point.action 作为主要建议 */}
+                  <p className="font-semibold text-gray-800">{point.action}</p>
+                  
+                  {/* 渲染 point.reasoning 作为解释 */}
+                  {point.reasoning && (
+                    <p className="mt-1 text-sm text-gray-600">{point.reasoning}</p>
+                  )}
+
+                  {/* 渲染标签和协同效应 */}
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    {point.tags?.map((tag) => (
+                      <span key={tag} className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                        {tag}
+                      </span>
+                    ))}
+                    {point.synergy && (
+                       <span className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                         <LinkIcon size={12} />
+                         协同: {point.synergy.join(' + ')}
+                       </span>
+                    )}
+                     {point.severity && (
+                       <span className={`rounded-full px-2 py-1 text-xs font-medium ${getSeverityColor(point.severity)}`}>
+                         风险: {point.severity}
+                       </span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                // 为旧的字符串格式提供后备支持
+                <div key={index} className="list-inside list-disc text-gray-700">{point}</div>
+              )
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>

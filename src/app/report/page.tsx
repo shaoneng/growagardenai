@@ -1,12 +1,12 @@
-// /src/app/report/page.tsx (Cleaned up)
-import AnalysisReport from "../components/AnalysisReport";
-
-// The AppProvider is not needed here because the root layout provides it.
+// /src/app/report/page.tsx
+import MagazineReport from "../components/MagazineReport"; // 1. 导入新的杂志风格组件
 
 export default function ReportPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center bg-gray-100 p-4 sm:p-8 md:p-12">
-      <AnalysisReport />
+    // 2. 调整背景色以匹配杂志风格的米白色
+    <main className="min-h-screen bg-[#f8f7f2]">
+      {/* 3. 渲染新的组件 */}
+      <MagazineReport />
     </main>
   );
 }

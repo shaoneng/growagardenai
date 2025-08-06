@@ -1,4 +1,4 @@
-// src/context/AppContext.jsx (Improved Error Handling)
+// src/context/AppContext.jsx
 "use client";
 
 import { createContext, useContext, useState } from 'react';
@@ -27,6 +27,9 @@ export function AppProvider({ children }) {
     setIsLoading(true);
     const itemsObject = Object.fromEntries(selectedItems);
 
+    // --- 这是关键改动: 在客户端生成当前日期 ---
+    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
     try {
       const response = await fetch('/api/analyze', {
         method: 'POST',
@@ -34,16 +37,14 @@ export function AppProvider({ children }) {
         body: JSON.stringify({
           selectedItems: itemsObject,
           gold: Number(gold),
-          inGameDate: inGameDate
+          inGameDate: inGameDate,
+          currentDate: currentDate // <-- 将客户端生成的日期添加到请求体中
         })
       });
 
-      // --- 这是关键改动 ---
-      // 即使状态码是400或500，我们也要读取其中的错误信息
       const data = await response.json();
 
       if (!response.ok) {
-        // 将后端返回的更具体的错误信息抛出
         throw new Error(data.error || `API Error: ${response.statusText}`);
       }
 
@@ -52,7 +53,6 @@ export function AppProvider({ children }) {
 
     } catch (error) {
       console.error("Failed to fetch analysis:", error);
-      // 将具体的错误信息展示给用户
       alert(`Failed to get analysis:\n${error.message}`);
     } finally {
       setIsLoading(false);
