@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .image-test { 
+            display: inline-block; 
+            margin: 10px; 
+            border: 2px solid #ccc; 
+            padding: 10px;
+            text-align: center;
+        }
+        .image-test img { 
+            width: 64px; 
+            height: 64px; 
+            object-fit: contain;
+            background: #f0f0f0;
+        }
+        .error { border-color: red; }
+        .success { border-color: green; }
+    </style>
+</head>
+<body>
+    <h1>Image Loading Test</h1>
+    <p>Testing if images load correctly in browser:</p>
+    
+    
+    <div class="image-test" id="test-carrot">
+        <img src="/images/items/carrot.png" 
+             alt="carrot" 
+             onload="document.getElementById('test-carrot').className='image-test success'"
+             onerror="document.getElementById('test-carrot').className='image-test error'">
+        <br>carrot
+    </div>
+    
+    <div class="image-test" id="test-strawberry">
+        <img src="/images/items/strawberry.png" 
+             alt="strawberry" 
+             onload="document.getElementById('test-strawberry').className='image-test success'"
+             onerror="document.getElementById('test-strawberry').className='image-test error'">
+        <br>strawberry
+    </div>
+    
+    <div class="image-test" id="test-blueberry">
+        <img src="/images/items/blueberry.png" 
+             alt="blueberry" 
+             onload="document.getElementById('test-blueberry').className='image-test success'"
+             onerror="document.getElementById('test-blueberry').className='image-test error'">
+        <br>blueberry
+    </div>
+    
+    <div class="image-test" id="test-rose">
+        <img src="/images/items/rose.png" 
+             alt="rose" 
+             onload="document.getElementById('test-rose').className='image-test success'"
+             onerror="document.getElementById('test-rose').className='image-test error'">
+        <br>rose
+    </div>
+    
+    <div class="image-test" id="test-orange_tulip">
+        <img src="/images/items/orange_tulip.png" 
+             alt="orange_tulip" 
+             onload="document.getElementById('test-orange_tulip').className='image-test success'"
+             onerror="document.getElementById('test-orange_tulip').className='image-test error'">
+        <br>orange_tulip
+    </div>
+    
+    
+    <script>
+        console.log('Image test page loaded');
+        setTimeout(() => {
+            const tests = document.querySelectorAll('.image-test');
+            let success = 0, error = 0;
+            tests.forEach(test => {
+                if (test.className.includes('success')) success++;
+                if (test.className.includes('error')) error++;
+            });
+            console.log(`Results: ${success} success, ${error} errors`);
+        }, 2000);
+    </script>
+</body>
+</html>

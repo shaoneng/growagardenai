@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Image Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .test-card {
+            width: 150px;
+            height: 200px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-container {
+            width: 80px;
+            height: 80px;
+            border: 2px solid red;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .test-image {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border: 1px solid blue;
+        }
+        .item-name {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .item-tier {
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+        }
+        .success {
+            border-color: green !important;
+        }
+        .failed {
+            border-color: red !important;
+            background: #ffeeee !important;
+        }
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Standalone Image Debug Test</h1>
+    <p>This page tests image loading without React or any complex CSS frameworks.</p>
+    
+    <div class="stats" id="stats">
+        <strong>Loading test images...</strong>
+    </div>
+    
+    <div class="test-container" id="testContainer">
+        <!-- Images will be loaded here -->
+    </div>
+    
+    <h2>🔍 Debug Information</h2>
+    <div id="debugInfo" style="background: white; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px;">
+        <div>Loading debug information...</div>
+    </div>
+    
+    <script>
+        const testItems = [
+            { name: 'carrot', display_name: 'Carrot', tier: 'Common' },
+            { name: 'strawberry', display_name: 'Strawberry', tier: 'Common' },
+            { name: 'blueberry', display_name: 'Blueberry', tier: 'Uncommon' },
+            { name: 'rose', display_name: 'Rose', tier: 'Uncommon' },
+            { name: 'orange_tulip', display_name: 'Orange Tulip', tier: 'Uncommon' },
+            { name: 'dezen', display_name: 'Dezen', tier: 'Uncommon' },
+            { name: 'artichoke', display_name: 'Artichoke', tier: 'Common' },
+            { name: 'onion', display_name: 'Onion', tier: 'Common' },
+            { name: 'tomato', display_name: 'Tomato', tier: 'Common' },
+            { name: 'daffodil', display_name: 'Daffodil', tier: 'Common' }
+        ];
+        
+        let loaded = 0;
+        let failed = 0;
+        let debugLog = [];
+        
+        function updateStats() {
+            document.getElementById('stats').innerHTML = 
+                `<strong>Results:</strong> ${loaded} loaded, ${failed} failed, ${testItems.length - loaded - failed} pending`;
+        }
+        
+        function addDebugLog(message) {
+            debugLog.push(`${new Date().toLocaleTimeString()}: ${message}`);
+            document.getElementById('debugInfo').innerHTML = debugLog.join('<br>');
+        }
+        
+        function createTestCard(item) {
+            const card = document.createElement('div');
+            card.className = 'test-card';
+            
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'image-container';
+            
+            const img = document.createElement('img');
+            img.className = 'test-image';
+            img.src = `/images/items/${item.name}.png`;
+            img.alt = item.display_name;
+            
+            img.onload = () => {
+                imageContainer.className = 'image-container success';
+                img.style.border = '2px solid green';
+                loaded++;
+                updateStats();
+                addDebugLog(`✅ SUCCESS: ${item.name} (${img.naturalWidth}x${img.naturalHeight})`);
+                console.log(`🟢 LOADED: ${item.name}`, img);
+            };
+            
+            img.onerror = () => {
+                imageContainer.className = 'image-container failed';
+                img.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.style.cssText = 'width:70px;height:70px;display:flex;align-items:center;justify-content:center;background:#fee2e2;border-radius:4px;font-size:30px;border:2px solid red;';
+                fallback.textContent = '🌱';
+                imageContainer.appendChild(fallback);
+                failed++;
+                updateStats();
+                addDebugLog(`❌ FAILED: ${item.name} - ${img.src}`);
+                console.log(`🔴 FAILED: ${item.name}`, img);
+            };
+            
+            const name = document.createElement('div');
+            name.className = 'item-name';
+            name.textContent = item.display_name;
+            
+            const tier = document.createElement('div');
+            tier.className = 'item-tier';
+            tier.textContent = item.tier;
+            
+            imageContainer.appendChild(img);
+            card.appendChild(imageContainer);
+            card.appendChild(name);
+            card.appendChild(tier);
+            
+            return card;
+        }
+        
+        // Initialize debug log
+        addDebugLog('🚀 Starting image loading test...');
+        addDebugLog(`📍 Base URL: ${window.location.origin}`);
+        addDebugLog(`🔗 Image path pattern: /images/items/{name}.png`);
+        
+        // Load test images
+        const container = document.getElementById('testContainer');
+        testItems.forEach(item => {
+            container.appendChild(createTestCard(item));
+            addDebugLog(`📤 Loading: ${item.name}`);
+        });
+        
+        updateStats();
+        
+        // Final check after 10 seconds
+        setTimeout(() => {
+            addDebugLog(`🏁 Final results: ${loaded}/${testItems.length} images loaded`);
+            
+            if (loaded === testItems.length) {
+                document.body.style.background = '#dcfce7';
+                addDebugLog('🎉 ALL IMAGES LOADED! The issue is in React components or CSS.');
+            } else if (loaded === 0) {
+                document.body.style.background = '#fef2f2';
+                addDebugLog('💥 NO IMAGES LOADED! Check server configuration or image paths.');
+            } else {
+                document.body.style.background = '#fef3c7';
+                addDebugLog(`⚠️ PARTIAL SUCCESS: ${loaded}/${testItems.length} loaded. Some images may be missing.`);
+            }
+            
+            // Test direct image access
+            addDebugLog('🔍 Testing direct image access...');
+            const testUrl = '/images/items/carrot.png';
+            fetch(testUrl)
+                .then(response => {
+                    addDebugLog(`📡 Direct fetch ${testUrl}: ${response.status} ${response.statusText}`);
+                })
+                .catch(error => {
+                    addDebugLog(`📡 Direct fetch ${testUrl}: ERROR - ${error.message}`);
+                });
+                
+        }, 10000);
+        
+        // Add CSS debug helper
+        window.highlightImages = function() {
+            document.querySelectorAll('img').forEach((img, index) => {
+                img.style.outline = '3px solid red';
+                img.style.background = 'yellow';
+                console.log(`Image ${index}:`, {
+                    src: img.src,
+                    visible: img.offsetWidth > 0 && img.offsetHeight > 0,
+                    naturalSize: `${img.naturalWidth}x${img.naturalHeight}`,
+                    displaySize: `${img.offsetWidth}x${img.offsetHeight}`
+                });
+            });
+        };
+        
+        addDebugLog('💡 Run highlightImages() in console to debug image visibility');
+    </script>
+</body>
+</html>

@@ -3,24 +3,123 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Design System Colors */
+  --color-primary: #10b981; /* Forest Green */
+  --color-primary-dark: #059669;
+  --color-secondary: #0ea5e9; /* Sky Blue */
+  --color-accent: #f59e0b; /* Gold */
+  --color-accent-orange: #ea580c; /* Bright Orange */
+  --color-text: #374151; /* Dark Gray */
+  --color-text-light: #6b7280;
+  --color-border: #e5e7eb;
+  --color-surface: #f9fafb;
+  
+  /* Rarity Colors */
+  --color-rarity-common: #6b7280; /* Gray */
+  --color-rarity-rare: #3b82f6; /* Blue */
+  --color-rarity-epic: #8b5cf6; /* Purple */
+  --color-rarity-legendary: #f59e0b; /* Gold */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Nunito', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --color-text: #d1d5db;
+    --color-text-light: #9ca3af;
+    --color-border: #374151;
+    --color-surface: #111827;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* Component Base Styles */
+.btn {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+
+.btn-primary {
+  @apply text-white transition-colors;
+  background-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  @apply border rounded-md px-4 py-2 transition-colors;
+  border-color: var(--color-border);
+  background-color: var(--background);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-surface);
+}
+
+.card {
+  @apply rounded-lg p-6;
+  border: 1px solid var(--color-border);
+  background-color: var(--background);
+  box-shadow: var(--shadow-sm);
+}
+
+.input {
+  @apply flex h-10 w-full rounded-md px-3 py-2 text-sm transition-colors;
+  border: 1px solid var(--color-border);
+  background-color: var(--background);
+}
+
+.input:focus {
+  outline: none;
+  ring: 2px solid var(--color-primary);
+  ring-offset: 2px;
+}
+
+.input::placeholder {
+  color: var(--color-text-light);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

@@ -12,6 +12,12 @@ export function AppProvider({ children }) {
   const [inGameDate, setInGameDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [reportData, setReportData] = useState(null);
+  const [interactionMode, setInteractionMode] = useState('advanced'); // 默认进阶模式
+  const [expertOptions, setExpertOptions] = useState({
+    optimizationGoal: 'balanced',
+    riskTolerance: 'moderate',
+    timeHorizon: 'medium'
+  });
   const router = useRouter();
 
   const handleItemSelection = (item, action = 'add') => {
@@ -22,12 +28,40 @@ export function AppProvider({ children }) {
     setSelectedItems(newSelectedItems);
   };
 
-  const requestAnalysis = async () => {
-    if (selectedItems.size === 0) return;
+  const requestAnalysisWithParams = async (useBeginnerDefaults = false, goldAmount = null, gameDateParam = null) => {
+    const effectiveGold = goldAmount !== null ? goldAmount : gold;
+    const effectiveGameDate = gameDateParam !== null ? gameDateParam : inGameDate;
+    
+    let itemsToAnalyze = Object.fromEntries(selectedItems);
+    
+    // 如果是新手模式且使用默认推荐，自动选择推荐物品
+    if (useBeginnerDefaults && interactionMode === 'beginner') {
+      // 根据金币数量推荐不同的物品组合
+      const goldNum = Number(effectiveGold);
+      if (goldNum <= 100) {
+        itemsToAnalyze = {
+          1: 5,  // 假设1是胡萝卜的ID
+          2: 3   // 假设2是草莓的ID
+        };
+      } else if (goldNum <= 300) {
+        itemsToAnalyze = {
+          1: 8,  // 胡萝卜
+          2: 5,  // 草莓
+          3: 2   // 假设3是蓝莓的ID
+        };
+      } else {
+        itemsToAnalyze = {
+          1: 10, // 胡萝卜
+          2: 8,  // 草莓
+          3: 5,  // 蓝莓
+          4: 2   // 假设4是玫瑰的ID
+        };
+      }
+    }
+    
+    if (Object.keys(itemsToAnalyze).length === 0) return;
     setIsLoading(true);
-    const itemsObject = Object.fromEntries(selectedItems);
 
-    // --- 这是关键改动: 在客户端生成当前日期 ---
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     try {
@@ -35,10 +69,76 @@ export function AppProvider({ children }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          selectedItems: itemsObject,
+          selectedItems: itemsToAnalyze,
+          gold: Number(effectiveGold),
+          inGameDate: effectiveGameDate,
+          currentDate: currentDate,
+          interactionMode: interactionMode,
+          expertOptions: expertOptions
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || `API Error: ${response.statusText}`);
+      }
+
+      setReportData(data);
+      router.push('/report');
+
+    } catch (error) {
+      console.error("Failed to fetch analysis:", error);
+      alert(`Failed to get analysis:\n${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const requestAnalysis = async (useBeginnerDefaults = false) => {
+    let itemsToAnalyze = Object.fromEntries(selectedItems);
+    
+    // 如果是新手模式且使用默认推荐，自动选择推荐物品
+    if (useBeginnerDefaults && interactionMode === 'beginner') {
+      // 根据金币数量推荐不同的物品组合
+      const goldAmount = Number(gold);
+      if (goldAmount <= 100) {
+        itemsToAnalyze = {
+          1: 5,  // 假设1是胡萝卜的ID
+          2: 3   // 假设2是草莓的ID
+        };
+      } else if (goldAmount <= 300) {
+        itemsToAnalyze = {
+          1: 8,  // 胡萝卜
+          2: 5,  // 草莓
+          3: 2   // 假设3是蓝莓的ID
+        };
+      } else {
+        itemsToAnalyze = {
+          1: 10, // 胡萝卜
+          2: 8,  // 草莓
+          3: 5,  // 蓝莓
+          4: 2   // 假设4是玫瑰的ID
+        };
+      }
+    }
+    
+    if (Object.keys(itemsToAnalyze).length === 0) return;
+    setIsLoading(true);
+
+    const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          selectedItems: itemsToAnalyze,
           gold: Number(gold),
           inGameDate: inGameDate,
-          currentDate: currentDate // <-- 将客户端生成的日期添加到请求体中
+          currentDate: currentDate,
+          interactionMode: interactionMode,
+          expertOptions: expertOptions
         })
       });
 
@@ -65,10 +165,15 @@ export function AppProvider({ children }) {
     inGameDate,
     isLoading,
     reportData,
+    interactionMode,
+    expertOptions,
     handleItemSelection,
     setGold,
     setInGameDate,
+    setInteractionMode,
+    setExpertOptions,
     requestAnalysis,
+    requestAnalysisWithParams,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

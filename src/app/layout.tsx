@@ -4,8 +4,11 @@ import type { Metadata } from "next";
 import { Noto_Serif_SC, Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import I18nProvider from "./components/I18nProvider";
+import I18nProvider from "./components/layout/I18nProvider";
 import { AppProvider } from "@/context/AppContext";
+import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import { ToastProvider } from "./components/layout/ToastProvider";
+import GlobalNavigation from "./components/layout/GlobalNavigation";
 
 // 2. 配置字体
 const notoSerifSC = Noto_Serif_SC({
@@ -72,7 +75,12 @@ export default function RootLayout({
       <body className="font-chinese">
         <I18nProvider>
           <AppProvider>
-            {children}
+            <FavoritesProvider>
+              <ToastProvider>
+                <GlobalNavigation />
+                {children}
+              </ToastProvider>
+            </FavoritesProvider>
           </AppProvider>
         </I18nProvider>
       </body>
