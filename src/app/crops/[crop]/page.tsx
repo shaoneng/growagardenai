@@ -18,11 +18,10 @@ export const runtime = 'edge';
 // 为避免 Cloudflare next-on-pages 的边缘合并冲突，这里移除 generateMetadata（可改为后续按需恢复）
 
 export default function CropPage({ params }: { params: { crop: string } }) {
-  const findBySlug = (nameOrDisplay: string) => slugify(String(nameOrDisplay || ''));
-  
   // 查找对应的作物（按 slug 匹配）
   const crop = (itemsData as any[]).find((item: any) =>
-    findBySlug(item.name) === params.crop || findBySlug(item.display_name) === params.crop
+    slugify(String(item.name || '')) === params.crop ||
+    slugify(String(item.display_name || '')) === params.crop
   );
 
   if (!crop) {
