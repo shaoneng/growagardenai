@@ -1,6 +1,6 @@
 // /src/app/api/analyze/route.ts
 
-export const runtime = 'edge';
+// runtime is unified at app root layout to avoid duplicated identifiers in bundling
 
 import { NextRequest, NextResponse } from 'next/server';
 // 暂时注释掉AI提供者，使用规则引擎

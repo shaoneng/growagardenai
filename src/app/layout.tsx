@@ -25,6 +25,10 @@ export const metadata: Metadata = {
   description: "Get expert strategy for Grow a Garden with our AI advisor. Optimize your crops, maximize profit, and get a personalized growth blueprint. Try the Grow a Garden AI now!",
 };
 
+// Cloudflare Pages: unify Edge runtime and dynamic rendering at root to avoid duplicated identifiers
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
+
 export default function RootLayout({
   children,
 }: Readonly<{

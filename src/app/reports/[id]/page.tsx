@@ -5,8 +5,6 @@
 
 import React, { useEffect, useState } from 'react';
 
-// Cloudflare Pages Edge Runtime配置
-export const runtime = 'edge';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import MultiStyleReport from '../../components/feature/MultiStyleReport';
