@@ -102,7 +102,7 @@ export function AppProvider({ children }) {
       }
 
       setReportData(data);
-      router.push('/report');
+      router.push('/report-summary');
 
     } catch (error) {
       console.error("Failed to fetch analysis:", error);
@@ -183,7 +183,7 @@ export function AppProvider({ children }) {
       }
 
       setReportData(data);
-      router.push('/report');
+      router.push('/report-summary');
 
     } catch (error) {
       console.error("Failed to fetch analysis:", error);
