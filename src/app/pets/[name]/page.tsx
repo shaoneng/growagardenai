@@ -6,6 +6,9 @@ import { notFound } from 'next/navigation';
 import PetDetailPage from '../../components/feature/PetDetailPage';
 import itemsData from '../../../../public/data/items.json';
 
+// Cloudflare Pages Edge Runtime配置
+export const runtime = 'edge';
+
 // 生成静态路径
 export async function generateStaticParams() {
   // 过滤出宠物数据

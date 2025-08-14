@@ -1,7 +1,7 @@
 // /src/app/components/feature/BeginnerGuide.jsx
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/context/AppContext';
 
 const BeginnerGuide = () => {

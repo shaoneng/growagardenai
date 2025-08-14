@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UserProfile } from '@/types';
 import { onboardingStorage } from '@/lib/onboarding-storage';
 

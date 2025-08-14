@@ -3,7 +3,7 @@
 // /src/contexts/FavoritesContext.tsx
 // 收藏系统的 React Context 实现
 
-import React, { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
+import React, { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { 
   FavoritesData, 
   FavoritesContextType, 
