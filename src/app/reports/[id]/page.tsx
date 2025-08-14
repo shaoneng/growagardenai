@@ -4,6 +4,7 @@
 // 收藏报告详情页面
 
 import React, { useEffect, useState } from 'react';
+export const runtime = 'edge';
 
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import CropDetailPage from '../../components/feature/CropDetailPage';
 import itemsData from '../../../../public/data/items.json';
 import { slugify } from '@/lib/slugify';
+export const runtime = 'edge';
 
 // 在 Cloudflare Pages 上避免 Next-on-Pages 的 prerender 冲突，强制该动态路由走 SSR
 // 运行时与动态渲染配置由父级 segment layout 统一导出，避免多路由重复导出引发合并冲突
