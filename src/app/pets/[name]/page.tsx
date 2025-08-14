@@ -15,6 +15,7 @@ const slugify = (s: string) =>
 
 // 在 Cloudflare Pages 上避免 Next-on-Pages 的 prerender 冲突，强制该动态路由走 SSR
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 // 注意：此页面使用generateStaticParams进行静态生成，不能使用Edge Runtime
 
