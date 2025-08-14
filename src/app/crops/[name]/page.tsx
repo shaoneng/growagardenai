@@ -6,30 +6,45 @@ import { notFound } from 'next/navigation';
 import CropDetailPage from '../../components/feature/CropDetailPage';
 import itemsData from '../../../../public/data/items.json';
 
+// 统一的 slug 规范：仅小写字母数字，用连字符分隔，去除首尾连字符
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
 // 注意：此页面使用generateStaticParams进行静态生成，不能使用Edge Runtime
 
 // 生成静态路径
 export async function generateStaticParams() {
   // 过滤出作物数据
-  const crops = itemsData.filter(item => 
-    item.source === 'crops' || 
+  const crops = itemsData.filter((item: any) =>
+    item.source === 'crops' ||
     item.multi_harvest !== undefined ||
     ['Common', 'Uncommon', 'Rare', 'Legendary'].includes(item.tier)
   );
 
-  return crops.map((crop) => ({
-    name: crop.name.toLowerCase().replace(/\s+/g, '-'),
-  }));
+  // 去重且保证 slug 合法
+  const seen = new Set<string>();
+  const params: Array<{ name: string }> = [];
+  for (const crop of crops) {
+    const base = crop.display_name || crop.name;
+    if (!base) continue;
+    const slug = slugify(String(base));
+    if (!slug || seen.has(slug)) continue;
+    seen.add(slug);
+    params.push({ name: slug });
+  }
+  return params;
 }
 
 // 生成动态元数据
 export async function generateMetadata({ params }: { params: { name: string } }): Promise<Metadata> {
-  const cropName = params.name.replace(/-/g, ' ');
-  
-  // 查找对应的作物
-  const crop = itemsData.find(item => 
-    item.name.toLowerCase() === cropName.toLowerCase() ||
-    item.display_name?.toLowerCase() === cropName.toLowerCase()
+  const findBySlug = (nameOrDisplay: string) => slugify(String(nameOrDisplay || ''));
+
+  // 查找对应的作物（按 slug 匹配，避免大小写/符号差异）
+  const crop = (itemsData as any[]).find((item: any) =>
+    findBySlug(item.name) === params.name || findBySlug(item.display_name) === params.name
   );
 
   if (!crop) {
@@ -46,12 +61,11 @@ export async function generateMetadata({ params }: { params: { name: string } })
 }
 
 export default function CropPage({ params }: { params: { name: string } }) {
-  const cropName = params.name.replace(/-/g, ' ');
+  const findBySlug = (nameOrDisplay: string) => slugify(String(nameOrDisplay || ''));
   
-  // 查找对应的作物
-  const crop = itemsData.find(item => 
-    item.name.toLowerCase() === cropName.toLowerCase() ||
-    item.display_name?.toLowerCase() === cropName.toLowerCase()
+  // 查找对应的作物（按 slug 匹配）
+  const crop = (itemsData as any[]).find((item: any) =>
+    findBySlug(item.name) === params.name || findBySlug(item.display_name) === params.name
   );
 
   if (!crop) {
