@@ -561,8 +561,8 @@
   },
   {
     "id": 70,
-    "name": "[candy_sunflower]]",
-    "display_name": "[Candy Sunflower]]",
+    "name": "candy_sunflower",
+    "display_name": "Candy Sunflower",
     "tier": "Rare",
     "source": "All",
     "multi_harvest": false
@@ -921,8 +921,8 @@
   },
   {
     "id": 115,
-    "name": "[cocovine]]",
-    "display_name": "[Cocovine]]",
+    "name": "cocovine",
+    "display_name": "Cocovine",
     "tier": "Mythical",
     "source": "All",
     "multi_harvest": false

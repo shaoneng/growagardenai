@@ -20,13 +20,24 @@ fs.createReadStream(sourceCsvPath)
       return;
     }
 
-    const name = displayName.toLowerCase().replace(/ /g, '_');
+    // 清理名称：移除方括号，转换为小写，替换空格为下划线
+    const name = displayName
+      .replace(/\[+/g, '') // 移除开头的方括号
+      .replace(/\]+/g, '') // 移除结尾的方括号
+      .toLowerCase()
+      .replace(/\s+/g, '_') // 空格替换为下划线
+      .replace(/[^a-z0-9_]/g, ''); // 只保留字母、数字和下划线
     const multiHarvest = String(row['Multi-Harvest']).toUpperCase() === 'TRUE';
+
+    // 清理显示名称：移除方括号
+    const cleanDisplayName = displayName
+      .replace(/\[+/g, '') // 移除开头的方括号
+      .replace(/\]+/g, ''); // 移除结尾的方括号
 
     results.push({
       // We will generate a unique ID later
       name: name,
-      display_name: displayName,
+      display_name: cleanDisplayName,
       tier: row.Tier,
       source: row['来源表格'],
       multi_harvest: multiHarvest,
