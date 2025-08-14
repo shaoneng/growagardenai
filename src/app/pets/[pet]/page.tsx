@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import PetDetailPage from '../../components/feature/PetDetailPage';
 import itemsData from '../../../../public/data/items.json';
 import { slugify } from '@/lib/slugify';
-export const runtime = 'edge';
 
 // 在 Cloudflare Pages 上避免 Next-on-Pages 的 prerender 冲突，强制该动态路由走 SSR
 // 运行时与动态渲染配置由父级 segment layout 统一导出，避免多路由重复导出引发合并冲突
@@ -13,7 +12,26 @@ export const runtime = 'edge';
 // 注意：此页面使用generateStaticParams进行静态生成，不能使用Edge Runtime
 
 // 生成静态路径
-// 注意：为兼容 Cloudflare Pages，这里不再静态预生成全部宠物详情页
+// 生成静态路径（去重且规范化 slug）
+export async function generateStaticParams() {
+  const seen = new Set<string>();
+  const params: Array<{ pet: string }> = [];
+  for (const item of (itemsData as any[])) {
+    if (
+      item?.source === 'pets' ||
+      (typeof item?.name === 'string' && item?.name.toLowerCase().includes('pet')) ||
+      typeof item?.bonus_type !== 'undefined'
+    ) {
+      const base = item?.display_name || item?.name;
+      if (!base) continue;
+      const slug = slugify(String(base));
+      if (!slug || seen.has(slug)) continue;
+      seen.add(slug);
+      params.push({ pet: slug });
+    }
+  }
+  return params;
+}
 
 // 为避免 Cloudflare next-on-pages 的边缘合并冲突，这里移除 generateMetadata（可改为后续按需恢复）
 
