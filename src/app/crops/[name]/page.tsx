@@ -13,30 +13,13 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+// 在 Cloudflare Pages 上避免 Next-on-Pages 的 prerender 冲突，强制该动态路由走 SSR
+export const dynamic = 'force-dynamic';
+
 // 注意：此页面使用generateStaticParams进行静态生成，不能使用Edge Runtime
 
 // 生成静态路径
-export async function generateStaticParams() {
-  // 过滤出作物数据
-  const crops = itemsData.filter((item: any) =>
-    item.source === 'crops' ||
-    item.multi_harvest !== undefined ||
-    ['Common', 'Uncommon', 'Rare', 'Legendary'].includes(item.tier)
-  );
-
-  // 去重且保证 slug 合法
-  const seen = new Set<string>();
-  const params: Array<{ name: string }> = [];
-  for (const crop of crops) {
-    const base = crop.display_name || crop.name;
-    if (!base) continue;
-    const slug = slugify(String(base));
-    if (!slug || seen.has(slug)) continue;
-    seen.add(slug);
-    params.push({ name: slug });
-  }
-  return params;
-}
+// 注意：为兼容 Cloudflare Pages，这里不再静态预生成全部作物详情页
 
 // 生成动态元数据
 export async function generateMetadata({ params }: { params: { name: string } }): Promise<Metadata> {
