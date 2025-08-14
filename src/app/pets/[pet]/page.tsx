@@ -17,12 +17,12 @@ export const runtime = 'edge';
 
 // 为避免 Cloudflare next-on-pages 的边缘合并冲突，这里移除 generateMetadata（可改为后续按需恢复）
 
-export default function PetPage({ params }: { params: { name: string } }) {
+export default function PetPage({ params }: { params: { pet: string } }) {
   const findBySlug = (nameOrDisplay: string) => slugify(String(nameOrDisplay || ''));
   
   // 查找对应的宠物（按 slug 匹配）
   const pet = (itemsData as any[]).find((item: any) =>
-    findBySlug(item.name) === params.name || findBySlug(item.display_name) === params.name
+    findBySlug(item.name) === params.pet || findBySlug(item.display_name) === params.pet
   );
 
   if (!pet) {
