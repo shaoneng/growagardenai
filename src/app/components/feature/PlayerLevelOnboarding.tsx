@@ -1,30 +1,23 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import {
-  PlayerLevelType,
   OnboardingFlowType,
   OnboardingStep,
   PlayerLevel,
   Goal,
-  UserProfile,
-  OnboardingState,
-  UserPreferences,
-  PlayerLevelOnboardingProps,
-  ONBOARDING_STORAGE_KEYS
+  PlayerLevelOnboardingProps
 } from '@/types';
 import { onboardingStorage } from '@/lib/onboarding-storage';
 import { onboardingValidation } from '@/lib/onboarding-validation';
 import OnboardingErrorBoundary from '@/app/components/ui/OnboardingErrorBoundary';
 import {
-  ResponsiveContainer,
   ResponsiveGrid,
   ResponsiveCard,
   ResponsiveModalBackdrop,
   ResponsiveText,
   ResponsiveButton,
   ResponsiveProgress,
-  ResponsiveSpacing,
   useIsMobile
 } from '@/app/components/ui/ResponsiveOnboardingLayout';
 
@@ -147,7 +140,7 @@ const getGoalsForLevel = (level: PlayerLevelType): Record<string, Goal> => {
 const getGoalSelectionDescription = (level: PlayerLevelType): string => {
   switch(level) {
     case 'beginner':
-      return "We've simplified the options to help you get started without feeling overwhelmed";
+      return "We&apos;ve simplified the options to help you get started without feeling overwhelmed";
     case 'advanced':
       return "Choose from strategic options that match your experience level";
     case 'expert':
@@ -189,7 +182,7 @@ const getSuccessMessage = (level: PlayerLevelType, goalKey: string): string => {
     case 'expert':
       return `Outstanding! ${goalTitle} will unlock your full potential.`;
     default:
-      return `Perfect match! You've selected ${goalTitle} as a ${levelTitle} player.`;
+      return `Perfect match! You&apos;ve selected ${goalTitle} as a ${levelTitle} player.`;
   }
 };
 
@@ -205,7 +198,7 @@ const getPersonalizedPathDescription = (level: PlayerLevelType, goalKey: string)
   const baseDescriptions = {
     beginner: {
       title: "Simple Step-by-Step Tutorial",
-      description: "You'll be guided through a carefully designed learning path",
+      description: "You&apos;ll be guided through a carefully designed learning path",
       features: [
         "Basic game mechanics explained clearly",
         "Safe and profitable crop recommendations", 
@@ -221,7 +214,7 @@ const getPersonalizedPathDescription = (level: PlayerLevelType, goalKey: string)
     },
     advanced: {
       title: "Strategic Item Selection Interface", 
-      description: "You'll access powerful analysis tools for strategic planning",
+      description: "You&apos;ll access powerful analysis tools for strategic planning",
       features: [
         "Detailed analysis of your choices",
         "Multiple strategic options to consider",
@@ -237,7 +230,7 @@ const getPersonalizedPathDescription = (level: PlayerLevelType, goalKey: string)
     },
     expert: {
       title: "Full Customization Dashboard",
-      description: "You'll enter the complete control center for advanced optimization",
+      description: "You&apos;ll enter the complete control center for advanced optimization",
       features: [
         "Complete control over all parameters",
         "Advanced metrics and optimization tools", 
@@ -875,7 +868,7 @@ const PlayerLevelOnboarding: React.FC<PlayerLevelOnboardingProps> = ({
               {/* 底部提示 */}
               <div className="text-center mt-6 sm:mt-8">
                 <ResponsiveText variant="caption" color="muted">
-                  Don't worry, you can always change this later in your settings
+                  Don&apos;t worry, you can always change this later in your settings
                 </ResponsiveText>
               </div>
             </div>

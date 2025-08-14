@@ -12,8 +12,7 @@ import {
   Heart, 
   Menu, 
   X, 
-  Sparkles,
-  Search
+  Sparkles
 } from 'lucide-react';
 import { useFavorites } from '@/contexts/FavoritesContext';
 import { NavigationBadge } from '../ui/FavoritesBadge';

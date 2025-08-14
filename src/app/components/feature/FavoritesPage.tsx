@@ -27,8 +27,32 @@ export default function FavoritesPage() {
 
   // 获取收藏的物品详细信息
   const favoriteItems = useMemo(() => {
-    const allItems = itemsData as any[];
-    const favoriteItemsData: any[] = [];
+    const allItems = itemsData as Array<{
+      name: string;
+      display_name?: string;
+      tier?: string;
+      type?: string;
+      bonus_type?: string;
+      bonus_value?: number;
+      prices?: Record<string, number>;
+      multi_harvest?: boolean;
+    }>;
+    const favoriteItemsData: Array<{
+      name: string;
+      display_name?: string;
+      tier?: string;
+      type: 'crops' | 'pets' | 'reports';
+      addedAt: string;
+      bonus_type?: string;
+      bonus_value?: number;
+      prices?: Record<string, number>;
+      multi_harvest?: boolean;
+      id?: string;
+      reportId?: string;
+      publicationDate?: string;
+      mainTitle?: string;
+      subTitle?: string;
+    }> = [];
 
     // 获取收藏的作物
     favorites.crops.forEach(cropId => {
@@ -288,7 +312,7 @@ export default function FavoritesPage() {
                 Showing {filteredAndSortedItems.length} items
                 {searchTerm && (
                   <span className="ml-2">
-                    for "{searchTerm}"
+                    for &quot;{searchTerm}&quot;
                   </span>
                 )}
               </div>

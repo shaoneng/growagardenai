@@ -112,7 +112,7 @@ export default function ReportPage({ params }: ReportPageProps) {
             报告未找到
           </h1>
           <p className="text-gray-600 mb-6">
-            无法找到ID为 "{params.id}" 的报告。
+            无法找到ID为 &quot;{params.id}&quot; 的报告。
           </p>
           <div className="space-y-3">
             <button

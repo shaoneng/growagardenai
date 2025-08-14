@@ -30,7 +30,7 @@ export default function MultiStyleReport() {
   const [currentStyle, setCurrentStyle] = useState<ReportStyleType>('magazine');
   const [isStyleSystemReady, setIsStyleSystemReady] = useState(false);
   const [isStyleSwitching, setIsStyleSwitching] = useState(false);
-  const [adaptedData, setAdaptedData] = useState<any>(null);
+  const [adaptedData, setAdaptedData] = useState<unknown>(null);
 
   // 初始化样式系统
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function MultiStyleReport() {
         initializeStyleSystem();
         
         // 检测用户上下文
-        const userContext = UserContextDetector.detectContext();
+        // const userContext = UserContextDetector.detectContext();
         
         // 获取用户偏好
         const preferenceManager = UserPreferenceManager.getInstance();
