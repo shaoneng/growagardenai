@@ -5,13 +5,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PetDetailPage from '../../components/feature/PetDetailPage';
 import itemsData from '../../../../public/data/items.json';
-
-// 统一的 slug 规范：仅小写字母数字，用连字符分隔，去除首尾连字符
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+import { slugify } from '@/lib/slugify';
 
 // 在 Cloudflare Pages 上避免 Next-on-Pages 的 prerender 冲突，强制该动态路由走 SSR
 export const dynamic = 'force-dynamic';
