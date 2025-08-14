@@ -396,6 +396,58 @@ export class UserPreferenceManager {
   }
 
   /**
+   * 加载用户偏好（SSR 安全）
+   */
+  private loadPreferences(): void {
+    // SSR 安全检查
+    if (typeof window === 'undefined') {
+      return; // 服务端不加载偏好，使用默认值
+    }
+
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (this.validatePreferencesData(parsed)) {
+          this.preferences = parsed;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to load preferences from localStorage:', error);
+    }
+  }
+
+  /**
+   * 保存用户偏好（SSR 安全）
+   */
+  private savePreferences(): void {
+    // SSR 安全检查
+    if (typeof window === 'undefined') {
+      return; // 服务端不保存偏好
+    }
+
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.preferences));
+    } catch (error) {
+      console.warn('Failed to save preferences to localStorage:', error);
+    }
+  }
+
+  /**
+   * 启动同步定时器（SSR 安全）
+   */
+  private startSyncTimer(): void {
+    // SSR 安全检查
+    if (typeof window === 'undefined') {
+      return; // 服务端不启动定时器
+    }
+
+    this.syncTimer = setInterval(() => {
+      this.syncWithServer();
+    }, this.SYNC_INTERVAL);
+  }
+
+  /**
    * 销毁实例（用于测试或清理）
    */
   destroy(): void {
@@ -427,6 +479,11 @@ export class UserContextDetector {
    * 检测设备类型
    */
   private static detectDeviceType(): 'mobile' | 'tablet' | 'desktop' {
+    // SSR 安全检查
+    if (typeof window === 'undefined') {
+      return 'desktop'; // 服务端默认为桌面端
+    }
+    
     const width = window.innerWidth;
     
     if (width < 768) {
@@ -442,6 +499,11 @@ export class UserContextDetector {
    * 获取屏幕尺寸
    */
   private static getScreenSize(): { width: number; height: number } {
+    // SSR 安全检查
+    if (typeof window === 'undefined') {
+      return { width: 1920, height: 1080 }; // 服务端默认尺寸
+    }
+    
     return {
       width: window.innerWidth,
       height: window.innerHeight
@@ -486,6 +548,11 @@ export class UserContextDetector {
    * 检测可访问性需求
    */
   private static detectAccessibilityNeeds(): UserContext['accessibilityNeeds'] {
+    // SSR 安全检查
+    if (typeof window === 'undefined') {
+      return undefined; // 服务端无法检测可访问性偏好
+    }
+
     const needs: UserContext['accessibilityNeeds'] = {};
 
     // 检测是否偏好减少动画
