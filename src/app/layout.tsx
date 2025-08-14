@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 };
 
 // Cloudflare Pages: unify Edge runtime and dynamic rendering at root to avoid duplicated identifiers
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
+// Note: Do not declare runtime/dynamic globally for Cloudflare Pages.
+// next-on-pages requires per-route Edge config for some routes (e.g., API/not-found).
 
 export default function RootLayout({
   children,
