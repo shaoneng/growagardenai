@@ -38,5 +38,29 @@
     "apiError": "Oops! The AI strategist seems to be taking a break. Please try again in a moment.",
     "noItems": "Please select at least one item before requesting guidance."
   },
-  "search": { "placeholder": "Search for items..." }
+  "search": { "placeholder": "Search for items..." },
+  "userGuide": {
+    "title": "Welcome Tour",
+    "close": "Close guide",
+    "previous": "← Previous",
+    "next": "Next →",
+    "skip": "Skip",
+    "finish": "Finish",
+    "stepCounter": "Step {{current}} of {{total}}",
+    "dontShowAgain": "Don't show again",
+    "showAgain": "Show welcome tour again",
+    "showGuideButton": "Show Guide",
+    "step1": {
+      "title": "🎯 Choose Your Goal",
+      "description": "Select what you want to optimize: maximize gold, grow quickly, or increase mutation chances."
+    },
+    "step2": {
+      "title": "📊 View Recommendations", 
+      "description": "Our AI analyzes your situation and shows the best crop, pet, and equipment combinations for maximum results."
+    },
+    "step3": {
+      "title": "💡 Understand the Analysis",
+      "description": "Click on any recommendation to see detailed profit calculations, growth times, and the mathematical reasoning behind our suggestions."
+    }
+  }
 }

@@ -1,13 +1,19 @@
 // /src/app/components/ui/GuideButton.jsx
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UserGuideManager } from '@/lib/user-guide-manager';
 
 const GuideButton = ({ onShowGuide, className = '' }) => {
   const { t } = useTranslation();
-  const [canShow, setCanShow] = useState(() => UserGuideManager.canShowGuideAgain());
+  const [canShow, setCanShow] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setCanShow(UserGuideManager.canShowGuideAgain());
+  }, []);
 
   const handleShowGuide = () => {
     // Reset guide state to allow showing again
@@ -15,7 +21,7 @@ const GuideButton = ({ onShowGuide, className = '' }) => {
     onShowGuide?.();
   };
 
-  if (!canShow) return null;
+  if (!isClient || !canShow) return null;
 
   return (
     <button

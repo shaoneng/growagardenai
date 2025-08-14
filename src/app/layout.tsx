@@ -1,26 +1,21 @@
 // /src/app/layout.tsx
 import type { Metadata } from "next";
 // 1. 引入 Google Fonts
-import { Noto_Serif_SC, Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import I18nProvider from "./components/layout/I18nProvider";
 import { AppProvider } from "@/context/AppContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import { ToastProvider } from "./components/layout/ToastProvider";
 import GlobalNavigation from "./components/layout/GlobalNavigation";
 
-// 2. 配置字体
-const notoSerifSC = Noto_Serif_SC({
+// 2. 配置字体 - 使用更兼容的字体
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["700", "900"],
-  variable: "--font-noto-serif-sc", // 创建CSS变量
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  variable: "--font-poppins", // 创建CSS变量
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
 });
 
 const GTM_ID = 'GTM-K6Z5MPFM';
@@ -37,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     // 3. 将字体变量应用到html标签
-    <html lang="zh-CN" className={`${notoSerifSC.variable} ${poppins.variable}`}>
+    <html lang="zh-CN" className={`${inter.variable}`}>
       <head>
         {/* Font Awesome CDN */}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -71,16 +66,18 @@ export default function RootLayout({
           })}}
         />
       </head>
-      {/* 4. body 使用中文字体作为基础 */}
-      <body className="font-chinese">
+      {/* 4. body 使用Inter字体作为基础 */}
+      <body className="font-sans">
         <I18nProvider>
           <AppProvider>
-            <FavoritesProvider>
-              <ToastProvider>
-                <GlobalNavigation />
-                {children}
-              </ToastProvider>
-            </FavoritesProvider>
+            <OnboardingProvider>
+              <FavoritesProvider>
+                <ToastProvider>
+                  <GlobalNavigation />
+                  {children}
+                </ToastProvider>
+              </FavoritesProvider>
+            </OnboardingProvider>
           </AppProvider>
         </I18nProvider>
       </body>

@@ -104,6 +104,11 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       FavoritesValidator.validateFavoriteOperation(itemId, type);
 
       setFavorites(prevFavorites => {
+        // 确保prevFavorites已初始化
+        if (!prevFavorites) {
+          return DEFAULT_FAVORITES;
+        }
+        
         // 检查是否已经收藏
         if (FavoritesUtils.isItemFavorited(prevFavorites, itemId, type)) {
           return prevFavorites; // 已收藏，不做任何操作
@@ -132,6 +137,11 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       FavoritesValidator.validateFavoriteOperation(itemId, type);
 
       setFavorites(prevFavorites => {
+        // 确保prevFavorites已初始化
+        if (!prevFavorites) {
+          return DEFAULT_FAVORITES;
+        }
+        
         // 检查是否已收藏
         if (!FavoritesUtils.isItemFavorited(prevFavorites, itemId, type)) {
           return prevFavorites; // 未收藏，不做任何操作
@@ -159,19 +169,27 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       // 验证参数
       FavoritesValidator.validateFavoriteOperation(itemId, type);
       
+      // 确保favorites已初始化
+      if (!favorites || isLoading) {
+        return false;
+      }
+      
       return FavoritesUtils.isItemFavorited(favorites, itemId, type);
     } catch (error) {
       FavoritesErrorHandler.logError(error, 'isFavorite');
       return false; // 出错时返回 false
     }
-  }, [favorites]);
+  }, [favorites, isLoading]);
 
   /**
    * 获取收藏总数
    */
   const getFavoriteCount = useCallback((): number => {
+    if (!favorites || isLoading) {
+      return 0;
+    }
     return FavoritesUtils.getTotalCount(favorites);
-  }, [favorites]);
+  }, [favorites, isLoading]);
 
   /**
    * 获取指定类型的收藏列表

@@ -19,10 +19,10 @@ export default function EmptyFavoritesState() {
           </div>
         </div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          还没有收藏任何物品
+          No favorites yet
         </h2>
         <p className="text-gray-600 max-w-md mx-auto">
-          开始探索作物、宠物和策略报告，将你喜欢的内容添加到收藏夹中，方便以后快速查找！
+          Start exploring crops, pets, and strategy reports. Add your favorite content to your collection for quick access later!
         </p>
       </div>
 
@@ -36,8 +36,8 @@ export default function EmptyFavoritesState() {
             <span className="text-2xl">🌱</span>
           </div>
           <div>
-            <div className="font-semibold text-green-900 mb-1">浏览作物</div>
-            <div className="text-sm text-green-700">发现各种作物品种</div>
+            <div className="font-semibold text-green-900 mb-1">Browse Crops</div>
+            <div className="text-sm text-green-700">Discover various crop varieties</div>
           </div>
         </Link>
 
@@ -49,8 +49,8 @@ export default function EmptyFavoritesState() {
             <span className="text-2xl">🐾</span>
           </div>
           <div>
-            <div className="font-semibold text-purple-900 mb-1">浏览宠物</div>
-            <div className="text-sm text-purple-700">寻找可爱的伙伴</div>
+            <div className="font-semibold text-purple-900 mb-1">Browse Pets</div>
+            <div className="text-sm text-purple-700">Find adorable companions</div>
           </div>
         </Link>
 
@@ -62,8 +62,8 @@ export default function EmptyFavoritesState() {
             <span className="text-2xl">📊</span>
           </div>
           <div>
-            <div className="font-semibold text-blue-900 mb-1">生成策略报告</div>
-            <div className="text-sm text-blue-700">获取个性化建议</div>
+            <div className="font-semibold text-blue-900 mb-1">Generate Strategy Report</div>
+            <div className="text-sm text-blue-700">Get personalized recommendations</div>
           </div>
         </Link>
       </div>
@@ -72,7 +72,7 @@ export default function EmptyFavoritesState() {
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
         <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
           <Search className="w-5 h-5" />
-          如何添加收藏？
+          How to add favorites?
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
           <div className="flex items-start gap-3">
@@ -80,8 +80,8 @@ export default function EmptyFavoritesState() {
               <span className="text-xs font-bold">1</span>
             </div>
             <div>
-              <div className="font-medium mb-1">在百科全书页面</div>
-              <div>点击物品卡片右上角的心形图标</div>
+              <div className="font-medium mb-1">On encyclopedia pages</div>
+              <div>Click the heart icon in the top-right corner of item cards</div>
             </div>
           </div>
           <div className="flex items-start gap-3">
@@ -89,8 +89,8 @@ export default function EmptyFavoritesState() {
               <span className="text-xs font-bold">2</span>
             </div>
             <div>
-              <div className="font-medium mb-1">在详情页面</div>
-              <div>点击大尺寸的收藏按钮</div>
+              <div className="font-medium mb-1">On detail pages</div>
+              <div>Click the large favorite button</div>
             </div>
           </div>
           <div className="flex items-start gap-3">
@@ -98,8 +98,8 @@ export default function EmptyFavoritesState() {
               <span className="text-xs font-bold">3</span>
             </div>
             <div>
-              <div className="font-medium mb-1">在策略报告页面</div>
-              <div>收藏有用的个性化建议</div>
+              <div className="font-medium mb-1">On strategy report pages</div>
+              <div>Save useful personalized recommendations</div>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function EmptyFavoritesState() {
           href="/"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
         >
-          <span>返回首页</span>
+          <span>Back to Home</span>
         </Link>
       </div>
     </div>

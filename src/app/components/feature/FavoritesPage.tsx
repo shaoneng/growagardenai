@@ -5,7 +5,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Heart, Search, Filter, Grid, List, ArrowLeft } from 'lucide-react';
+import { Heart, Search, Grid, List, ArrowLeft } from 'lucide-react';
 import { useFavorites, useFavoritesStats } from '@/contexts/FavoritesContext';
 import { FavoritesStatsCard } from '../ui/FavoritesBadge';
 import FavoriteItemCard from '../ui/FavoriteItemCard';
@@ -61,13 +61,13 @@ export default function FavoritesPage() {
         favoriteItemsData.push({
           id: reportId,
           name: reportId,
-          display_name: `策略报告 ${reportId}`,
+          display_name: `Strategy Report ${reportId}`,
           type: 'reports' as const,
           addedAt: new Date().toISOString(),
           reportId: reportId,
           publicationDate: new Date().toISOString(),
-          mainTitle: `策略报告 ${reportId}`,
-          subTitle: '个性化种植建议'
+          mainTitle: `Strategy Report ${reportId}`,
+          subTitle: 'Personalized Planting Advice'
         });
       });
     }
@@ -131,10 +131,10 @@ export default function FavoritesPage() {
           {/* 面包屑导航 */}
           <nav className="flex items-center gap-2 text-sm text-gray-600 mb-4">
             <Link href="/" className="hover:text-blue-600 transition-colors">
-              首页
+              Home
             </Link>
             <span>/</span>
-            <span className="text-gray-900 font-medium">我的收藏</span>
+            <span className="text-gray-900 font-medium">My Favorites</span>
           </nav>
 
           {/* 页面标题和返回按钮 */}
@@ -143,17 +143,17 @@ export default function FavoritesPage() {
               <Link 
                 href="/"
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                title="返回首页"
+                title="Back to Home"
               >
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
               </Link>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
                   <Heart className="w-8 h-8 text-red-500" fill="currentColor" />
-                  我的收藏
+                  My Favorites
                 </h1>
                 <p className="text-gray-600 mt-1">
-                  管理你收藏的作物和宠物
+                  Manage your favorite crops and pets
                 </p>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function FavoritesPage() {
                     ? 'bg-blue-100 text-blue-600'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
-                title="网格视图"
+                title="Grid View"
               >
                 <Grid className="w-4 h-4" />
               </button>
@@ -178,7 +178,7 @@ export default function FavoritesPage() {
                     ? 'bg-blue-100 text-blue-600'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
-                title="列表视图"
+                title="List View"
               >
                 <List className="w-4 h-4" />
               </button>
@@ -197,39 +197,39 @@ export default function FavoritesPage() {
             <div className="bg-white rounded-lg border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <h3 className="font-semibold text-gray-900">作物收藏</h3>
+                <h3 className="font-semibold text-gray-900">Crop Favorites</h3>
               </div>
               <div className="text-2xl font-bold text-green-600">
                 {stats.cropsCount}
               </div>
               <div className="text-sm text-gray-500">
-                {stats.totalCount > 0 ? Math.round((stats.cropsCount / stats.totalCount) * 100) : 0}% 的收藏
+                {stats.totalCount > 0 ? Math.round((stats.cropsCount / stats.totalCount) * 100) : 0}% of favorites
               </div>
             </div>
 
             <div className="bg-white rounded-lg border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <h3 className="font-semibold text-gray-900">宠物收藏</h3>
+                <h3 className="font-semibold text-gray-900">Pet Favorites</h3>
               </div>
               <div className="text-2xl font-bold text-purple-600">
                 {stats.petsCount}
               </div>
               <div className="text-sm text-gray-500">
-                {stats.totalCount > 0 ? Math.round((stats.petsCount / stats.totalCount) * 100) : 0}% 的收藏
+                {stats.totalCount > 0 ? Math.round((stats.petsCount / stats.totalCount) * 100) : 0}% of favorites
               </div>
             </div>
 
             <div className="bg-white rounded-lg border p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <h3 className="font-semibold text-gray-900">策略报告</h3>
+                <h3 className="font-semibold text-gray-900">Strategy Reports</h3>
               </div>
               <div className="text-2xl font-bold text-blue-600">
                 {stats.reportsCount}
               </div>
               <div className="text-sm text-gray-500">
-                {stats.totalCount > 0 ? Math.round((stats.reportsCount / stats.totalCount) * 100) : 0}% 的收藏
+                {stats.totalCount > 0 ? Math.round((stats.reportsCount / stats.totalCount) * 100) : 0}% of favorites
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function FavoritesPage() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="搜索收藏的物品..."
+                    placeholder="Search favorite items..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -260,10 +260,10 @@ export default function FavoritesPage() {
                   onChange={(e) => setActiveFilter(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                 >
-                  <option value="all">全部类型</option>
-                  <option value="crops">作物</option>
-                  <option value="pets">宠物</option>
-                  <option value="reports">策略报告</option>
+                  <option value="all">All Types</option>
+                  <option value="crops">Crops</option>
+                  <option value="pets">Pets</option>
+                  <option value="reports">Strategy Reports</option>
                 </select>
               </div>
 
@@ -274,10 +274,10 @@ export default function FavoritesPage() {
                   onChange={(e) => setSortBy(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                 >
-                  <option value="name">按名称排序</option>
-                  <option value="tier">按稀有度排序</option>
-                  <option value="dateAdded">按添加时间排序</option>
-                  <option value="publicationDate">按生成日期排序</option>
+                  <option value="name">Sort by Name</option>
+                  <option value="tier">Sort by Rarity</option>
+                  <option value="dateAdded">Sort by Date Added</option>
+                  <option value="publicationDate">Sort by Publication Date</option>
                 </select>
               </div>
             </div>
@@ -285,10 +285,10 @@ export default function FavoritesPage() {
             {/* 过滤结果统计 */}
             <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
               <div>
-                显示 {filteredAndSortedItems.length} 个物品
+                Showing {filteredAndSortedItems.length} items
                 {searchTerm && (
                   <span className="ml-2">
-                    搜索 "{searchTerm}" 的结果
+                    for "{searchTerm}"
                   </span>
                 )}
               </div>
@@ -301,7 +301,7 @@ export default function FavoritesPage() {
                   }}
                   className="text-blue-600 hover:text-blue-800 font-medium"
                 >
-                  清除筛选
+                  Clear Filters
                 </button>
               )}
             </div>
@@ -316,10 +316,10 @@ export default function FavoritesPage() {
           <div className="bg-white rounded-lg border p-12 text-center">
             <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              没有找到匹配的收藏
+              No matching favorites found
             </h3>
             <p className="text-gray-600 mb-4">
-              尝试调整搜索条件或筛选选项
+              Try adjusting your search terms or filter options
             </p>
             <button
               onClick={() => {
@@ -328,7 +328,7 @@ export default function FavoritesPage() {
               }}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
-              显示所有收藏
+              Show All Favorites
             </button>
           </div>
         ) : (
@@ -341,7 +341,7 @@ export default function FavoritesPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-4">
                       <h2 className="text-xl font-semibold text-gray-900">
-                        🌱 作物收藏
+                        🌱 Crop Favorites
                       </h2>
                       <span className="px-2 py-1 bg-green-100 text-green-800 text-sm rounded-full">
                         {groupedItems.crops.length}
@@ -363,7 +363,7 @@ export default function FavoritesPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-4">
                       <h2 className="text-xl font-semibold text-gray-900">
-                        🐾 宠物收藏
+                        🐾 Pet Favorites
                       </h2>
                       <span className="px-2 py-1 bg-purple-100 text-purple-800 text-sm rounded-full">
                         {groupedItems.pets.length}
@@ -385,7 +385,7 @@ export default function FavoritesPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-4">
                       <h2 className="text-xl font-semibold text-gray-900">
-                        📊 策略报告收藏
+                        📊 Strategy Report Favorites
                       </h2>
                       <span className="px-2 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
                         {groupedItems.reports.length}
@@ -408,9 +408,9 @@ export default function FavoritesPage() {
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <h2 className="text-xl font-semibold text-gray-900">
-                    {activeFilter === 'crops' ? '🌱 作物收藏' : 
-                     activeFilter === 'pets' ? '🐾 宠物收藏' : 
-                     activeFilter === 'reports' ? '📊 策略报告收藏' : '全部收藏'}
+                    {activeFilter === 'crops' ? '🌱 Crop Favorites' : 
+                     activeFilter === 'pets' ? '🐾 Pet Favorites' : 
+                     activeFilter === 'reports' ? '📊 Strategy Report Favorites' : 'All Favorites'}
                   </h2>
                   <span className="px-2 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
                     {filteredAndSortedItems.length}
@@ -434,7 +434,7 @@ export default function FavoritesPage() {
         {stats.totalCount > 0 && (
           <div className="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-blue-900 mb-4">
-              快速操作
+              Quick Actions
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link
@@ -445,8 +445,8 @@ export default function FavoritesPage() {
                   <span className="text-xl">🌱</span>
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">浏览更多作物</div>
-                  <div className="text-sm text-gray-600">发现新的作物品种</div>
+                  <div className="font-medium text-gray-900">Browse More Crops</div>
+                  <div className="text-sm text-gray-600">Discover new crop varieties</div>
                 </div>
               </Link>
 
@@ -458,8 +458,8 @@ export default function FavoritesPage() {
                   <span className="text-xl">🐾</span>
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">浏览更多宠物</div>
-                  <div className="text-sm text-gray-600">寻找可爱的伙伴</div>
+                  <div className="font-medium text-gray-900">Browse More Pets</div>
+                  <div className="text-sm text-gray-600">Find adorable companions</div>
                 </div>
               </Link>
 
@@ -471,8 +471,8 @@ export default function FavoritesPage() {
                   <span className="text-xl">🤖</span>
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">AI 策略顾问</div>
-                  <div className="text-sm text-gray-600">获取个性化建议</div>
+                  <div className="font-medium text-gray-900">AI Strategy Advisor</div>
+                  <div className="text-sm text-gray-600">Get personalized recommendations</div>
                 </div>
               </Link>
             </div>

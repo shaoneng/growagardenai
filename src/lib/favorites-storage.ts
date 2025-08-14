@@ -299,7 +299,14 @@ export class FavoritesUtils {
    * 添加物品到收藏列表
    */
   static addItem(favorites: FavoritesData, itemId: string, type: FavoriteItemType): FavoritesData {
-    const newFavorites = { ...favorites };
+    // 确保favorites存在并且有正确的结构
+    const safeFavorites = favorites || DEFAULT_FAVORITES;
+    const newFavorites = { ...safeFavorites };
+    
+    // 确保指定类型的数组存在
+    if (!Array.isArray(newFavorites[type])) {
+      newFavorites[type] = [];
+    }
     
     if (!newFavorites[type].includes(itemId)) {
       newFavorites[type] = [...newFavorites[type], itemId];
@@ -313,7 +320,14 @@ export class FavoritesUtils {
    * 从收藏列表移除物品
    */
   static removeItem(favorites: FavoritesData, itemId: string, type: FavoriteItemType): FavoritesData {
-    const newFavorites = { ...favorites };
+    // 确保favorites存在并且有正确的结构
+    const safeFavorites = favorites || DEFAULT_FAVORITES;
+    const newFavorites = { ...safeFavorites };
+    
+    // 确保指定类型的数组存在
+    if (!Array.isArray(newFavorites[type])) {
+      newFavorites[type] = [];
+    }
     
     newFavorites[type] = newFavorites[type].filter(id => id !== itemId);
     newFavorites.lastUpdated = new Date().toISOString();
@@ -325,6 +339,9 @@ export class FavoritesUtils {
    * 检查物品是否已收藏
    */
   static isItemFavorited(favorites: FavoritesData, itemId: string, type: FavoriteItemType): boolean {
+    if (!favorites || !Array.isArray(favorites[type])) {
+      return false;
+    }
     return favorites[type].includes(itemId);
   }
 
@@ -332,13 +349,22 @@ export class FavoritesUtils {
    * 获取收藏总数
    */
   static getTotalCount(favorites: FavoritesData): number {
-    return favorites.crops.length + favorites.pets.length + (favorites.reports?.length || 0);
+    if (!favorites) {
+      return 0;
+    }
+    const cropsCount = Array.isArray(favorites.crops) ? favorites.crops.length : 0;
+    const petsCount = Array.isArray(favorites.pets) ? favorites.pets.length : 0;
+    const reportsCount = Array.isArray(favorites.reports) ? favorites.reports.length : 0;
+    return cropsCount + petsCount + reportsCount;
   }
 
   /**
    * 获取指定类型的收藏数量
    */
   static getCountByType(favorites: FavoritesData, type: FavoriteItemType): number {
+    if (!favorites || !Array.isArray(favorites[type])) {
+      return 0;
+    }
     return favorites[type].length;
   }
 
@@ -346,7 +372,8 @@ export class FavoritesUtils {
    * 清空指定类型的收藏
    */
   static clearByType(favorites: FavoritesData, type: FavoriteItemType): FavoritesData {
-    const newFavorites = { ...favorites };
+    const safeFavorites = favorites || DEFAULT_FAVORITES;
+    const newFavorites = { ...safeFavorites };
     newFavorites[type] = [];
     newFavorites.lastUpdated = new Date().toISOString();
     return newFavorites;
@@ -384,13 +411,29 @@ export class FavoritesUtils {
    * 获取收藏统计信息
    */
   static getStats(favorites: FavoritesData) {
+    if (!favorites) {
+      return {
+        totalCount: 0,
+        cropsCount: 0,
+        petsCount: 0,
+        reportsCount: 0,
+        lastUpdated: new Date().toISOString(),
+        isEmpty: true
+      };
+    }
+    
+    const cropsCount = Array.isArray(favorites.crops) ? favorites.crops.length : 0;
+    const petsCount = Array.isArray(favorites.pets) ? favorites.pets.length : 0;
+    const reportsCount = Array.isArray(favorites.reports) ? favorites.reports.length : 0;
+    const totalCount = cropsCount + petsCount + reportsCount;
+    
     return {
-      totalCount: this.getTotalCount(favorites),
-      cropsCount: favorites.crops.length,
-      petsCount: favorites.pets.length,
-      reportsCount: favorites.reports?.length || 0,
-      lastUpdated: favorites.lastUpdated,
-      isEmpty: this.getTotalCount(favorites) === 0
+      totalCount,
+      cropsCount,
+      petsCount,
+      reportsCount,
+      lastUpdated: favorites.lastUpdated || new Date().toISOString(),
+      isEmpty: totalCount === 0
     };
   }
 }

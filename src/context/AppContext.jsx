@@ -84,6 +84,23 @@ export function AppProvider({ children }) {
         throw new Error(data.error || `API Error: ${response.statusText}`);
       }
 
+      // 生成报告ID（如果没有的话）
+      if (!data.reportId) {
+        data.reportId = `GGSB-${Date.now()}`;
+      }
+      
+      // 保存报告数据到localStorage
+      try {
+        const existingReports = JSON.parse(localStorage.getItem('growagarden_reports') || '{}');
+        existingReports[data.reportId] = {
+          ...data,
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem('growagarden_reports', JSON.stringify(existingReports));
+      } catch (error) {
+        console.warn('Failed to save report to localStorage:', error);
+      }
+
       setReportData(data);
       router.push('/report');
 
@@ -148,6 +165,23 @@ export function AppProvider({ children }) {
         throw new Error(data.error || `API Error: ${response.statusText}`);
       }
 
+      // 生成报告ID（如果没有的话）
+      if (!data.reportId) {
+        data.reportId = `GGSB-${Date.now()}`;
+      }
+      
+      // 保存报告数据到localStorage
+      try {
+        const existingReports = JSON.parse(localStorage.getItem('growagarden_reports') || '{}');
+        existingReports[data.reportId] = {
+          ...data,
+          savedAt: new Date().toISOString()
+        };
+        localStorage.setItem('growagarden_reports', JSON.stringify(existingReports));
+      } catch (error) {
+        console.warn('Failed to save report to localStorage:', error);
+      }
+
       setReportData(data);
       router.push('/report');
 
@@ -172,6 +206,7 @@ export function AppProvider({ children }) {
     setInGameDate,
     setInteractionMode,
     setExpertOptions,
+    setReportData,
     requestAnalysis,
     requestAnalysisWithParams,
   };

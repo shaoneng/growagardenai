@@ -634,3 +634,89 @@ export interface AccessibilityConfig {
     fallbackAnimations: 'fade' | 'none';
   };
 }
+
+/**
+ * 玩家水平引导系统类型定义
+ */
+
+/**
+ * 玩家经验水平
+ */
+export type PlayerLevelType = 'beginner' | 'advanced' | 'expert';
+
+/**
+ * 引导流程类型
+ */
+export type OnboardingFlowType = 'beginner-guide' | 'item-selection' | 'full-configuration';
+
+/**
+ * 引导步骤
+ */
+export type OnboardingStep = 'level-selection' | 'goal-selection' | 'result';
+
+/**
+ * 玩家水平定义
+ */
+export interface PlayerLevel {
+  title: string;
+  icon: string;
+  description: string;
+  features: string[];
+}
+
+/**
+ * 目标选项
+ */
+export interface Goal {
+  title: string;
+  icon: string;
+  description: string;
+  recommendation: string;
+}
+
+/**
+ * 用户档案（引导系统）
+ */
+export interface UserProfile {
+  level: PlayerLevelType;
+  goal: string;
+  flow: OnboardingFlowType;
+}
+
+/**
+ * 引导状态
+ */
+export interface OnboardingState {
+  step: OnboardingStep;
+  selectedLevel: PlayerLevelType | null;
+  selectedGoal: string | null;
+  isCompleted: boolean;
+}
+
+/**
+ * 用户偏好设置
+ */
+export interface UserPreferences {
+  level: PlayerLevelType;
+  goal: string;
+  flow: OnboardingFlowType;
+  completedAt: string;
+  version: string;
+}
+
+/**
+ * PlayerLevelOnboarding 组件属性
+ */
+export interface PlayerLevelOnboardingProps {
+  onComplete: (userProfile: UserProfile) => void;
+  onSkip: () => void;
+}
+
+/**
+ * 本地存储键值
+ */
+export const ONBOARDING_STORAGE_KEYS = {
+  ONBOARDING_COMPLETED: 'grow-a-garden:onboarding:completed',
+  USER_PREFERENCES: 'grow-a-garden:user:preferences',
+  ONBOARDING_VERSION: 'grow-a-garden:onboarding:version'
+} as const;

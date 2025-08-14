@@ -89,7 +89,7 @@ export default function FavoriteItemCard({ item }: FavoriteItemCardProps) {
         <div className="text-center mb-2">
           {item.type === 'reports' ? (
             <span className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-blue-200 text-blue-700">
-              {item.publicationDate ? new Date(item.publicationDate).toLocaleDateString('zh-CN') : '策略报告'}
+              {item.publicationDate ? new Date(item.publicationDate).toLocaleDateString('en-US') : 'Strategy Report'}
             </span>
           ) : item.tier ? (
             <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
@@ -109,7 +109,7 @@ export default function FavoriteItemCard({ item }: FavoriteItemCardProps) {
         <div className="text-center text-xs">
           {item.type === 'reports' && (
             <div className="text-blue-600 font-medium">
-              {item.subTitle || '个性化策略建议'}
+              {item.subTitle || 'Personalized Strategy Advice'}
             </div>
           )}
           
@@ -146,7 +146,7 @@ export default function FavoriteItemCard({ item }: FavoriteItemCardProps) {
       <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="bg-black/70 text-white text-xs px-2 py-1 rounded-full">
           <Heart className="w-3 h-3 inline mr-1" fill="currentColor" />
-          已收藏
+          Favorited
         </div>
       </div>
     </div>

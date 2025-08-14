@@ -3,7 +3,7 @@
 // 极简风格报告组件 - 终极纯粹版本
 // 设计哲学: 删除到只剩本质，然后让本质闪闪发光
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { ReportCoreData } from '@/types';
 import MinimalFavorite from '../../ui/MinimalFavorite';
 
@@ -32,11 +32,38 @@ export default function MinimalStyleReport({
   isStyleSwitching = false
 }: MinimalStyleReportProps) {
   // 响应式和交互状态
-  const breakpoint = useResponsiveBreakpoint();
-  const scrollProgress = useScrollProgress();
+  const [breakpoint, setBreakpoint] = useState('desktop');
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [focusedSection, setFocusedSection] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // 简单的响应式检测
+  useEffect(() => {
+    const updateBreakpoint = () => {
+      const width = window.innerWidth;
+      if (width < 768) setBreakpoint('mobile');
+      else if (width < 1024) setBreakpoint('tablet');
+      else setBreakpoint('desktop');
+    };
+
+    const updateScrollProgress = () => {
+      const scrolled = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(maxScroll > 0 ? scrolled / maxScroll : 0);
+    };
+
+    updateBreakpoint();
+    updateScrollProgress();
+
+    window.addEventListener('resize', updateBreakpoint);
+    window.addEventListener('scroll', updateScrollProgress);
+
+    return () => {
+      window.removeEventListener('resize', updateBreakpoint);
+      window.removeEventListener('scroll', updateScrollProgress);
+    };
+  }, []);
 
   // 智能数据提取和适配
   const reportData = useMemo(() => {
@@ -72,8 +99,12 @@ export default function MinimalStyleReport({
     return items.slice(0, maxItems);
   }, [sections, breakpoint]);
 
-  // 内容优先级系统
-  const contentPriority = useContentPrioritization(sections, keyInsights, actionItems);
+  // 简单的内容优先级系统
+  const contentPriority = useMemo(() => ({
+    essential: keyInsights.slice(0, 2),
+    important: actionItems.slice(0, 3),
+    supplementary: sections.slice(2)
+  }), [keyInsights, actionItems, sections]);
 
   // 阅读时间智能计算
   const estimatedReadTime = useMemo(() => {

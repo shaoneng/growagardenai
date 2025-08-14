@@ -35,7 +35,7 @@ export function FavoritesBadge({
         bg-red-100 text-red-700 rounded-full text-xs font-medium
         ${className}
       `}
-      aria-label={`${count} 个收藏物品`}
+      aria-label={`${count} favorite items`}
     >
       <Heart className="w-3 h-3" fill="currentColor" />
       <span>{formatCount(count)}</span>
@@ -64,7 +64,7 @@ export function SimpleBadge({
         bg-red-500 text-white text-xs font-bold rounded-full
         ${className}
       `}
-      aria-label={`${count} 个收藏物品`}
+      aria-label={`${count} favorite items`}
     >
       {count > 99 ? '99+' : count}
     </span>
@@ -94,7 +94,7 @@ export function NavigationBadge({
         ring-2 ring-white
         ${className}
       `}
-      aria-label={`${count} 个收藏物品`}
+      aria-label={`${count} favorite items`}
     >
       {count > 9 ? '9+' : count}
     </span>
@@ -122,7 +122,7 @@ export function FavoriteIndicator({
         inline-block w-2 h-2 bg-red-500 rounded-full
         ${className}
       `}
-      aria-label="已收藏"
+      aria-label="Favorited"
     />
   );
 }
@@ -153,27 +153,27 @@ export function FavoritesStatsCard({
     >
       <div className="flex items-center gap-2 mb-3">
         <Heart className="w-5 h-5 text-red-500" fill="currentColor" />
-        <h3 className="text-lg font-semibold text-gray-900">我的收藏</h3>
+        <h3 className="text-lg font-semibold text-gray-900">My Favorites</h3>
       </div>
       
       <div className="space-y-2">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">总计</span>
+          <span className="text-sm text-gray-600">Total</span>
           <span className="text-lg font-bold text-gray-900">{totalCount}</span>
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">🌱 作物</span>
+          <span className="text-sm text-gray-600">🌱 Crops</span>
           <span className="text-sm font-medium text-gray-700">{cropsCount}</span>
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">🐾 宠物</span>
+          <span className="text-sm text-gray-600">🐾 Pets</span>
           <span className="text-sm font-medium text-gray-700">{petsCount}</span>
         </div>
         
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">📊 策略报告</span>
+          <span className="text-sm text-gray-600">📊 Strategy Reports</span>
           <span className="text-sm font-medium text-gray-700">{reportsCount}</span>
         </div>
       </div>
@@ -188,7 +188,7 @@ export function FavoritesStatsCard({
 export function FavoritesProgress({
   current,
   target,
-  label = '收藏进度',
+  label = 'Favorites Progress',
   className = ''
 }: {
   current: number;
@@ -217,7 +217,7 @@ export function FavoritesProgress({
       {percentage === 100 && (
         <div className="flex items-center gap-1 mt-2 text-green-600">
           <Heart className="w-4 h-4" fill="currentColor" />
-          <span className="text-sm font-medium">目标达成！</span>
+          <span className="text-sm font-medium">Goal achieved!</span>
         </div>
       )}
     </div>

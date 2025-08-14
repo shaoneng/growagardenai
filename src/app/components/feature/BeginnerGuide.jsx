@@ -1,14 +1,19 @@
 // /src/app/components/feature/BeginnerGuide.jsx
 "use client";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAppContext } from '@/context/AppContext';
 
 const BeginnerGuide = () => {
-  const { setGold, setInGameDate, requestAnalysisWithParams, isLoading } = useAppContext();
+  const { setGold, setInGameDate, requestAnalysisWithParams, isLoading, setInteractionMode } = useAppContext();
   const [currentStep, setCurrentStep] = useState(0);
   const [playerGold, setPlayerGold] = useState('100');
   const [season, setSeason] = useState('Spring');
+
+  // 确保设置为新手模式
+  React.useEffect(() => {
+    setInteractionMode('beginner');
+  }, [setInteractionMode]);
 
   const beginnerTips = [
     {
@@ -67,14 +72,23 @@ const BeginnerGuide = () => {
   ];
 
   const handleGetPersonalizedAdvice = async () => {
-    // 设置基础状态
-    setGold(playerGold);
-    const gameDate = `${season}, Day 1`;
-    setInGameDate(gameDate);
-    
-    // 等待状态更新，然后使用新手默认推荐物品进行分析
-    // 为了避免异步状态更新问题，我们直接传递参数
-    await requestAnalysisWithParams(true, playerGold, gameDate);
+    try {
+      console.log('🚀 Creating personal plan...', { playerGold, season });
+      
+      // 设置基础状态
+      setGold(playerGold);
+      const gameDate = `${season}, Day 1`;
+      setInGameDate(gameDate);
+      
+      // 等待状态更新，然后使用新手默认推荐物品进行分析
+      // 为了避免异步状态更新问题，我们直接传递参数
+      await requestAnalysisWithParams(true, playerGold, gameDate);
+      
+      console.log('✅ Personal plan created successfully!');
+    } catch (error) {
+      console.error('❌ Failed to create personal plan:', error);
+      alert(`Failed to create your personal plan: ${error.message}`);
+    }
   };
 
   return (
@@ -196,9 +210,13 @@ const BeginnerGuide = () => {
         </div>
 
         <button
-          onClick={handleGetPersonalizedAdvice}
+          onClick={(e) => {
+            console.log('🖱️ Button clicked!', e);
+            handleGetPersonalizedAdvice();
+          }}
           disabled={isLoading}
-          className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+          className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer"
+          style={{ pointerEvents: 'auto', zIndex: 10 }}
         >
           {isLoading ? (
             <span className="flex items-center justify-center">

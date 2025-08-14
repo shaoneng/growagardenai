@@ -28,26 +28,26 @@ export default function GlobalNavigation() {
   // 导航项配置
   const navigationItems = [
     {
-      name: '首页',
+      name: 'Home',
       href: '/',
       icon: Home,
-      description: 'AI 策略顾问'
+      description: 'AI Strategy Advisor'
     },
     {
-      name: '百科全书',
+      name: 'Encyclopedia',
       href: '/crops',
       icon: BookOpen,
-      description: '浏览作物和宠物',
+      description: 'Browse crops and pets',
       submenu: [
-        { name: '作物', href: '/crops', icon: '🌱' },
-        { name: '宠物', href: '/pets', icon: '🐾' }
+        { name: 'Crops', href: '/crops', icon: '🌱' },
+        { name: 'Pets', href: '/pets', icon: '🐾' }
       ]
     },
     {
-      name: '我的收藏',
+      name: 'My Favorites',
       href: '/favorites',
       icon: Heart,
-      description: '管理收藏的物品',
+      description: 'Manage your favorite items',
       badge: favoriteCount > 0 ? favoriteCount : undefined
     }
   ];
@@ -79,7 +79,7 @@ export default function GlobalNavigation() {
                 </div>
                 <div className="hidden sm:block">
                   <div className="font-bold text-gray-900">Garden AI</div>
-                  <div className="text-xs text-gray-500">策略顾问</div>
+                  <div className="text-xs text-gray-500">Strategy Advisor</div>
                 </div>
               </Link>
             </div>
@@ -138,7 +138,7 @@ export default function GlobalNavigation() {
               <button
                 onClick={toggleMobileMenu}
                 className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-                aria-label="切换菜单"
+                aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
                   <X className="w-5 h-5" />
@@ -212,7 +212,7 @@ export default function GlobalNavigation() {
 
             {/* 移动端快速操作 */}
             <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
-              <div className="text-xs font-medium text-gray-500 mb-2">快速操作</div>
+              <div className="text-xs font-medium text-gray-500 mb-2">Quick Actions</div>
               <div className="flex items-center gap-2">
                 <Link
                   href="/crops"
@@ -220,7 +220,7 @@ export default function GlobalNavigation() {
                   className="flex items-center gap-2 px-3 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors"
                 >
                   <span>🌱</span>
-                  <span>浏览作物</span>
+                  <span>Browse Crops</span>
                 </Link>
                 <Link
                   href="/pets"
@@ -228,7 +228,7 @@ export default function GlobalNavigation() {
                   className="flex items-center gap-2 px-3 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors"
                 >
                   <span>🐾</span>
-                  <span>浏览宠物</span>
+                  <span>Browse Pets</span>
                 </Link>
               </div>
             </div>

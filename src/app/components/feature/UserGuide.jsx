@@ -8,6 +8,12 @@ const UserGuide = ({ onComplete, onSkip }) => {
   const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure client-side rendering
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // 3-step tutorial as specified in requirements
   const tutorialSteps = [
@@ -96,14 +102,12 @@ const UserGuide = ({ onComplete, onSkip }) => {
 
   const handleComplete = () => {
     setIsVisible(false);
-    // Store completion status
     localStorage.setItem('userGuideCompleted', 'true');
     onComplete?.();
   };
 
   const handleSkip = () => {
     setIsVisible(false);
-    // Store skip status
     localStorage.setItem('userGuideSkipped', 'true');
     onSkip?.();
   };
@@ -113,16 +117,20 @@ const UserGuide = ({ onComplete, onSkip }) => {
     handleSkip();
   };
 
-  if (!isVisible) return null;
+  if (!isClient || !isVisible) return null;
 
   return (
-    <>
-      {/* Overlay */}
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40 guide-overlay" />
+    <div>
+      {/* Overlay with very light background */}
+      <div 
+        className="fixed inset-0 bg-white bg-opacity-80 z-40"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.15)' }}
+        onClick={handleSkip}
+      />
       
       {/* Guide Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 guide-modal">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+        <div className="bg-white rounded-lg shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 ease-out pointer-events-auto border border-gray-200">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b">
             <div className="flex items-center space-x-3">
@@ -222,55 +230,7 @@ const UserGuide = ({ onComplete, onSkip }) => {
           </div>
         </div>
       </div>
-
-      {/* Guide Styles */}
-      <style jsx>{`
-        .guide-overlay {
-          animation: fadeIn 0.3s ease-out;
-        }
-        
-        .guide-modal {
-          animation: slideIn 0.3s ease-out;
-        }
-        
-        :global(.guide-highlight) {
-          position: relative;
-          z-index: 45;
-          transition: all 0.3s ease;
-        }
-        
-        :global(.guide-highlight-primary) {
-          box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
-          border-radius: 8px;
-        }
-        
-        :global(.guide-highlight-secondary) {
-          box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.5), 0 0 20px rgba(16, 185, 129, 0.3);
-          border-radius: 8px;
-        }
-        
-        :global(.guide-highlight-accent) {
-          box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
-          border-radius: 8px;
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes slideIn {
-          from { 
-            opacity: 0;
-            transform: translateY(-20px) scale(0.95);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-      `}</style>
-    </>
+    </div>
   );
 };
 
