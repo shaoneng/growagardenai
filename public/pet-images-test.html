@@ -1,0 +1,917 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Images Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .pet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .pet-card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+        .pet-image { width: 80px; height: 80px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 8px; }
+        .pet-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .pet-name { font-weight: bold; margin-bottom: 5px; }
+        .pet-tier { font-size: 12px; padding: 2px 8px; border-radius: 12px; display: inline-block; }
+        .tier-common { background: #e5e7eb; color: #374151; }
+        .tier-uncommon { background: #dcfce7; color: #166534; }
+        .tier-rare { background: #dbeafe; color: #1e40af; }
+        .tier-epic { background: #f3e8ff; color: #7c3aed; }
+        .tier-legendary { background: #fef3c7; color: #d97706; }
+        .pet-bonus { font-size: 12px; color: #6b7280; margin-top: 5px; }
+        .error-image { color: #ef4444; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐾 Pet Images Test Page</h1>
+        <p>Testing 80 pet images from the database</p>
+        
+        <div class="pet-grid">
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/axolotl.png" 
+                             alt="Axolotl" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Axolotl</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">growth +15%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/bacon_pig.png" 
+                             alt="Bacon Pig" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Bacon Pig</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">gold +20%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/bald_eagle.png" 
+                             alt="Bald Eagle" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Bald Eagle</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">experience +25%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/bear_bee.png" 
+                             alt="Bear Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Bear Bee</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">harvest +18%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/bee.png" 
+                             alt="Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Bee</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +10%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/black_bunny.png" 
+                             alt="Black Bunny" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Black Bunny</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">luck +12%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/brown_mouse.png" 
+                             alt="Brown Mouse" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Brown Mouse</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">gold +8%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/bunny.png" 
+                             alt="Bunny" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Bunny</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +12%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/butterfly.png" 
+                             alt="Butterfly" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Butterfly</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +8%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/capybara.png" 
+                             alt="Capybara" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Capybara</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">gold +22%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/cat.png" 
+                             alt="Cat" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Cat</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">luck +10%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/caterpillar.png" 
+                             alt="Caterpillar" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Caterpillar</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +6%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/chicken.png" 
+                             alt="Chicken" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Chicken</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">harvest +15%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/chicken_zombie.png" 
+                             alt="Zombie Chicken" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Zombie Chicken</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">experience +30%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/cow.png" 
+                             alt="Cow" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Cow</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">gold +18%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/crab.png" 
+                             alt="Crab" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Crab</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">luck +14%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/deer.png" 
+                             alt="Deer" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Deer</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">growth +20%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/disco_bee.png" 
+                             alt="Disco Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Disco Bee</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">harvest +25%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/dog.png" 
+                             alt="Dog" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Dog</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">luck +12%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/dragonfly.png" 
+                             alt="Dragonfly" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Dragonfly</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">growth +16%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/echo_frog.png" 
+                             alt="Echo Frog" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Echo Frog</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">experience +20%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/fennec_fox.png" 
+                             alt="Fennec Fox" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Fennec Fox</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">luck +18%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/firefly.png" 
+                             alt="Firefly" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Firefly</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">growth +14%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/flamingo.png" 
+                             alt="Flamingo" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Flamingo</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +28%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/french_fry_ferret.png" 
+                             alt="French Fry Ferret" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">French Fry Ferret</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">harvest +22%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/frog.png" 
+                             alt="Frog" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Frog</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +10%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/giant_ant.png" 
+                             alt="Giant Ant" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Giant Ant</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">harvest +16%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/golden_bee.png" 
+                             alt="Golden Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Golden Bee</div>
+                    <div class="pet-tier tier-legendary">Legendary</div>
+                    <div class="pet-bonus">gold +35%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/golden_lab.png" 
+                             alt="Golden Lab" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Golden Lab</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">luck +20%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/grey_mouse.png" 
+                             alt="Grey Mouse" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Grey Mouse</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">gold +7%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/hamster.png" 
+                             alt="Hamster" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Hamster</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">harvest +12%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/hedgehog.png" 
+                             alt="Hedgehog" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Hedgehog</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">luck +15%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/honey_bee.png" 
+                             alt="Honey Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Honey Bee</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">growth +18%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/hotdog_daschund.png" 
+                             alt="Hotdog Dachshund" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Hotdog Dachshund</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +24%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/hyacinth_macaw.png" 
+                             alt="Hyacinth Macaw" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Hyacinth Macaw</div>
+                    <div class="pet-tier tier-legendary">Legendary</div>
+                    <div class="pet-bonus">experience +40%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/kitsune_(pet).png" 
+                             alt="Kitsune" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Kitsune</div>
+                    <div class="pet-tier tier-legendary">Legendary</div>
+                    <div class="pet-bonus">luck +45%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/kodama.png" 
+                             alt="Kodama" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Kodama</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">growth +30%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/koi.png" 
+                             alt="Koi" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Koi</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">luck +22%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/maneki-neko.png" 
+                             alt="Maneki-neko" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Maneki-neko</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +32%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/meerkat.png" 
+                             alt="Meerkat" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Meerkat</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">experience +16%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/mimic_octopus.png" 
+                             alt="Mimic Octopus" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Mimic Octopus</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">harvest +28%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/mochi_mouse.png" 
+                             alt="Mochi Mouse" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Mochi Mouse</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">gold +25%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/mole.png" 
+                             alt="Mole" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Mole</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +14%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/monkey.png" 
+                             alt="Monkey" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Monkey</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">harvest +18%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/moon_cat.png" 
+                             alt="Moon Cat" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Moon Cat</div>
+                    <div class="pet-tier tier-legendary">Legendary</div>
+                    <div class="pet-bonus">luck +50%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/moth.png" 
+                             alt="Moth" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Moth</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +9%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/night_owl.png" 
+                             alt="Night Owl" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Night Owl</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">experience +24%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/orange_tabby.png" 
+                             alt="Orange Tabby" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Orange Tabby</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">luck +16%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/ostrich.png" 
+                             alt="Ostrich" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Ostrich</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">harvest +26%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/owl.png" 
+                             alt="Owl" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Owl</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">experience +18%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/pack_bee.png" 
+                             alt="Pack Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Pack Bee</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">harvest +20%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/panda.png" 
+                             alt="Panda" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Panda</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">growth +28%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/peacock.png" 
+                             alt="Peacock" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Peacock</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +30%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/petal_bee.png" 
+                             alt="Petal Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Petal Bee</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">growth +22%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/pig.png" 
+                             alt="Pig" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Pig</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">gold +14%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/polar_bear.png" 
+                             alt="Polar Bear" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Polar Bear</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">luck +32%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/praying_mantis.png" 
+                             alt="Praying Mantis" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Praying Mantis</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">harvest +17%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/queen_bee_(pet).png" 
+                             alt="Queen Bee" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Queen Bee</div>
+                    <div class="pet-tier tier-legendary">Legendary</div>
+                    <div class="pet-bonus">harvest +42%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/raccoon.png" 
+                             alt="Raccoon" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Raccoon</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">luck +17%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/red_fox.png" 
+                             alt="Red Fox" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Red Fox</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">experience +21%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/red_giant_ant.png" 
+                             alt="Red Giant Ant" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Red Giant Ant</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">harvest +24%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/rooster.png" 
+                             alt="Rooster" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Rooster</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">experience +15%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/scarlet_macaw.png" 
+                             alt="Scarlet Macaw" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Scarlet Macaw</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +29%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/sea_otter.png" 
+                             alt="Sea Otter" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Sea Otter</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">luck +19%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/sea_turtle.png" 
+                             alt="Sea Turtle" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Sea Turtle</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">growth +27%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/seagull.png" 
+                             alt="Seagull" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Seagull</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">harvest +11%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/seal.png" 
+                             alt="Seal" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Seal</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">gold +19%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/shiba_inu.png" 
+                             alt="Shiba Inu" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Shiba Inu</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">luck +23%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/silver_monkey.png" 
+                             alt="Silver Monkey" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Silver Monkey</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +31%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/snail.png" 
+                             alt="Snail" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Snail</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +8%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/spotted_deer.png" 
+                             alt="Spotted Deer" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Spotted Deer</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">experience +22%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/squirrel.png" 
+                             alt="Squirrel" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Squirrel</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">harvest +13%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/starfish.png" 
+                             alt="Starfish" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Starfish</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">luck +16%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/sunny-side_chicken.png" 
+                             alt="Sunny-side Chicken" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Sunny-side Chicken</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +26%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/tanchozuru.png" 
+                             alt="Tanchozuru" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Tanchozuru</div>
+                    <div class="pet-tier tier-legendary">Legendary</div>
+                    <div class="pet-bonus">luck +48%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/tanuki.png" 
+                             alt="Tanuki" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Tanuki</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">gold +33%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/tarantula_hawk.png" 
+                             alt="Tarantula Hawk" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Tarantula Hawk</div>
+                    <div class="pet-tier tier-epic">Epic</div>
+                    <div class="pet-bonus">harvest +29%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/toucan.png" 
+                             alt="Toucan" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Toucan</div>
+                    <div class="pet-tier tier-rare">Rare</div>
+                    <div class="pet-bonus">experience +25%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/turtle.png" 
+                             alt="Turtle" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Turtle</div>
+                    <div class="pet-tier tier-common">Common</div>
+                    <div class="pet-bonus">growth +11%</div>
+                </div>
+            
+                <div class="pet-card">
+                    <div class="pet-image">
+                        <img src="/images/items/wasp.png" 
+                             alt="Wasp" 
+                             onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\"error-image\">🐾</div>';">
+                    </div>
+                    <div class="pet-name">Wasp</div>
+                    <div class="pet-tier tier-uncommon">Uncommon</div>
+                    <div class="pet-bonus">harvest +14%</div>
+                </div>
+            
+        </div>
+    </div>
+</body>
+</html>
+  

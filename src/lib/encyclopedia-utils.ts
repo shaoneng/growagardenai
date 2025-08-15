@@ -45,13 +45,29 @@ export function identifyCrops(items: ItemData[]): ItemData[] {
 
 // 识别宠物的函数
 export function identifyPets(items: ItemData[]): ItemData[] {
+  // 首先尝试从专门的宠物数据中获取
+  try {
+    // 如果传入的items已经是宠物数据，直接返回
+    if (items.length > 0 && items[0].source === 'pets') {
+      return items;
+    }
+  } catch (error) {
+    console.log('Using fallback pet identification');
+  }
+
   const pets = items.filter(item => {
     // 宠物关键词
     const petKeywords = [
       'pet', 'cat', 'dog', 'rabbit', 'bird', 'fish', 'hamster', 'guinea',
       'mouse', 'rat', 'ferret', 'turtle', 'lizard', 'snake', 'frog',
       'butterfly', 'bee', 'ladybug', 'spider', 'ant', 'cricket',
-      'puppy', 'kitten', 'bunny', 'chick', 'duckling', 'piglet'
+      'puppy', 'kitten', 'bunny', 'chick', 'duckling', 'piglet',
+      'owl', 'eagle', 'fox', 'bear', 'deer', 'monkey', 'pig', 'cow',
+      'chicken', 'rooster', 'duck', 'goose', 'sheep', 'goat', 'horse',
+      'panda', 'koala', 'kangaroo', 'elephant', 'giraffe', 'lion',
+      'tiger', 'leopard', 'cheetah', 'wolf', 'raccoon', 'squirrel',
+      'hedgehog', 'mole', 'bat', 'seal', 'whale', 'dolphin', 'otter',
+      'penguin', 'flamingo', 'peacock', 'parrot', 'toucan', 'ostrich'
     ];
     
     const itemName = item.name.toLowerCase();
@@ -69,37 +85,23 @@ export function identifyPets(items: ItemData[]): ItemData[] {
     return hasKeyword || hasPetProperties || isPetBySource;
   });
   
-  // 如果没有找到真正的宠物，创建一些示例宠物数据
-  if (pets.length === 0) {
-    const samplePetNames = [
-      'Cute Cat', 'Friendly Dog', 'Fluffy Rabbit', 'Singing Bird', 'Golden Fish',
-      'Tiny Hamster', 'Wise Owl', 'Playful Puppy', 'Sweet Kitten', 'Hopping Bunny',
-      'Colorful Butterfly', 'Busy Bee', 'Lucky Ladybug', 'Garden Frog', 'Happy Chick'
-    ];
-    
-    const bonusTypes = ['gold', 'growth', 'experience', 'luck', 'harvest'];
-    const attractionMethods = [
-      'Keep garden clean and plant variety crops',
-      'Plant flowers and maintain high garden beauty',
-      'Use premium fertilizer and water regularly',
-      'Create a peaceful environment with decorations',
-      'Plant specific crops that attract this pet'
-    ];
-    
-    return samplePetNames.map((name, index) => ({
-      id: `pet_${index}`,
-      name: name.toLowerCase().replace(/\s+/g, '_'),
-      display_name: name,
-      tier: index < 5 ? 'Common' : index < 10 ? 'Uncommon' : 'Rare',
-      source: 'pets',
-      multi_harvest: false,
-      bonus_type: bonusTypes[index % bonusTypes.length],
-      bonus_value: Math.floor(Math.random() * 30) + 10,
-      attraction_method: attractionMethods[index % attractionMethods.length]
-    }));
+  return pets;
+}
+
+// 加载宠物数据的异步函数
+export async function loadPetsData(): Promise<ItemData[]> {
+  try {
+    const response = await fetch('/data/pets.json');
+    if (response.ok) {
+      const petsData = await response.json();
+      return petsData;
+    }
+  } catch (error) {
+    console.error('Failed to load pets data:', error);
   }
   
-  return pets;
+  // 如果加载失败，返回空数组
+  return [];
 }
 
 // 为物品添加额外信息

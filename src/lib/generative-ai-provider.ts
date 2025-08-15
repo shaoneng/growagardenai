@@ -85,7 +85,7 @@ function getConfiguredModel(genAI: GoogleGenerativeAI) {
 }
 
 /**
- * 构建分析提示词
+ * 构建分析提示词 - 增强版本
  */
 function buildAnalysisPrompt(
   detailedItemsList: DetailedItem[],
@@ -97,74 +97,160 @@ function buildAnalysisPrompt(
   // 根据交互模式调整AI的角色和语调
   let roleDescription = "";
   let taskDescription = "";
+  let analysisDepth = "";
+  let contentStyle = "";
   
   switch (interactionMode) {
     case 'beginner':
       roleDescription = `You are a friendly, patient garden mentor who specializes in helping complete beginners. Your tone is encouraging, simple, and supportive. You avoid jargon and explain everything in plain English.`;
       taskDescription = `TASK: Create a "Personal Garden Plan" that gives specific, actionable advice for a new player.`;
+      analysisDepth = `Focus on 2-3 simple, immediate actions. Explain WHY each action helps. Use encouraging language.`;
+      contentStyle = `Use simple words, short sentences, and lots of encouragement. Include basic explanations of game mechanics.`;
       break;
       
     case 'expert':
       roleDescription = `You are a strategic advisor for experienced players. Your tone is analytical, data-driven, and sophisticated. You use advanced terminology and focus on optimization and efficiency.`;
       taskDescription = `TASK: Create a "Strategic Investment Analysis" that provides advanced optimization strategies.`;
+      analysisDepth = `Provide 4-6 detailed strategic recommendations with ROI calculations, risk assessments, and market timing analysis.`;
+      contentStyle = `Use precise terminology, include numerical analysis, discuss advanced concepts like portfolio diversification and market cycles.`;
       break;
       
     default:
       roleDescription = `You are a knowledgeable garden strategist who balances accessibility with depth. Your tone is informative yet approachable, providing both practical advice and strategic insights.`;
       taskDescription = `TASK: Create a "Garden Strategy Report" that balances practical advice with strategic depth.`;
+      analysisDepth = `Provide 3-4 well-balanced recommendations that combine immediate actions with strategic thinking.`;
+      contentStyle = `Balance technical accuracy with readability. Include both practical tips and strategic insights.`;
   }
+
+  // 分析玩家的当前状态
+  const playerLevel = Math.floor(gold / 100) + 1;
+  const isEarlyGame = gold < 200;
+  const isMidGame = gold >= 200 && gold < 1000;
+  const isLateGame = gold >= 1000;
+  
+  const gamePhase = isEarlyGame ? "Early Game" : isMidGame ? "Mid Game" : "Late Game";
+  
+  // 分析季节和时间
+  const [season] = inGameDate.split(', ');
+  const seasonalContext = getSeasonalContext(season);
+  
+  // 分析玩家的物品组合
+  const itemAnalysis = analyzePlayerItems(detailedItemsList);
 
   return `${roleDescription}
 
 ${taskDescription}
 
-CONTEXT:
-- Player has ${gold} gold
-- Current game date: ${inGameDate}
-- Real date: ${currentDate}
-- Selected items: ${JSON.stringify(detailedItemsList)}
+PLAYER CONTEXT ANALYSIS:
+- Gold: ${gold} (${gamePhase} phase)
+- Player Level: ~${playerLevel}
+- Game Date: ${inGameDate}
+- Season: ${season} - ${seasonalContext}
+- Real Date: ${currentDate}
+- Items Portfolio: ${itemAnalysis}
+
+ANALYSIS REQUIREMENTS:
+${analysisDepth}
+
+CONTENT STYLE:
+${contentStyle}
+
+SEASONAL CONSIDERATIONS:
+${seasonalContext}
 
 RESPONSE FORMAT: Return a JSON object with this exact structure:
 {
-  "mainTitle": "Engaging title for the report",
-  "subTitle": "Descriptive subtitle",
-  "visualAnchor": "A single emoji that represents the core theme",
+  "mainTitle": "Engaging, personalized title that reflects the player's situation",
+  "subTitle": "Descriptive subtitle that captures the strategic focus",
+  "visualAnchor": "A single emoji that represents the core theme (🌱🚀📊⚡🎯)",
   "playerProfile": {
-    "title": "Player archetype title",
-    "archetype": "Brief archetype name",
-    "summary": "2-3 sentence personality summary"
+    "title": "Player archetype title based on their items and gold",
+    "archetype": "Brief archetype name (e.g., 'Strategic Builder', 'Efficiency Expert', 'Growth Optimizer')",
+    "summary": "2-3 sentence personality summary based on their current portfolio and game phase"
   },
-  "midBreakerQuote": "An inspiring quote related to gardening/strategy",
+  "midBreakerQuote": "An inspiring, contextual quote related to their current situation and season",
   "sections": [
     {
       "id": "immediate_actions",
-      "title": "Immediate Actions 🎯",
+      "title": "Priority Actions 🎯",
       "points": [
         {
-          "action": "Specific actionable advice",
-          "reasoning": "Clear explanation of why this matters",
-          "tags": ["Priority", "Economic"]
+          "action": "Specific, actionable advice tailored to their items and gold",
+          "reasoning": "Clear explanation of why this matters for their specific situation",
+          "tags": ["Priority", "Economic", "Seasonal"],
+          "synergy": ["Optional: items that work well together"]
         }
       ]
     },
     {
-      "id": "strategic_moves",
-      "title": "Strategic Moves 🧠",
+      "id": "strategic_optimization",
+      "title": "Strategic Optimization 🧠",
       "points": [
         {
-          "action": "Long-term strategic advice",
-          "reasoning": "Explain its profound impact",
-          "tags": ["Long-Term", "Infrastructure"]
+          "action": "Long-term strategic advice based on their portfolio",
+          "reasoning": "Explain the strategic impact and timing considerations",
+          "tags": ["Long-Term", "Infrastructure", "Growth"],
+          "synergy": ["Optional: strategic combinations"]
+        }
+      ]
+    },
+    {
+      "id": "seasonal_opportunities",
+      "title": "Seasonal Opportunities ✨",
+      "points": [
+        {
+          "action": "Season-specific recommendations for ${season}",
+          "reasoning": "Why this seasonal timing creates special opportunities",
+          "tags": ["Seasonal", "Timing", "Opportunity"]
         }
       ]
     }
   ],
   "footerAnalysis": {
-    "title": "The Final Verdict",
-    "conclusion": "Final summary with clear recommendation",
-    "callToAction": "Specific next step for the player"
+    "title": "Strategic Assessment",
+    "conclusion": "Personalized summary with clear next steps based on their specific situation",
+    "callToAction": "Specific, actionable next step that fits their game phase and resources"
   }
-}`;
+}
+
+IMPORTANT: Make every recommendation specific to their actual items (${detailedItemsList.map(item => item.name).join(', ')}) and gold amount (${gold}). Avoid generic advice.`;
+}
+
+/**
+ * 获取季节性背景信息
+ */
+function getSeasonalContext(season: string): string {
+  const seasonalInfo = {
+    'Spring': 'Growth season with planting bonuses. Focus on establishing new crops and expanding your garden.',
+    'Summer': 'Peak growing season with maximum yields. Optimize for high-value crops and efficient harvesting.',
+    'Autumn': 'Harvest season with preservation bonuses. Focus on collecting resources and preparing for winter.',
+    'Winter': 'Planning season with reduced growth. Focus on strategy, upgrades, and resource management.'
+  };
+  
+  return seasonalInfo[season as keyof typeof seasonalInfo] || 'Balanced season for steady growth and development.';
+}
+
+/**
+ * 分析玩家物品组合
+ */
+function analyzePlayerItems(items: DetailedItem[]): string {
+  if (items.length === 0) return "No items selected - starting fresh";
+  
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const itemTypes = items.map(item => item.name).join(', ');
+  const diversity = items.length;
+  
+  let analysis = `${totalItems} items across ${diversity} types: ${itemTypes}`;
+  
+  if (diversity === 1) {
+    analysis += " (Focused strategy)";
+  } else if (diversity >= 5) {
+    analysis += " (Diversified portfolio)";
+  } else {
+    analysis += " (Balanced approach)";
+  }
+  
+  return analysis;
 }
 
 /**

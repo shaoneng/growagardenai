@@ -78,7 +78,8 @@ export async function generateStrategicAdvice(
   const portfolio = calculateOptimalPortfolio(gold, playerStatus.level, season, gameItems, expertOptions);
   
   // 检查是否有Gemini API可用来增强报告
-  const useGeminiEnhancement = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.length > 0;
+  const useGeminiEnhancement = (process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY) && 
+    (process.env.GEMINI_API_KEY?.length > 0 || process.env.NEXT_PUBLIC_GEMINI_API_KEY?.length > 0);
   
   let strategicReport: AnalysisResult;
   
@@ -401,7 +402,7 @@ function simplifyReasoningForBeginner(reasoning: string): string {
 }
 
 /**
- * 使用Gemini API生成个性化增强报告
+ * 使用增强的Gemini AI生成个性化报告
  */
 async function generateGeminiEnhancedReport(
   mode: InteractionMode,
@@ -413,34 +414,185 @@ async function generateGeminiEnhancedReport(
   detailedItemsList: DetailedItem[]
 ): Promise<AnalysisResult> {
   try {
-    // 导入Gemini API功能
-    const { generateAnalysisWithGoogleAI } = await import('./generative-ai-provider');
+    // 导入增强的AI报告生成器
+    const { generateEnhancedAIReport } = await import('./enhanced-ai-report-generator');
     
-    // 使用Gemini API生成个性化报告
-    const geminiReport = await generateAnalysisWithGoogleAI(
-      detailedItemsList,
-      playerStatus.gold,
-      playerStatus.inGameDate,
-      currentDate,
-      mode
-    );
+    // 构建增强的请求对象
+    const enhancedRequest = {
+      items: detailedItemsList,
+      gold: playerStatus.gold,
+      inGameDate: playerStatus.inGameDate,
+      currentDate: currentDate,
+      interactionMode: mode.toLowerCase() as 'beginner' | 'advanced' | 'expert',
+      playerPreferences: {
+        focusAreas: inferFocusAreas(detailedItemsList, playerStatus),
+        riskTolerance: inferRiskTolerance(playerStatus, portfolio),
+        timeHorizon: inferTimeHorizon(mode, playerStatus)
+      },
+      gameContext: {
+        recentActions: generateRecentActions(detailedItemsList, playerStatus),
+        achievements: generateAchievements(playerStatus, portfolio),
+        challenges: generateChallenges(playerStatus, ruleBasedAdvice)
+      }
+    };
     
-    // 根据交互模式调整Gemini生成的报告
-    return adaptGeminiReportForMode(geminiReport, mode, ruleBasedAdvice, portfolio);
+    console.log('🚀 Generating enhanced AI report with full context...');
+    
+    // 使用增强的AI生成器
+    const enhancedReport = await generateEnhancedAIReport(enhancedRequest);
+    
+    console.log('✅ Enhanced AI report generated successfully');
+    
+    return enhancedReport;
     
   } catch (error) {
-    console.warn('Gemini API failed, falling back to rule engine:', error);
+    console.warn('❌ Enhanced AI failed, falling back to standard Gemini:', error);
     
-    // 如果Gemini API失败，回退到规则引擎
-    return generateModeSpecificReport(
-      mode,
-      currentDate,
-      season,
-      playerStatus,
-      ruleBasedAdvice,
-      portfolio
-    );
+    try {
+      // 回退到标准Gemini API
+      const { generateAnalysisWithGoogleAI } = await import('./generative-ai-provider');
+      
+      const geminiReport = await generateAnalysisWithGoogleAI(
+        detailedItemsList,
+        playerStatus.gold,
+        playerStatus.inGameDate,
+        currentDate,
+        mode.toLowerCase()
+      );
+      
+      return adaptGeminiReportForMode(geminiReport, mode, ruleBasedAdvice, portfolio);
+      
+    } catch (fallbackError) {
+      console.warn('⚠️ All AI methods failed, using rule engine:', fallbackError);
+      
+      // 最终回退到规则引擎
+      return generateModeSpecificReport(
+        mode,
+        currentDate,
+        season,
+        playerStatus,
+        ruleBasedAdvice,
+        portfolio
+      );
+    }
   }
+}
+
+/**
+ * 推断玩家的关注领域
+ */
+function inferFocusAreas(items: DetailedItem[], playerStatus: PlayerStatus): string[] {
+  const focusAreas: string[] = [];
+  
+  // 基于物品类型推断关注点
+  const hasHighValueItems = items.some(item => 
+    ['watermelon', 'pumpkin', 'legendary'].some(keyword => 
+      item.name.toLowerCase().includes(keyword)
+    )
+  );
+  
+  const hasManyBasicItems = items.filter(item => 
+    ['carrot', 'strawberry', 'basic'].some(keyword => 
+      item.name.toLowerCase().includes(keyword)
+    )
+  ).length > 2;
+  
+  const hasTools = items.some(item => 
+    ['sprinkler', 'tool', 'fertilizer'].some(keyword => 
+      item.name.toLowerCase().includes(keyword)
+    )
+  );
+  
+  if (hasHighValueItems) focusAreas.push('High-Value Crops');
+  if (hasManyBasicItems) focusAreas.push('Volume Production');
+  if (hasTools) focusAreas.push('Efficiency Optimization');
+  if (playerStatus.gold > 1000) focusAreas.push('Strategic Expansion');
+  if (playerStatus.gold < 200) focusAreas.push('Foundation Building');
+  
+  return focusAreas.length > 0 ? focusAreas : ['Balanced Growth'];
+}
+
+/**
+ * 推断风险承受能力
+ */
+function inferRiskTolerance(playerStatus: PlayerStatus, portfolio: any): 'low' | 'medium' | 'high' {
+  if (playerStatus.gold < 200) return 'low';
+  if (playerStatus.gold > 1000 && portfolio.expectedROI > 25) return 'high';
+  return 'medium';
+}
+
+/**
+ * 推断时间规划偏好
+ */
+function inferTimeHorizon(mode: InteractionMode, playerStatus: PlayerStatus): 'short' | 'medium' | 'long' {
+  if (mode === InteractionMode.BEGINNER) return 'short';
+  if (mode === InteractionMode.EXPERT && playerStatus.gold > 500) return 'long';
+  return 'medium';
+}
+
+/**
+ * 生成最近行动记录
+ */
+function generateRecentActions(items: DetailedItem[], playerStatus: PlayerStatus): string[] {
+  const actions: string[] = [];
+  
+  if (items.length > 0) {
+    actions.push(`Selected ${items.length} different item types`);
+  }
+  
+  if (playerStatus.gold > 500) {
+    actions.push('Accumulated significant resources');
+  }
+  
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  if (totalItems > 10) {
+    actions.push('Built substantial inventory');
+  }
+  
+  return actions.length > 0 ? actions : ['Starting fresh'];
+}
+
+/**
+ * 生成成就记录
+ */
+function generateAchievements(playerStatus: PlayerStatus, portfolio: any): string[] {
+  const achievements: string[] = [];
+  
+  if (playerStatus.gold > 1000) {
+    achievements.push('Wealth Accumulator');
+  }
+  
+  if (portfolio.expectedROI > 30) {
+    achievements.push('Strategic Optimizer');
+  }
+  
+  const level = Math.floor(playerStatus.gold / 100) + 1;
+  if (level > 5) {
+    achievements.push('Experienced Gardener');
+  }
+  
+  return achievements;
+}
+
+/**
+ * 生成挑战记录
+ */
+function generateChallenges(playerStatus: PlayerStatus, ruleBasedAdvice: any): string[] {
+  const challenges: string[] = [];
+  
+  if (playerStatus.gold < 100) {
+    challenges.push('Limited starting capital');
+  }
+  
+  if (ruleBasedAdvice.warnings && ruleBasedAdvice.warnings.length > 0) {
+    challenges.push('Strategic risks identified');
+  }
+  
+  if (playerStatus.season === 'Winter') {
+    challenges.push('Seasonal growth limitations');
+  }
+  
+  return challenges;
 }
 
 /**

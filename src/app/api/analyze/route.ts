@@ -1,10 +1,5 @@
-// /src/app/api/analyze/route.ts
-
-export const runtime = 'edge';
-
+// 🚀 Gemini AI 驱动的分析 API
 import { NextRequest, NextResponse } from 'next/server';
-// 暂时注释掉AI提供者，使用规则引擎
-// import { generateAnalysisWithGoogleAI, isGoogleAIAvailable, type DetailedItem, type AnalysisRequest } from '@/lib/generative-ai-provider';
 import { 
   generateStrategicAdvice, 
   isRuleEngineAvailable, 
@@ -25,16 +20,24 @@ const allItems = itemsData as Item[];
 const itemsMap = new Map(allItems.map(item => [item.id, item]));
 
 export async function POST(req: NextRequest) {
-  // 检查规则引擎是否可用
+  console.log('🚀 API: Starting Gemini AI-powered analysis...');
+  
+  // 检查规则引擎是否可用（作为备用）
   if (!isRuleEngineAvailable()) {
     return NextResponse.json({ 
-      error: 'Server configuration error: Rule engine is not available.' 
+      error: 'Server configuration error: Analysis engine is not available.' 
     }, { status: 500 });
   }
 
   try {
     const body: EnhancedAnalysisRequest = await req.json();
     const { selectedItems, gold, inGameDate, currentDate, interactionMode, expertOptions } = body;
+    
+    console.log('📊 API: Processing request with Gemini AI...');
+    console.log(`- Items: ${Object.keys(selectedItems).length} types`);
+    console.log(`- Gold: ${gold}`);
+    console.log(`- Mode: ${interactionMode || 'ADVANCED'}`);
+    console.log(`- Date: ${inGameDate}`);
 
     // 输入验证
     if (!currentDate) {
@@ -85,23 +88,37 @@ export async function POST(req: NextRequest) {
       })
       .filter((item): item is DetailedItem => item !== null);
 
-    // 使用规则引擎生成分析报告
+    // 🤖 使用 Gemini AI 生成智能分析报告
+    console.log('🤖 API: Calling Gemini AI via generateStrategicAdvice...');
     const reportObject = await generateStrategicAdvice(
       detailedItemsList,
       gold,
       inGameDate,
       currentDate,
-      interactionMode,
+      interactionMode || InteractionMode.ADVANCED,
       expertOptions
     );
 
+    console.log('✅ API: Gemini AI report generated successfully!');
+    console.log(`- Report title: ${reportObject.mainTitle}`);
+    console.log(`- Sections: ${reportObject.sections?.length || 0}`);
+    
     return NextResponse.json(reportObject, { status: 200 });
 
   } catch (error) {
-    console.error('API Route Error:', error);
+    console.error('❌ API Route Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    
+    // 提供更详细的错误信息
+    if (errorMessage.includes('API key')) {
+      return NextResponse.json({ 
+        error: 'Gemini API configuration error. Please check your API key.', 
+        details: 'GEMINI_API_KEY is missing or invalid' 
+      }, { status: 500 });
+    }
+    
     return NextResponse.json({ 
-      error: 'An internal server error occurred while analyzing the data.', 
+      error: 'An internal server error occurred while generating AI analysis.', 
       details: errorMessage 
     }, { status: 500 });
   }

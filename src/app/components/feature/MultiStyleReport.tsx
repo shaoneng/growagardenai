@@ -62,88 +62,22 @@ export default function MultiStyleReport() {
     initSystem();
   }, []);
 
-  // 处理报告数据
+  // 处理报告数据 - 现在完全依赖 Gemini AI 生成的数据
   const coreData = useMemo(() => {
-    if (!reportData && !isLoading) {
-      // 生成默认数据
-      const currentDate = new Date().toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      });
-      const uniqueId = `GGSB-${new Date().getTime()}`;
-
-      const defaultReportData = {
-        reportId: uniqueId,
-        publicationDate: currentDate,
-        mainTitle: "Strategic Briefing",
-        subTitle: "GROW A GARDEN INTELLIGENCE REPORT",
-        visualAnchor: "A",
-        playerProfile: {
-          title: "Player Profile",
-          archetype: "Early-Stage Capital Accumulator",
-          summary: "You're in a prime starting position with ample gold and immense potential. The core mission is to convert this initial capital into sustainable, high-yield assets—fast."
-        },
-        midBreakerQuote: "Trading short-term, one-off gains for 'asset crops' that produce continuously is the first step from novice to tycoon.",
-        sections: [
-          {
-            id: "priority_one",
-            title: "Priority One 🎯",
-            points: [
-              {
-                action: "Liquidate Strawberries, Acquire Blueberries",
-                reasoning: "Strawberries are a one-time sale. Blueberries are 'multi-harvest' assets that will become your stable 'gold printer' for the future.",
-                tags: ["High ROI", "Asset Conversion"]
-              },
-              {
-                action: "Plant All Carrot Seeds Immediately",
-                reasoning: "Of all starter crops, Carrots have the highest gold-per-minute ratio, enabling the fastest possible initial capital accumulation.",
-                tags: ["High-Efficiency", "Short-Term"]
-              }
-            ]
-          },
-          {
-            id: "next_steps",
-            title: "Mid-Term Plays 🗺️",
-            points: [
-              {
-                action: "Secure 5,000 Gold for 'Advanced Tools'",
-                reasoning: "This is a critical power spike in your progression. It dramatically boosts farming efficiency, paving the way for large-scale operations.",
-                tags: ["Long-Term Investment", "Efficiency Boost"]
-              }
-            ]
-          },
-          {
-            id: "hidden_gems",
-            title: "Hidden Gems ✨",
-            points: [
-              {
-                action: "Hold onto the Orange Tulip",
-                reasoning: "While its sale price is low, planting it near a future Beehive yields high-value 'Tulip Honey'—a potential gold mine.",
-                synergy: ["orange_tulip", "beehive"],
-                tags: ["Synergy"]
-              }
-            ]
-          }
-        ],
-        footerAnalysis: {
-          title: "The Final Verdict",
-          conclusion: "Your current strategy is crystal clear: SPEED. Liquidate low-yield items, convert capital into long-term, interest-bearing assets, and do not get distracted by minor gains.",
-          callToAction: "Immediate Action: Sell all Strawberries and invest every coin into Blueberry seeds."
-        }
-      };
-
-      return ReportDataAdapter.adaptToCore(
-        defaultReportData,
-        UserContextDetector.detectContext()
-      );
-    }
-
+    console.log('🔄 MultiStyleReport: Processing report data...', { reportData, isLoading });
+    
     if (reportData) {
+      console.log('✅ MultiStyleReport: Using AI-generated report data');
       return ReportDataAdapter.adaptToCore(
         reportData,
         UserContextDetector.detectContext()
       );
+    }
+
+    // 如果没有报告数据且不在加载中，返回 null
+    // 这将触发重定向到首页
+    if (!isLoading) {
+      console.log('⚠️ MultiStyleReport: No report data available, will redirect');
     }
 
     return null;

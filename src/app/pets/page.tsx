@@ -2,7 +2,7 @@
 // 宠物百科全书列表页
 
 import { Metadata } from 'next';
-import PetsEncyclopedia from '../components/feature/PetsEncyclopedia';
+import PetGallery from '../components/feature/PetGallery';
 import NavigationHeader from '../components/ui/NavigationHeader';
 
 export const metadata: Metadata = {
@@ -24,8 +24,8 @@ export default function PetsPage() {
           ] as any}
         />
 
-        {/* 宠物百科组件 */}
-        <PetsEncyclopedia />
+        {/* Enhanced Pet Gallery */}
+        <PetGallery />
       </div>
     </main>
   );

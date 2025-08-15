@@ -65,51 +65,33 @@ export function AppProvider({ children }) {
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     try {
-      // 选择分析方式：Gemini AI 或规则引擎
-      let data;
+      console.log('🚀 AppContext: Calling Gemini AI via API route...');
       
-      // 检查是否有 Gemini API 密钥
-      const hasGeminiAPI = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      
-      if (hasGeminiAPI) {
-        // 使用 Gemini AI 生成智能报告
-        const { generateAnalysisWithGoogleAI } = await import('@/lib/generative-ai-provider');
-        
-        // 构建详细物品列表
-        const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
-          name: `Item ${id}`, // 这里可以从 itemsData 中获取真实名称
-          quantity: quantity,
-          properties: []
-        }));
+      // 🤖 调用服务器端 API 路由，让 Gemini AI 生成报告
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          selectedItems: itemsToAnalyze,
+          gold: Number(effectiveGold),
+          inGameDate: effectiveGameDate,
+          currentDate: currentDate,
+          interactionMode: interactionMode,
+          expertOptions: expertOptions
+        })
+      });
 
-        data = await generateAnalysisWithGoogleAI(
-          detailedItemsList,
-          Number(effectiveGold),
-          effectiveGameDate,
-          currentDate,
-          interactionMode,
-          expertOptions
-        );
-      } else {
-        // 使用客户端规则引擎作为后备
-        const { generateStrategicAdvice } = await import('@/lib/advisor-engine');
-        
-        // 构建详细物品列表
-        const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
-          name: `Item ${id}`, // 这里可以从 itemsData 中获取真实名称
-          quantity: quantity,
-          properties: []
-        }));
-
-        data = await generateStrategicAdvice(
-          detailedItemsList,
-          Number(effectiveGold),
-          effectiveGameDate,
-          currentDate,
-          interactionMode,
-          expertOptions
-        );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `API request failed with status ${response.status}`);
       }
+
+      const data = await response.json();
+      console.log('✅ AppContext: Gemini AI report received!');
+      console.log(`- Report title: ${data.mainTitle}`);
+      console.log(`- Sections: ${data.sections?.length || 0}`);
 
       // 生成报告ID
       data.reportId = `GGSB-${Date.now()}`;
@@ -171,51 +153,33 @@ export function AppProvider({ children }) {
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     try {
-      // 选择分析方式：Gemini AI 或规则引擎
-      let data;
+      console.log('🚀 AppContext: Calling Gemini AI via API route...');
       
-      // 检查是否有 Gemini API 密钥
-      const hasGeminiAPI = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      
-      if (hasGeminiAPI) {
-        // 使用 Gemini AI 生成智能报告
-        const { generateAnalysisWithGoogleAI } = await import('@/lib/generative-ai-provider');
-        
-        // 构建详细物品列表
-        const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
-          name: `Item ${id}`, // 这里可以从 itemsData 中获取真实名称
-          quantity: quantity,
-          properties: []
-        }));
+      // 🤖 调用服务器端 API 路由，让 Gemini AI 生成报告
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          selectedItems: itemsToAnalyze,
+          gold: Number(gold),
+          inGameDate: inGameDate,
+          currentDate: currentDate,
+          interactionMode: interactionMode,
+          expertOptions: expertOptions
+        })
+      });
 
-        data = await generateAnalysisWithGoogleAI(
-          detailedItemsList,
-          Number(gold),
-          inGameDate,
-          currentDate,
-          interactionMode,
-          expertOptions
-        );
-      } else {
-        // 使用客户端规则引擎作为后备
-        const { generateStrategicAdvice } = await import('@/lib/advisor-engine');
-        
-        // 构建详细物品列表
-        const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
-          name: `Item ${id}`, // 这里可以从 itemsData 中获取真实名称
-          quantity: quantity,
-          properties: []
-        }));
-
-        data = await generateStrategicAdvice(
-          detailedItemsList,
-          Number(gold),
-          inGameDate,
-          currentDate,
-          interactionMode,
-          expertOptions
-        );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `API request failed with status ${response.status}`);
       }
+
+      const data = await response.json();
+      console.log('✅ AppContext: Gemini AI report received!');
+      console.log(`- Report title: ${data.mainTitle}`);
+      console.log(`- Sections: ${data.sections?.length || 0}`);
 
       // 生成报告ID
       data.reportId = `GGSB-${Date.now()}`;

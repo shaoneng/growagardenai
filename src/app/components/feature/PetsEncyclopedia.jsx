@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import EncyclopediaBase from './EncyclopediaBase';
-import { identifyPets, enrichItemData } from '../../../lib/encyclopedia-utils';
+import { identifyPets, enrichItemData, loadPetsData } from '../../../lib/encyclopedia-utils';
 import itemsData from '../../../../public/data/items.json';
 
 export default function PetsEncyclopedia() {
@@ -13,17 +13,26 @@ export default function PetsEncyclopedia() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      // 使用工具函数识别和丰富宠物数据
-      const petsData = identifyPets(itemsData);
-      const enrichedPets = enrichItemData(petsData, 'pets');
-      
-      setPets(enrichedPets);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error loading pets data:', error);
-      setIsLoading(false);
-    }
+    const loadPets = async () => {
+      try {
+        // 首先尝试加载专门的宠物数据
+        let petsData = await loadPetsData();
+        
+        // 如果没有专门的宠物数据，从items.json中识别
+        if (petsData.length === 0) {
+          petsData = identifyPets(itemsData);
+        }
+        
+        const enrichedPets = enrichItemData(petsData, 'pets');
+        setPets(enrichedPets);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error loading pets data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    loadPets();
   }, []);
 
   if (isLoading) {
