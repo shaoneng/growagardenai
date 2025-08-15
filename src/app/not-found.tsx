@@ -1,6 +1,5 @@
 // /src/app/not-found.tsx
-// Cloudflare Pages requires the not-found route to explicitly run on Edge.
-export const runtime = 'edge';
+// Cloudflare Pages 静态导出兼容的 404 页面
 
 export default function NotFound() {
   return (

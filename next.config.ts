@@ -12,7 +12,14 @@ const nextConfig = {
   serverExternalPackages: ['@google/generative-ai'],
   
   // 输出配置 - 为 Cloudflare Pages 优化
+  output: 'export', // 静态导出模式
   trailingSlash: true, // Cloudflare Pages 兼容性
+  distDir: 'out', // 输出目录
+  
+  // 静态导出时禁用不兼容的功能
+  images: {
+    unoptimized: true, // 静态导出必须禁用图片优化
+  },
   
   // ESLint配置 - 放宽规则以允许构建通过
   eslint: {
@@ -61,27 +68,7 @@ const nextConfig = {
     ]
   },
   
-  // 图片优化配置 - Cloudflare Pages 优化
-  images: {
-    unoptimized: true, // Cloudflare 自动优化图片
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    domains: ['localhost'],
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '/images/**',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.pages.dev',
-        pathname: '/images/**',
-      },
-    ],
-  },
+
   
   // 重定向配置
   async redirects() {

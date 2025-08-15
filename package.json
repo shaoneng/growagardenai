@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "node scripts/build-data.js && next build",
-    "build:cf": "node scripts/build-data.js && next build && SKIP_DUPLICATE_CHECK=1 npx @cloudflare/next-on-pages --skip-build",
-    "preview:cf": "npx wrangler pages dev .vercel/output/static --compatibility-date=2024-01-15",
-    "deploy:cf": "npx wrangler pages deploy .vercel/output/static",
+    "build:cf": "node scripts/build-data.js && next build",
+    "preview:cf": "npx wrangler pages dev out --compatibility-date=2024-01-15",
+    "deploy:cf": "npx wrangler pages deploy out",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",

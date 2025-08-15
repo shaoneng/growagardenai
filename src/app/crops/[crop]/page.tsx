@@ -6,15 +6,10 @@ import CropDetailPage from '../../components/feature/CropDetailPage';
 import itemsData from '../../../../public/data/items.json';
 import { slugify } from '@/lib/slugify';
 
-// Cloudflare Pages 配置
-// 选择 Edge Runtime 而不是静态生成，以获得更好的动态性能
-export const runtime = 'edge';
+// Cloudflare Pages 静态导出配置
+// 使用静态生成来预渲染所有作物页面
 
-// 注意：使用 Edge Runtime 时不能同时使用 generateStaticParams
-// 这个页面将在请求时动态渲染，提供更好的灵活性
-
-// 如果需要静态生成，可以移除 runtime = 'edge' 并启用下面的函数
-/*
+// 生成静态路径
 export async function generateStaticParams() {
   const seen = new Set<string>();
   const params: Array<{ crop: string }> = [];
@@ -34,7 +29,6 @@ export async function generateStaticParams() {
   }
   return params;
 }
-*/
 
 // 为避免 Cloudflare next-on-pages 的边缘合并冲突，这里移除 generateMetadata（可改为后续按需恢复）
 
