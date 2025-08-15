@@ -65,29 +65,27 @@ export function AppProvider({ children }) {
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     try {
-      const response = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          selectedItems: itemsToAnalyze,
-          gold: Number(effectiveGold),
-          inGameDate: effectiveGameDate,
-          currentDate: currentDate,
-          interactionMode: interactionMode,
-          expertOptions: expertOptions
-        })
-      });
+      // 使用客户端分析引擎替代服务端 API
+      const { generateStrategicAdvice } = await import('@/lib/advisor-engine');
+      
+      // 构建详细物品列表
+      const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
+        name: `Item ${id}`, // 这里可以从 itemsData 中获取真实名称
+        quantity: quantity,
+        properties: []
+      }));
 
-      const data = await response.json();
+      const data = await generateStrategicAdvice(
+        detailedItemsList,
+        Number(effectiveGold),
+        effectiveGameDate,
+        currentDate,
+        interactionMode,
+        expertOptions
+      );
 
-      if (!response.ok) {
-        throw new Error(data.error || `API Error: ${response.statusText}`);
-      }
-
-      // 生成报告ID（如果没有的话）
-      if (!data.reportId) {
-        data.reportId = `GGSB-${Date.now()}`;
-      }
+      // 生成报告ID
+      data.reportId = `GGSB-${Date.now()}`;
       
       // 保存报告数据到localStorage
       try {
@@ -105,7 +103,7 @@ export function AppProvider({ children }) {
       router.push('/report-summary');
 
     } catch (error) {
-      console.error("Failed to fetch analysis:", error);
+      console.error("Failed to generate analysis:", error);
       alert(`Failed to get analysis:\n${error.message}`);
     } finally {
       setIsLoading(false);
@@ -146,29 +144,27 @@ export function AppProvider({ children }) {
     const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     try {
-      const response = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          selectedItems: itemsToAnalyze,
-          gold: Number(gold),
-          inGameDate: inGameDate,
-          currentDate: currentDate,
-          interactionMode: interactionMode,
-          expertOptions: expertOptions
-        })
-      });
+      // 使用客户端分析引擎替代服务端 API
+      const { generateStrategicAdvice } = await import('@/lib/advisor-engine');
+      
+      // 构建详细物品列表
+      const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
+        name: `Item ${id}`, // 这里可以从 itemsData 中获取真实名称
+        quantity: quantity,
+        properties: []
+      }));
 
-      const data = await response.json();
+      const data = await generateStrategicAdvice(
+        detailedItemsList,
+        Number(gold),
+        inGameDate,
+        currentDate,
+        interactionMode,
+        expertOptions
+      );
 
-      if (!response.ok) {
-        throw new Error(data.error || `API Error: ${response.statusText}`);
-      }
-
-      // 生成报告ID（如果没有的话）
-      if (!data.reportId) {
-        data.reportId = `GGSB-${Date.now()}`;
-      }
+      // 生成报告ID
+      data.reportId = `GGSB-${Date.now()}`;
       
       // 保存报告数据到localStorage
       try {
@@ -186,8 +182,8 @@ export function AppProvider({ children }) {
       router.push('/report-summary');
 
     } catch (error) {
-      console.error("Failed to fetch analysis:", error);
-      alert(`Failed to get analysis:\n${error.message}`);
+      console.error("Failed to generate analysis:", error);
+      alert(`Failed to generate analysis:\n${error.message}`);
     } finally {
       setIsLoading(false);
     }
