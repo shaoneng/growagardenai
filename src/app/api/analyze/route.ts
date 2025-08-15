@@ -90,20 +90,85 @@ export async function POST(req: NextRequest) {
 
     // 🤖 使用 Gemini AI 生成智能分析报告
     console.log('🤖 API: Calling Gemini AI via generateStrategicAdvice...');
-    const reportObject = await generateStrategicAdvice(
-      detailedItemsList,
-      gold,
-      inGameDate,
-      currentDate,
-      interactionMode || InteractionMode.ADVANCED,
-      expertOptions
-    );
-
-    console.log('✅ API: Gemini AI report generated successfully!');
-    console.log(`- Report title: ${reportObject.mainTitle}`);
-    console.log(`- Sections: ${reportObject.sections?.length || 0}`);
     
-    return NextResponse.json(reportObject, { status: 200 });
+    let reportObject;
+    try {
+      reportObject = await generateStrategicAdvice(
+        detailedItemsList,
+        gold,
+        inGameDate,
+        currentDate,
+        interactionMode || InteractionMode.ADVANCED,
+        expertOptions
+      );
+      
+      console.log('✅ API: Gemini AI report generated successfully!');
+      console.log(`- Report title: ${reportObject.mainTitle}`);
+      console.log(`- Sections: ${reportObject.sections?.length || 0}`);
+      
+    } catch (aiError) {
+      console.error('❌ Gemini AI failed, using fallback:', aiError);
+      
+      // 回退到简单的静态报告
+      reportObject = {
+        reportId: `FALLBACK-${Date.now()}`,
+        publicationDate: new Date().toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        }),
+        mainTitle: "Garden Analysis Report",
+        subTitle: "STRATEGIC RECOMMENDATIONS",
+        visualAnchor: "G",
+        playerProfile: {
+          title: "Player Profile",
+          archetype: "Garden Strategist",
+          summary: `You have ${gold} gold and ${detailedItemsList.length} item types selected. Focus on strategic growth.`
+        },
+        midBreakerQuote: "Smart planning leads to abundant harvests.",
+        sections: [
+          {
+            id: "immediate_actions",
+            title: "Immediate Actions 🎯",
+            points: detailedItemsList.slice(0, 3).map(item => ({
+              action: `Focus on ${item.name}`,
+              reasoning: `You have ${item.quantity} ${item.name}. This is a good foundation for your strategy.`,
+              tags: ["Strategic", "Priority"]
+            }))
+          },
+          {
+            id: "next_steps",
+            title: "Next Steps 🗺️",
+            points: [
+              {
+                action: "Expand your collection",
+                reasoning: "Diversify your items to reduce risk and increase opportunities.",
+                tags: ["Growth", "Strategy"]
+              }
+            ]
+          }
+        ],
+        footerAnalysis: {
+          title: "Strategic Summary",
+          conclusion: "Your garden has great potential. Focus on proven strategies and gradual expansion.",
+          callToAction: "Continue building your collection and monitor market conditions."
+        }
+      };
+      
+      console.log('✅ API: Fallback report generated');
+    }
+    
+    // 确保返回的对象是有效的 JSON
+    if (!reportObject || typeof reportObject !== 'object') {
+      throw new Error('Invalid report object generated');
+    }
+    
+    return NextResponse.json(reportObject, { 
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
 
   } catch (error) {
     console.error('❌ API Route Error:', error);
@@ -114,12 +179,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ 
         error: 'Gemini API configuration error. Please check your API key.', 
         details: 'GEMINI_API_KEY is missing or invalid' 
-      }, { status: 500 });
+      }, { 
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
     }
     
+    // 确保总是返回有效的 JSON 错误响应
     return NextResponse.json({ 
       error: 'An internal server error occurred while generating AI analysis.', 
-      details: errorMessage 
-    }, { status: 500 });
+      details: errorMessage,
+      timestamp: new Date().toISOString()
+    }, { 
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
   }
 }

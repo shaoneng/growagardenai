@@ -84,11 +84,34 @@ export function AppProvider({ children }) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch (jsonError) {
+          console.error('Failed to parse error response as JSON:', jsonError);
+          throw new Error(`API request failed with status ${response.status}`);
+        }
         throw new Error(errorData.error || `API request failed with status ${response.status}`);
       }
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error('Failed to parse API response as JSON:', jsonError);
+        throw new Error('Invalid JSON response from server. Please try again.');
+      }
+
+      // 验证响应数据的完整性
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid response format from server');
+      }
+
+      if (!data.mainTitle || !data.sections) {
+        console.warn('Incomplete response data:', data);
+        throw new Error('Incomplete report data received from server');
+      }
+
       console.log('✅ AppContext: Gemini AI report received!');
       console.log(`- Report title: ${data.mainTitle}`);
       console.log(`- Sections: ${data.sections?.length || 0}`);
