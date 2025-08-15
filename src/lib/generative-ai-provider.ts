@@ -1,9 +1,9 @@
 // /src/lib/generative-ai-provider.ts
-// Google Generative AI Provider - 负责所有与Google AI相关的逻辑
+// Google Generative AI Provider - 客户端版本
 
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
-const MODEL_NAME = "gemini-2.5-pro";
+const MODEL_NAME = "gemini-2.0-flash-exp";
 
 // 接口定义
 export interface DetailedItem {
@@ -49,14 +49,21 @@ export interface AnalysisResult {
 }
 
 /**
- * 初始化Google Generative AI客户端
+ * 初始化Google Generative AI客户端（客户端版本）
  */
 function initializeGoogleAI(): GoogleGenerativeAI {
-  const API_KEY = process.env.GEMINI_API_KEY;
+  const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
   if (!API_KEY) {
-    throw new Error('Server configuration error: Missing GEMINI_API_KEY.');
+    throw new Error('Client configuration error: Missing NEXT_PUBLIC_GEMINI_API_KEY.');
   }
   return new GoogleGenerativeAI(API_KEY);
+}
+
+/**
+ * 检查 Google AI 是否可用
+ */
+export function isGoogleAIAvailable(): boolean {
+  return !!process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 }
 
 /**
@@ -98,102 +105,78 @@ function buildAnalysisPrompt(
       break;
       
     case 'expert':
-      roleDescription = `You are a data-driven agricultural analyst and optimization expert. Your tone is precise, analytical, and focused on numbers, ROI, and market intelligence. You provide comprehensive analysis with detailed reasoning.`;
-      taskDescription = `TASK: Generate an "Advanced Strategic Analysis" with detailed market intelligence and optimization recommendations.`;
+      roleDescription = `You are a strategic advisor for experienced players. Your tone is analytical, data-driven, and sophisticated. You use advanced terminology and focus on optimization and efficiency.`;
+      taskDescription = `TASK: Create a "Strategic Investment Analysis" that provides advanced optimization strategies.`;
       break;
       
-    default: // advanced
-      roleDescription = `You are a world-class strategist for the game "Grow a Garden." Your tone is that of an experienced mentor: authoritative, balanced, and strategic. You provide clear guidance without overwhelming complexity.`;
-      taskDescription = `TASK: Analyze the user's data and generate a "Strategic Briefing" JSON object.`;
-      break;
+    default:
+      roleDescription = `You are a knowledgeable garden strategist who balances accessibility with depth. Your tone is informative yet approachable, providing both practical advice and strategic insights.`;
+      taskDescription = `TASK: Create a "Garden Strategy Report" that balances practical advice with strategic depth.`;
   }
 
   return `${roleDescription}
 
-CRITICAL: Your entire response must be in authentic, natural-sounding English. Generate content that feels personal and tailored to this specific player's situation.
-
 ${taskDescription}
 
-User's current status:
-- In-game date: ${inGameDate}
-- Gold: ${gold}
-- Detailed Items List: ${JSON.stringify(detailedItemsList)}
+CONTEXT:
+- Player has ${gold} gold
+- Current game date: ${inGameDate}
+- Real date: ${currentDate}
+- Selected items: ${JSON.stringify(detailedItemsList)}
 
-The JSON output MUST follow this exact structure:
+RESPONSE FORMAT: Return a JSON object with this exact structure:
 {
-  "reportId": "A unique identifier, like 'GGSB-${new Date().getTime()}'.",
-  "publicationDate": "${currentDate}",
-  "mainTitle": "Strategic Briefing",
-  "subTitle": "GROW A GARDEN INTELLIGENCE REPORT",
-  "visualAnchor": "A single, impactful letter or number representing the core of the strategy. For example, 'A' for an 'Aggressive Growth' phase, or '3' for '3 Key Steps'.",
+  "mainTitle": "Engaging title for the report",
+  "subTitle": "Descriptive subtitle",
+  "visualAnchor": "A single emoji that represents the core theme",
   "playerProfile": {
-    "title": "Player Profile",
-    "archetype": "A concise player archetype in English, e.g., 'Early-Stage Capital Accumulator' or 'Mid-Game Expander'.",
-    "summary": "A powerful, single-sentence summary defining the player's current strategic position."
+    "title": "Player archetype title",
+    "archetype": "Brief archetype name",
+    "summary": "2-3 sentence personality summary"
   },
-  "midBreakerQuote": "A single, powerful, insightful quote distilled from the analysis, for the mid-page visual breaker.",
+  "midBreakerQuote": "An inspiring quote related to gardening/strategy",
   "sections": [
     {
-      "id": "priority_one",
-      "title": "Priority One 🎯",
+      "id": "immediate_actions",
+      "title": "Immediate Actions 🎯",
       "points": [
         {
-          "action": "A short, verb-first command.",
-          "reasoning": "A concise explanation of the strategic value of this action.",
-          "tags": ["High ROI", "Short-Term"]
+          "action": "Specific actionable advice",
+          "reasoning": "Clear explanation of why this matters",
+          "tags": ["Priority", "Economic"]
         }
       ]
     },
     {
-      "id": "next_steps",
-      "title": "Mid-Term Plays 🗺️",
+      "id": "strategic_moves",
+      "title": "Strategic Moves 🧠",
       "points": [
         {
-          "action": "A key task for mid-term development.",
-          "reasoning": "Explain its profound impact on the late game.",
+          "action": "Long-term strategic advice",
+          "reasoning": "Explain its profound impact",
           "tags": ["Long-Term", "Infrastructure"]
-        }
-      ]
-    },
-    {
-      "id": "hidden_gems",
-      "title": "Hidden Gems ✨",
-      "points": [
-        {
-          "action": "Reveal an overlooked item combo or strategy.",
-          "reasoning": "Clarify how this synergy creates a 1+1>2 effect.",
-          "synergy": ["item_name_1", "item_name_2"],
-          "tags": ["Synergy"]
         }
       ]
     }
   ],
   "footerAnalysis": {
     "title": "The Final Verdict",
-    "conclusion": "The final summary of this strategic briefing, giving a clear, directional recommendation.",
-    "callToAction": "Immediate Action: [Fill in the single most important thing to do]"
+    "conclusion": "Final summary with clear recommendation",
+    "callToAction": "Specific next step for the player"
   }
-}
-
-Ensure all 'icon' values are valid Font Awesome 5 class names (e.g., 'fas fa-bullseye'). The entire output must be a single, valid JSON object and nothing else.
-`;
+}`;
 }
 
 /**
- * 使用Google AI生成分析报告
- * @param detailedItemsList 详细物品列表
- * @param gold 金币数量
- * @param inGameDate 游戏内日期
- * @param currentDate 当前日期
- * @param interactionMode 交互模式
- * @returns 分析结果
+ * 使用 Google AI 生成分析报告（客户端版本）
  */
 export async function generateAnalysisWithGoogleAI(
   detailedItemsList: DetailedItem[],
   gold: number,
   inGameDate: string,
   currentDate: string,
-  interactionMode?: string
+  interactionMode?: string,
+  expertOptions?: any
 ): Promise<AnalysisResult> {
   try {
     // 初始化Google AI
@@ -210,19 +193,17 @@ export async function generateAnalysisWithGoogleAI(
     
     // 解析并返回结果
     const reportObject = JSON.parse(jsonText) as AnalysisResult;
+    
+    // 添加报告ID和时间戳
+    reportObject.reportId = `GGSB-${Date.now()}`;
+    reportObject.publicationDate = currentDate;
+    
     return reportObject;
     
   } catch (error) {
     console.error('Google AI Provider Error:', error);
     throw new Error(`Failed to generate analysis with Google AI: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
-}
-
-/**
- * 检查Google AI服务是否可用
- */
-export function isGoogleAIAvailable(): boolean {
-  return !!process.env.GEMINI_API_KEY;
 }
 
 /**
