@@ -1,0 +1,43 @@
+name = "growagarden"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# 生产环境配置
+[env.production]
+name = "growagarden-production"
+# 如果有自定义域名，可以在这里配置
+# routes = [
+#   { pattern = "growagarden.com", zone_name = "growagarden.com" },
+#   { pattern = "www.growagarden.com", zone_name = "growagarden.com" }
+# ]
+
+# 预览环境配置
+[env.staging]
+name = "growagarden-staging"
+
+# 环境变量配置
+[vars]
+NODE_ENV = "production"
+NEXT_PUBLIC_APP_URL = "https://growagarden.pages.dev"
+
+# KV 存储配置（用于缓存，可选）
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
+
+# 分析配置（可选）
+# [analytics_engine_datasets]
+# binding = "ANALYTICS"
+# dataset = "growagarden_analytics"
+
+# Pages 项目配置
+[build]
+command = "npm run build:cf"
+cwd = "."
+watch_dir = "src"
+
+# 部署配置
+[deployment]
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]

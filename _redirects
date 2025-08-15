@@ -1,0 +1,14 @@
+# 重定向规则
+
+# 旧路径重定向
+/home / 301
+/dashboard /favorites 301
+
+# 确保 www 重定向到非 www（如果配置了自定义域名）
+# https://www.growagarden.com/* https://growagarden.com/:splat 301!
+
+# API 路由重定向（如果需要）
+# /api/v1/* /api/:splat 301
+
+# SPA 回退 - 必须放在最后
+/* /index.html 200

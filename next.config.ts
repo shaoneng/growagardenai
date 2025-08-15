@@ -2,11 +2,17 @@ import { withSentryConfig } from '@sentry/nextjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Cloudflare Pages 特定优化
   experimental: {
-    // 这个选项会改变Next.js打包（bundle）大型库的方式
-    // 从而避免生成单个过大的文件，以适应Cloudflare等平台的限制
-    largePageDataBytes: 128 * 1000, // 128kb
+    // 减少单个文件大小以符合 Cloudflare 限制
+    largePageDataBytes: 128 * 1000, // 128KB
   },
+  
+  // 外部包配置
+  serverExternalPackages: ['@google/generative-ai'],
+  
+  // 输出配置 - 为 Cloudflare Pages 优化
+  trailingSlash: true, // Cloudflare Pages 兼容性
   
   // ESLint配置 - 放宽规则以允许构建通过
   eslint: {
@@ -40,7 +46,11 @@ const nextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
           },
           {
             key: 'Permissions-Policy',
@@ -51,11 +61,13 @@ const nextConfig = {
     ]
   },
   
-  // 图片优化配置
+  // 图片优化配置 - Cloudflare Pages 优化
   images: {
-    domains: ['localhost'],
+    unoptimized: true, // Cloudflare 自动优化图片
     formats: ['image/webp', 'image/avif'],
-    unoptimized: process.env.NODE_ENV === 'development', // 开发环境不优化图片
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -63,7 +75,28 @@ const nextConfig = {
         port: '3000',
         pathname: '/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: '*.pages.dev',
+        pathname: '/images/**',
+      },
     ],
+  },
+  
+  // 重定向配置
+  async redirects() {
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/dashboard',
+        destination: '/favorites',
+        permanent: true,
+      },
+    ]
   },
   
   // 性能优化

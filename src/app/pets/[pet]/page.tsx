@@ -6,13 +6,15 @@ import PetDetailPage from '../../components/feature/PetDetailPage';
 import itemsData from '../../../../public/data/items.json';
 import { slugify } from '@/lib/slugify';
 
-// 在 Cloudflare Pages 上避免 Next-on-Pages 的 prerender 冲突，强制该动态路由走 SSR
-// 运行时与动态渲染配置由父级 segment layout 统一导出，避免多路由重复导出引发合并冲突
+// Cloudflare Pages 配置
+// 选择 Edge Runtime 而不是静态生成，以获得更好的动态性能
+export const runtime = 'edge';
 
-// 注意：此页面使用generateStaticParams进行静态生成，不能使用Edge Runtime
+// 注意：使用 Edge Runtime 时不能同时使用 generateStaticParams
+// 这个页面将在请求时动态渲染，提供更好的灵活性
 
-// 生成静态路径
-// 生成静态路径（去重且规范化 slug）
+// 如果需要静态生成，可以移除 runtime = 'edge' 并启用下面的函数
+/*
 export async function generateStaticParams() {
   const seen = new Set<string>();
   const params: Array<{ pet: string }> = [];
@@ -32,6 +34,7 @@ export async function generateStaticParams() {
   }
   return params;
 }
+*/
 
 // 为避免 Cloudflare next-on-pages 的边缘合并冲突，这里移除 generateMetadata（可改为后续按需恢复）
 
