@@ -2,7 +2,7 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import { DetailedItem, AnalysisResult } from '@/types';
 
-const MODEL_NAME = "gemini-2.0-flash-exp";
+const MODEL_NAME = "gemini-2.5-pro";
 
 interface EnhancedReportRequest {
   items: DetailedItem[];
