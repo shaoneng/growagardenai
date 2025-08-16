@@ -74,7 +74,7 @@ function analyzePlayerChoices(items: Array<{ name: string; quantity: number; pro
   const hasMultiHarvest = items.some(item => item.properties.includes('multi-harvest'));
   const hasHighValue = items.some(item => item.properties.includes('high-value'));
   
-  let analysis = `Player Profile Analysis:
+  const analysis = `Player Profile Analysis:
 - Investment Scale: ${gold < 500 ? 'Conservative (Low Budget)' : gold < 2000 ? 'Moderate Investment' : 'High Investment Strategy'}
 - Diversification: ${uniqueItems < 3 ? 'Focused Approach' : uniqueItems < 6 ? 'Balanced Portfolio' : 'Highly Diversified'}
 - Strategy Type: ${hasMultiHarvest ? 'Long-term Efficiency Focus' : 'Quick Turnover Preference'}
