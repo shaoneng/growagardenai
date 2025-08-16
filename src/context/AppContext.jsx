@@ -107,23 +107,26 @@ export function AppProvider({ children }) {
         throw new Error('Invalid response format from server');
       }
 
-      if (!data.mainTitle || !data.sections) {
+      // 检查API响应格式 - 数据可能在data字段中
+      const reportData = data.data || data;
+      
+      if (!reportData.mainTitle || !reportData.sections) {
         console.warn('Incomplete response data:', data);
         throw new Error('Incomplete report data received from server');
       }
 
       console.log('✅ AppContext: Gemini AI report received!');
-      console.log(`- Report title: ${data.mainTitle}`);
-      console.log(`- Sections: ${data.sections?.length || 0}`);
+      console.log(`- Report title: ${reportData.mainTitle}`);
+      console.log(`- Sections: ${reportData.sections?.length || 0}`);
 
       // 生成报告ID
-      data.reportId = `GGSB-${Date.now()}`;
+      reportData.reportId = `GGSB-${Date.now()}`;
       
       // 保存报告数据到localStorage
       try {
         const existingReports = JSON.parse(localStorage.getItem('growagarden_reports') || '{}');
-        existingReports[data.reportId] = {
-          ...data,
+        existingReports[reportData.reportId] = {
+          ...reportData,
           savedAt: new Date().toISOString()
         };
         localStorage.setItem('growagarden_reports', JSON.stringify(existingReports));
@@ -131,7 +134,7 @@ export function AppProvider({ children }) {
         console.warn('Failed to save report to localStorage:', error);
       }
 
-      setReportData(data);
+      setReportData(reportData);
       router.push('/report-summary');
 
     } catch (error) {
@@ -200,18 +203,27 @@ export function AppProvider({ children }) {
       }
 
       const data = await response.json();
+      
+      // 检查API响应格式 - 数据可能在data字段中
+      const reportData = data.data || data;
+      
+      if (!reportData.mainTitle || !reportData.sections) {
+        console.warn('Incomplete response data:', data);
+        throw new Error('Incomplete report data received from server');
+      }
+      
       console.log('✅ AppContext: Gemini AI report received!');
-      console.log(`- Report title: ${data.mainTitle}`);
-      console.log(`- Sections: ${data.sections?.length || 0}`);
+      console.log(`- Report title: ${reportData.mainTitle}`);
+      console.log(`- Sections: ${reportData.sections?.length || 0}`);
 
       // 生成报告ID
-      data.reportId = `GGSB-${Date.now()}`;
+      reportData.reportId = `GGSB-${Date.now()}`;
       
       // 保存报告数据到localStorage
       try {
         const existingReports = JSON.parse(localStorage.getItem('growagarden_reports') || '{}');
-        existingReports[data.reportId] = {
-          ...data,
+        existingReports[reportData.reportId] = {
+          ...reportData,
           savedAt: new Date().toISOString()
         };
         localStorage.setItem('growagarden_reports', JSON.stringify(existingReports));
@@ -219,7 +231,7 @@ export function AppProvider({ children }) {
         console.warn('Failed to save report to localStorage:', error);
       }
 
-      setReportData(data);
+      setReportData(reportData);
       router.push('/report-summary');
 
     } catch (error) {
