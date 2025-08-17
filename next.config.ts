@@ -1,4 +1,4 @@
-import { withSentryConfig } from '@sentry/nextjs'
+// Sentry wrapper disabled for next-on-pages to avoid duplicate identifier issues
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -86,11 +86,4 @@ const nextConfig = {
   poweredByHeader: false,
 }
 
-// Sentry配置
-const sentryWebpackPluginOptions = {
-  silent: true,
-  org: process.env.SENTRY_ORG,
-  project: process.env.SENTRY_PROJECT,
-}
-// 在 Cloudflare Pages Functions 构建时禁用 Sentry 包装，避免已知的重复标识符问题
-export default withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+export default nextConfig
