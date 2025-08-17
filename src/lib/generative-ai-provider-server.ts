@@ -145,71 +145,76 @@ export async function generateAnalysisWithGoogleAI(
             `${item.name} (quantity: ${item.quantity}${item.properties.length > 0 ? `, properties: ${item.properties.join(', ')}` : ''})`
         ).join(', ');
 
-        const prompt = `You are an expert garden strategist for a farming simulation game. Generate a comprehensive analysis report in JSON format.
+        const prompt = `你是一名资深的花园策略顾问，将为农场模拟游戏玩家生成个性化的中文分析报告（JSON）。
 
-Player Context:
-- Items: ${itemsDescription}
-- Gold: ${gold}
-- Game Date: ${inGameDate}
-- Real Date: ${currentDate}
-- Interaction Mode: ${interactionMode}
+语言与语气：
+- 使用简体中文，文风雅致但务实；
+- 以第二人称直呼“你”，增强代入感；
+- 每条建议落地明确，结合道具、数量与金币约束。
 
-Generate a JSON response with this exact structure:
+玩家上下文：
+- 道具：${itemsDescription}
+- 金币：${gold}
+- 游戏日期：${inGameDate}
+- 当前日期：${currentDate}
+- 交互模式：${interactionMode}
+
+请严格按以下JSON结构返回（字段名保持英文，内容为中文）：
 {
   "reportId": "AI-${Date.now()}",
   "publicationDate": "${currentDate}",
-  "mainTitle": "AI Garden Analysis Report",
-  "subTitle": "PERSONALIZED STRATEGIC RECOMMENDATIONS",
-  "visualAnchor": "🤖",
+  "mainTitle": "中文主标题（不超过18字，具象且个性化）",
+  "subTitle": "中文副标题（不超过24字，贴合阶段与重心）",
+  "visualAnchor": "单个Emoji",
   "playerProfile": {
-    "title": "Player Profile",
-    "archetype": "Strategic Gardener",
-    "summary": "Brief analysis of player's current situation and approach"
+    "title": "中文画像标题",
+    "archetype": "中文画像名",
+    "summary": "2-3句中文概述，概括你当前局面与取向"
   },
-  "midBreakerQuote": "Inspirational quote about gardening strategy",
+  "midBreakerQuote": "一句中文引言，富有画面感且切题",
   "sections": [
     {
       "id": "immediate_actions",
-      "title": "Priority Actions 🎯",
+      "title": "优先行动 🎯",
       "points": [
         {
-          "action": "Specific actionable advice",
-          "reasoning": "Detailed explanation of why this action is recommended",
-          "tags": ["Priority", "Strategic"]
+          "action": "结合${itemsDescription}与${gold}金币的具体行动（中文）",
+          "reasoning": "为何此举当前最合适（收益/风险/时机）",
+          "tags": ["优先", "阶段性"]
         }
       ]
     },
     {
       "id": "strategic_planning",
-      "title": "Strategic Planning 🗺️",
+      "title": "战略规划 🗺️",
       "points": [
         {
-          "action": "Long-term strategic advice",
-          "reasoning": "Explanation of strategic benefits",
-          "tags": ["Growth", "Planning"]
+          "action": "基于当下组合的中长期路径（中文）",
+          "reasoning": "说明长期价值、节奏与依赖",
+          "tags": ["战略", "成长"]
         }
       ]
     },
     {
       "id": "optimization_tips",
-      "title": "Optimization Tips ✨",
+      "title": "效率优化 ✨",
       "points": [
         {
-          "action": "Efficiency improvement suggestion",
-          "reasoning": "How this improves overall performance",
-          "tags": ["Efficiency", "Optimization"]
+          "action": "围绕${itemsDescription}的效率改进（中文）",
+          "reasoning": "此改进对整体表现的具体提升",
+          "tags": ["效率", "优化"]
         }
       ]
     }
   ],
   "footerAnalysis": {
-    "title": "Strategic Assessment",
-    "conclusion": "Overall assessment of player's situation and potential",
-    "callToAction": "Specific next steps for the player"
+    "title": "策略裁断",
+    "conclusion": "对当前局面与潜力的中文总评",
+    "callToAction": "下一步的明确动作（中文，最好包含数量与时点）"
   }
 }
 
-Make the advice specific to the player's items, gold amount, and game date. Consider seasonal factors and item synergies. Provide actionable, personalized recommendations.`;
+务必：所有建议需与玩家的实际道具、金币与时序强相关；考虑季节因素与道具协同；输出务必可执行与个性化。`;
 
         console.log('📝 Server Gemini AI: Sending prompt to model...');
         const result = await model.generateContent(prompt);

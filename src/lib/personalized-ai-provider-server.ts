@@ -153,94 +153,97 @@ export async function generatePersonalizedAnalysis(
       `${item.name} (quantity: ${item.quantity}${item.properties.length > 0 ? `, properties: ${item.properties.join(', ')}` : ''})`
     ).join(', ');
 
-    const prompt = `You are ${modeConfig.role} for a farming simulation game. ${modeConfig.personality}
+    const prompt = `你是${modeConfig.role}，服务于一款农场模拟游戏。${modeConfig.personality}
 
-CRITICAL INSTRUCTIONS: 
-- Generate COMPLETELY UNIQUE advice based on the EXACT items the player selected
-- ONLY reference the specific items listed below - DO NOT mention any other items
-- NEVER suggest items that are not in their current selection
-- Tailor every recommendation to their exact item choices, quantities, and budget
-- Make the advice feel personal and specific to their actual selections
-- If they selected Carrots, talk about Carrots - not Strawberries or other items
+语言与风格：
+- 全程使用流畅优雅的简体中文；
+- 文风华丽但不夸饰，富有画面感；
+- 先给行动，再解释理由，必要时点名“协同”道具；
+- 所有建议必须与玩家的“实际道具与金币”强相关，可落地、可执行。
 
+关键指令：
+- 仅基于玩家‘实际选择’的道具生成独特建议；
+- 只引用下列清单中的道具名称，禁止提及清单外道具；
+- 每一条建议需结合具体道具名称、数量与金币预算展开；
+- 若玩家选择了胡萝卜，就谈胡萝卜；不要谈草莓或其他未选道具。
+
+玩家画像分析：
 ${playerAnalysis}
 
-PLAYER'S ACTUAL SELECTIONS (REFERENCE ONLY THESE):
+玩家的实际选择（仅能引用这些）：
 ${itemsDescription}
 
-Current Player Situation:
-- Their Exact Selected Items: ${itemsDescription}
-- Available Gold: ${gold}
-- Game Date: ${inGameDate}
-- Real Date: ${currentDate}
-- Player Experience Level: ${interactionMode}
-- Optimization Goal: ${expertOptions?.optimizationGoal || 'balanced'}
-- Risk Tolerance: ${expertOptions?.riskTolerance || 'moderate'}
+当前状态：
+- 已选道具：${itemsDescription}
+- 可用金币：${gold}
+- 游戏日期：${inGameDate}
+- 当前日期：${currentDate}
+- 经验水平：${interactionMode}
+- 优化目标：${expertOptions?.optimizationGoal || 'balanced'}
+- 风险偏好：${expertOptions?.riskTolerance || 'moderate'}
 
+模式补充要求：
 ${modeConfig.instructions}
 
-REMEMBER: Only give advice about the items they actually selected. Do not mention any items not in their selection list above.
-
-Generate a JSON response with this structure:
+请按如下JSON结构，用中文生成高度个性化的报告（仅内容为中文，字段名保持不变）：
 {
   "reportId": "AI-${Date.now()}",
   "publicationDate": "${currentDate}",
-  "mainTitle": "${modeConfig.titleStyle}",
-  "subTitle": "PERSONALIZED FOR YOUR GARDEN STRATEGY",
-  "visualAnchor": "🌱",
+  "mainTitle": "中文主标题（不超过18字，具象且个性化）",
+  "subTitle": "中文副标题（不超过24字，贴合阶段与重心）",
+  "visualAnchor": "单个Emoji",
   "playerProfile": {
-    "title": "Your Garden Profile",
-    "archetype": "${modeConfig.archetype}",
-    "summary": "Analyze this specific player's approach based on their EXACT item choices: ${itemsDescription}"
+    "title": "中文画像标题",
+    "archetype": "中文画像名",
+    "summary": "2-3句中文概述，基于‘实际道具选择’刻画策略取向与潜力"
   },
-  "midBreakerQuote": "Create an inspiring quote that relates to their SPECIFIC chosen items: ${itemsDescription}",
+  "midBreakerQuote": "一句中文引言，诗意且切题，避免套话",
   "sections": [
     {
       "id": "immediate_actions",
-      "title": "Priority Actions for Your ${items.map(i => i.name).join(' & ')} Selection 🎯",
+      "title": "围绕${items.map(i => i.name).join('、')}的优先动作 🎯",
       "points": [
         {
-          "action": "Specific advice about ${itemsDescription} - mention these exact items by name",
-          "reasoning": "Explain why this advice applies to their ${itemsDescription} and ${gold} gold budget",
-          "tags": ["Immediate", "Specific"]
+          "action": "关于${itemsDescription}的具体动作（中文，明确数量与顺序）",
+          "reasoning": "为何此举与${itemsDescription}及${gold}金币最契合（收益/风险/时机）",
+          "tags": ["优先", "阶段性", "收益"]
         }
       ]
     },
     {
-      "id": "strategic_planning", 
-      "title": "Strategic Planning for Your ${items.map(i => i.name).join(' & ')} Garden 🗺️",
+      "id": "strategic_planning",
+      "title": "为${items.map(i => i.name).join('、')}而设的中长期规划 🗺️",
       "points": [
         {
-          "action": "Long-term strategy for ${itemsDescription} based on their ${expertOptions?.optimizationGoal || 'balanced'} goal",
-          "reasoning": "Connect this to their specific ${itemsDescription} selection and ${interactionMode} experience level",
-          "tags": ["Strategy", "Personalized"]
+          "action": "贴合${expertOptions?.optimizationGoal || 'balanced'}目标的长期路径（中文）",
+          "reasoning": "连接到${itemsDescription}与${interactionMode}的解释（节奏/依赖/门槛）",
+          "tags": ["战略", "个性化"]
         }
       ]
     },
     {
       "id": "optimization_tips",
-      "title": "Optimization Tips for Your ${items.map(i => i.name).join(' & ')} Setup ✨", 
+      "title": "${items.map(i => i.name).join('、')}的效率优化 ✨",
       "points": [
         {
-          "action": "Efficiency improvements specific to ${itemsDescription} and ${gold} gold budget",
-          "reasoning": "Explain how this applies to their exact ${itemsDescription} situation",
-          "tags": ["Efficiency", "Tailored"]
+          "action": "面向${itemsDescription}与${gold}金币的效率改进（中文）",
+          "reasoning": "说明其对${itemsDescription}的具体改善点",
+          "tags": ["效率", "定制"]
         }
       ]
     }
   ],
   "footerAnalysis": {
-    "title": "Your ${items.map(i => i.name).join(' & ')} Garden Assessment",
-    "conclusion": "Provide a conclusion that specifically addresses their ${itemsDescription} choices and potential",
-    "callToAction": "Give next steps specific to their ${itemsDescription} selection and ${interactionMode} experience level"
+    "title": "${items.map(i => i.name).join('、')}的策略裁断",
+    "conclusion": "一段中文收束，针对${itemsDescription}总结潜力与取舍",
+    "callToAction": "下一步动作（中文，明确到道具/数量/时点）"
   }
 }
 
-CRITICAL FINAL CHECK: 
-- Every section MUST mention their exact selected items: ${itemsDescription}
-- DO NOT mention any items they did not select
-- If they chose Carrots, only talk about Carrots - not Strawberries or other crops
-- Make every piece of advice specific to their actual selections and budget`;
+终检要点：
+- 每个部分都要点名实际选择的道具：${itemsDescription}
+- 禁止提及未在清单中的道具；
+- 所有建议需与现实清单与金币约束强相关，可立即执行。`;
 
     console.log('📝 Personalized Gemini AI: Sending personalized prompt...');
     const result = await model.generateContent(prompt);

@@ -94,7 +94,7 @@ function buildAnalysisPrompt(
   currentDate: string,
   interactionMode?: string
 ): string {
-  // 根据交互模式调整AI的角色和语调
+  // 根据交互模式调整AI的角色和语调（中文）
   let roleDescription = "";
   let taskDescription = "";
   let analysisDepth = "";
@@ -102,24 +102,24 @@ function buildAnalysisPrompt(
   
   switch (interactionMode) {
     case 'beginner':
-      roleDescription = `You are a friendly, patient garden mentor who specializes in helping complete beginners. Your tone is encouraging, simple, and supportive. You avoid jargon and explain everything in plain English.`;
-      taskDescription = `TASK: Create a "Personal Garden Plan" that gives specific, actionable advice for a new player.`;
-      analysisDepth = `Focus on 2-3 simple, immediate actions. Explain WHY each action helps. Use encouraging language.`;
-      contentStyle = `Use simple words, short sentences, and lots of encouragement. Include basic explanations of game mechanics.`;
+      roleDescription = `你是一位友好且耐心的园艺导师，专注帮助新手上手。语调鼓励、简洁与支持，避免术语，以中文清晰解释。`;
+      taskDescription = `任务：生成一份“个人花园起步计划”，给出明确可执行的动作。`;
+      analysisDepth = `聚焦2-3条立竿见影的行动，并解释“为什么”有效。`;
+      contentStyle = `中文表达简洁亲切，短句为主；必要时解释基础机制。`;
       break;
       
     case 'expert':
-      roleDescription = `You are a strategic advisor for experienced players. Your tone is analytical, data-driven, and sophisticated. You use advanced terminology and focus on optimization and efficiency.`;
-      taskDescription = `TASK: Create a "Strategic Investment Analysis" that provides advanced optimization strategies.`;
-      analysisDepth = `Provide 4-6 detailed strategic recommendations with ROI calculations, risk assessments, and market timing analysis.`;
-      contentStyle = `Use precise terminology, include numerical analysis, discuss advanced concepts like portfolio diversification and market cycles.`;
+      roleDescription = `你是一位面向老练玩家的战略顾问。语调分析型、数据导向与成熟稳健，关注优化与效率。`;
+      taskDescription = `任务：输出“战略投资分析”，提供进阶优化策略。`;
+      analysisDepth = `提供4-6条结构化建议，包含ROI估算、风险评估与时序分析。`;
+      contentStyle = `术语准确，必要时量化；可讨论组合与周期等概念，但避免堆砌。`;
       break;
       
     default:
-      roleDescription = `You are a knowledgeable garden strategist who balances accessibility with depth. Your tone is informative yet approachable, providing both practical advice and strategic insights.`;
-      taskDescription = `TASK: Create a "Garden Strategy Report" that balances practical advice with strategic depth.`;
-      analysisDepth = `Provide 3-4 well-balanced recommendations that combine immediate actions with strategic thinking.`;
-      contentStyle = `Balance technical accuracy with readability. Include both practical tips and strategic insights.`;
+      roleDescription = `你是一位兼顾可读性与深度的花园策士，既给方法也给路径。`;
+      taskDescription = `任务：生成“花园策略报告”，兼顾执行与战略。`;
+      analysisDepth = `提供3-4条均衡建议，结合短期动作与中长期思路。`;
+      contentStyle = `准确且易读，既有实操要点也有策略洞察。`;
   }
 
   // 分析玩家的当前状态
@@ -141,79 +141,79 @@ function buildAnalysisPrompt(
 
 ${taskDescription}
 
-PLAYER CONTEXT ANALYSIS:
-- Gold: ${gold} (${gamePhase} phase)
-- Player Level: ~${playerLevel}
-- Game Date: ${inGameDate}
-- Season: ${season} - ${seasonalContext}
-- Real Date: ${currentDate}
-- Items Portfolio: ${itemAnalysis}
+玩家上下文分析：
+- 金币：${gold}（${gamePhase}）
+- 玩家等级：~${playerLevel}
+- 游戏日期：${inGameDate}
+- 季节：${season} - ${seasonalContext}
+- 当前日期：${currentDate}
+- 物品组合：${itemAnalysis}
 
-ANALYSIS REQUIREMENTS:
+分析深度：
 ${analysisDepth}
 
-CONTENT STYLE:
+内容风格：
 ${contentStyle}
 
-SEASONAL CONSIDERATIONS:
+季节考量：
 ${seasonalContext}
 
-RESPONSE FORMAT: Return a JSON object with this exact structure:
+请按如下JSON结构返回（字段名保持英文，内容为中文）：
 {
-  "mainTitle": "Engaging, personalized title that reflects the player's situation",
-  "subTitle": "Descriptive subtitle that captures the strategic focus",
-  "visualAnchor": "A single emoji that represents the core theme (🌱🚀📊⚡🎯)",
+  "mainTitle": "高度个性化的中文主标题（≤18字）",
+  "subTitle": "紧扣战略重心的中文副标题（≤24字）",
+  "visualAnchor": "单个Emoji（🌱🚀📊⚡🎯）",
   "playerProfile": {
-    "title": "Player archetype title based on their items and gold",
-    "archetype": "Brief archetype name (e.g., 'Strategic Builder', 'Efficiency Expert', 'Growth Optimizer')",
-    "summary": "2-3 sentence personality summary based on their current portfolio and game phase"
+    "title": "中文画像标题",
+    "archetype": "中文画像名",
+    "summary": "2-3句中文画像总结"
   },
-  "midBreakerQuote": "An inspiring, contextual quote related to their current situation and season",
+  "midBreakerQuote": "一句中文引言，贴合季节与处境",
   "sections": [
     {
       "id": "immediate_actions",
-      "title": "Priority Actions 🎯",
+      "title": "优先行动 🎯",
       "points": [
         {
-          "action": "Specific, actionable advice tailored to their items and gold",
-          "reasoning": "Clear explanation of why this matters for their specific situation",
-          "tags": ["Priority", "Economic", "Seasonal"],
-          "synergy": ["Optional: items that work well together"]
+          "action": "围绕${detailedItemsList.map(i=>i.name).join('、')}与${gold}金币的具体动作",
+          "reasoning": "为何此举当下最优（收益/风险/时机）",
+          "tags": ["优先", "经济", "季节"],
+          "synergy": ["可选：协同道具"]
         }
       ]
     },
     {
       "id": "strategic_optimization",
-      "title": "Strategic Optimization 🧠",
+      "title": "策略优化 🧠",
       "points": [
         {
-          "action": "Long-term strategic advice based on their portfolio",
-          "reasoning": "Explain the strategic impact and timing considerations",
-          "tags": ["Long-Term", "Infrastructure", "Growth"],
-          "synergy": ["Optional: strategic combinations"]
+          "action": "结合组合的中长期优化建议",
+          "reasoning": "战略影响与时序考量",
+          "tags": ["长期", "架构", "成长"],
+          "synergy": ["可选：组合协同"]
         }
       ]
     },
     {
       "id": "seasonal_opportunities",
-      "title": "Seasonal Opportunities ✨",
+      "title": "季节机会 ✨",
       "points": [
         {
-          "action": "Season-specific recommendations for ${season}",
-          "reasoning": "Why this seasonal timing creates special opportunities",
-          "tags": ["Seasonal", "Timing", "Opportunity"]
+          "action": "${season}季的特定建议",
+          "reasoning": "为何该时点具备独特优势",
+          "tags": ["季节", "时机", "窗口"]
         }
       ]
     }
   ],
   "footerAnalysis": {
-    "title": "Strategic Assessment",
-    "conclusion": "Personalized summary with clear next steps based on their specific situation",
-    "callToAction": "Specific, actionable next step that fits their game phase and resources"
+    "title": "策略裁断",
+    "conclusion": "针对你当前局面的中文总结与方向",
+    "callToAction": "下一步的明确动作（中文，尽量量化）"
   }
 }
 
-IMPORTANT: Make every recommendation specific to their actual items (${detailedItemsList.map(item => item.name).join(', ')}) and gold amount (${gold}). Avoid generic advice.`;
+重要：所有建议必须紧扣玩家的实际道具（${detailedItemsList.map(item => item.name).join(', ')}) 与金币（${gold}），避免泛泛之谈。`;
 }
 
 /**

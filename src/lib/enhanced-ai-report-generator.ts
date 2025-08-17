@@ -80,6 +80,10 @@ function buildEnhancedPrompt(request: EnhancedReportRequest): string {
   
   return `${roleConfig.persona}
 
+LANGUAGE: 请使用流畅、优雅的中文输出（简体）。
+TONE: 华丽而不浮夸，富有画面感与鼓舞性，保持清晰可执行。
+STYLE: 恰当运用比喻、意象与对仗，避免空泛口号；每条建议必须落到实际道具与金币数。
+
 MISSION: ${roleConfig.mission}
 
 PLAYER ANALYSIS:
@@ -109,28 +113,32 @@ ${roleConfig.analysisDepth}
 
 OUTPUT STYLE:
 ${roleConfig.outputStyle}
+补充要求：
+- 所有标题、正文与引语均以中文呈现。
+- 以第二人称直呼其人（“你”），增强代入感与个性化。
+- 每个要点先给“行动”，再给“理由”，若有“协同”，点名具体道具名称。
 
 RESPONSE FORMAT (JSON):
 {
-  "mainTitle": "Compelling, personalized title that captures their unique situation",
-  "subTitle": "Strategic subtitle that reflects their game phase and focus",
-  "visualAnchor": "Perfect emoji that represents their strategic theme",
+  "mainTitle": "高度个性化、意象鲜明的中文主标题（不超过18字）",
+  "subTitle": "紧扣阶段与重心的中文副标题（不超过24字）",
+  "visualAnchor": "单个最契合主题的Emoji",
   "playerProfile": {
-    "title": "Personalized archetype title based on their actual gameplay",
-    "archetype": "Specific archetype name that fits their style",
-    "summary": "Insightful 2-3 sentence analysis of their strategic approach and potential"
+    "title": "基于当前玩法的中文画像标题",
+    "archetype": "贴合其风格的中文画像名",
+    "summary": "2-3句凝练分析，概括你的策略取向与潜力（中文）"
   },
-  "midBreakerQuote": "Inspiring, contextual quote that resonates with their current journey",
+  "midBreakerQuote": "一句富有诗意且切题的中文引言（避免套话）",
   "sections": [
     {
       "id": "immediate_priorities",
       "title": "${roleConfig.sectionTitles.immediate}",
       "points": [
         {
-          "action": "Specific action tailored to their exact items and gold amount",
-          "reasoning": "Detailed explanation of why this action is perfect for their situation",
-          "tags": ["Relevant", "Tags", "Here"],
-          "synergy": ["Items that work together", "Strategic combinations"]
+          "action": "围绕所持道具与金币的具体行动（中文，直给步骤与数量）",
+          "reasoning": "为何这一步与当下最契合（点明收益、风险与时机）",
+          "tags": ["优先", "阶段性", "收益"],
+          "synergy": ["可与哪些道具形成协同（点名道具）"]
         }
       ]
     },
@@ -139,10 +147,10 @@ RESPONSE FORMAT (JSON):
       "title": "${roleConfig.sectionTitles.strategic}",
       "points": [
         {
-          "action": "Strategic move that builds on their current foundation",
-          "reasoning": "Long-term impact and timing considerations",
-          "tags": ["Strategic", "Growth", "Optimization"],
-          "synergy": ["Strategic synergies"]
+          "action": "基于当前底座的中长期布局（中文，包含阶段目标）",
+          "reasoning": "长期影响、资源节律与关键窗口期说明",
+          "tags": ["战略", "成长", "优化"],
+          "synergy": ["中长期的协同组合（点名道具）"]
         }
       ]
     },
@@ -151,9 +159,9 @@ RESPONSE FORMAT (JSON):
       "title": "${roleConfig.sectionTitles.seasonal}",
       "points": [
         {
-          "action": "Season-specific opportunity for ${season}",
-          "reasoning": "Why this timing creates unique advantages",
-          "tags": ["Seasonal", "Timing", "Opportunity"]
+          "action": "${season} 季的专属机会（中文，点明道具与资源调度）",
+          "reasoning": "此时点为何独特且收益占优",
+          "tags": ["季节", "时机", "窗口"]
         }
       ]
     },
@@ -162,21 +170,21 @@ RESPONSE FORMAT (JSON):
       "title": "${roleConfig.sectionTitles.advanced}",
       "points": [
         {
-          "action": "Advanced technique or hidden opportunity",
-          "reasoning": "Expert-level insight that most players miss",
-          "tags": ["Advanced", "Hidden", "Expert"]
+          "action": "进阶技巧或隐蔽红利（中文，少即是多，务必落地）",
+          "reasoning": "专业洞察：多数玩家忽视的因果链",
+          "tags": ["进阶", "隐性", "专家"]
         }
       ]
     }
   ],
   "footerAnalysis": {
-    "title": "Strategic Verdict",
-    "conclusion": "Comprehensive assessment with clear strategic direction",
-    "callToAction": "Specific next step that maximizes their current advantages"
+    "title": "策略裁断",
+    "conclusion": "一段收束全篇的中文总结，给出清晰方向与取舍",
+    "callToAction": "下一步的最优动作（中文，明确到道具/数量/时点）"
   }
 }
 
-CRITICAL: Every recommendation must be specific to their actual items (${items.map(i => i.name).join(', ')}) and exact gold amount (${gold}). No generic advice!`;
+CRITICAL: 所有建议必须严格对应玩家实际道具（${items.map(i => i.name).join(', ')}) 与金币（${gold}）。禁止泛泛而谈！`;
 }
 
 /**
@@ -185,39 +193,39 @@ CRITICAL: Every recommendation must be specific to their actual items (${items.m
 function getRoleConfiguration(mode: string) {
   const configs = {
     beginner: {
-      persona: "🌱 You are a warm, encouraging garden mentor who makes complex strategies feel simple and achievable. You celebrate small wins and build confidence through clear, step-by-step guidance.",
-      mission: "Create a 'Personal Growth Plan' that transforms confusion into clarity and overwhelm into excitement.",
-      analysisDepth: "Focus on 2-3 simple, high-impact actions. Explain the 'why' behind each step. Build confidence with encouraging language and celebrate their progress.",
-      outputStyle: "Use simple, encouraging language. Include emojis. Explain game mechanics simply. Focus on immediate wins that build momentum.",
+      persona: "🌱 你是一位温暖而耐心的园艺导师，擅长将复杂策略化繁为简，用清晰可行的步骤帮助新人建立信心。",
+      mission: "打造一份‘个人成长计划’，把迷茫化作清晰，把压力化作期待。",
+      analysisDepth: "聚焦2-3条最有性价比的行动，说明每一步背后的‘为什么’，帮助你稳步起势。",
+      outputStyle: "用亲切易懂的中文表达，适度配合Emoji，解释机制直白、步骤明确，优先带来可见的小胜利。",
       sectionTitles: {
-        immediate: "Your Next Wins 🎯",
-        strategic: "Building Your Dream Garden 🌟",
-        seasonal: "Perfect Timing Opportunities ⏰",
-        advanced: "Pro Tips Just for You 💡"
+        immediate: "你眼前的胜利 🎯",
+        strategic: "筑梦花园的蓝图 🌟",
+        seasonal: "恰逢其时的窗口 ⏰",
+        advanced: "只为你准备的窍门 💡"
       }
     },
     expert: {
-      persona: "📊 You are a strategic mastermind who sees patterns others miss. You provide data-driven insights with surgical precision and reveal advanced optimization techniques.",
-      mission: "Deliver a 'Strategic Intelligence Brief' with advanced analytics, market timing, and optimization strategies.",
-      analysisDepth: "Provide 4-6 detailed strategic recommendations with ROI analysis, risk assessment, market timing, and portfolio optimization. Include advanced synergies and hidden mechanics.",
-      outputStyle: "Use precise terminology, include numerical analysis, discuss advanced concepts like portfolio theory, market cycles, and strategic positioning.",
+      persona: "📊 你是一位洞见敏锐的战略家，擅长以数据与结构拆解复杂局面，给出刀锋般精确的优化方案。",
+      mission: "呈上一份‘战略情报简报’，涵盖收益测算、风险分层、时机择优与组合优化。",
+      analysisDepth: "提供4-6条结构化建议，含ROI测算、风险阈值、时序安排与协同组合；必要时点名隐性机制。",
+      outputStyle: "术语准确、逻辑严密，必要时量化；可引用‘组合管理-周期-位势’等概念，但避免堆砌。",
       sectionTitles: {
-        immediate: "Priority Optimization Matrix 📊",
-        strategic: "Advanced Strategic Positioning 🎯",
-        seasonal: "Market Timing Analysis ⚡",
-        advanced: "Elite Strategy Insights 🔬"
+        immediate: "优先级优化矩阵 📊",
+        strategic: "高级战略位势 🎯",
+        seasonal: "时序与节律分析 ⚡",
+        advanced: "进阶策略洞察 🔬"
       }
     },
     advanced: {
-      persona: "🎯 You are a balanced strategist who combines analytical depth with practical wisdom. You see both the forest and the trees, providing insights that are both strategic and actionable.",
-      mission: "Generate a 'Strategic Intelligence Report' that balances immediate tactics with long-term vision.",
-      analysisDepth: "Provide 3-4 well-balanced recommendations combining immediate actions with strategic thinking. Include both tactical moves and strategic positioning.",
-      outputStyle: "Balance technical accuracy with accessibility. Include both practical tips and strategic insights. Use clear explanations with strategic depth.",
+      persona: "🎯 你是一位兼顾远近的策士，既见林亦见树，将可执行的动作与长线布局融为一体。",
+      mission: "产出一份‘战略智能报告’，兼顾眼前推进与中长期价值。",
+      analysisDepth: "提供3-4条均衡建议，既有当下动作，也有位势构建与节奏管理。",
+      outputStyle: "准确而亲近，既讲策略也讲方法，解释清晰有层次。",
       sectionTitles: {
-        immediate: "Strategic Priorities 🎯",
-        strategic: "Long-term Positioning 🗺️",
-        seasonal: "Seasonal Advantages ✨",
-        advanced: "Strategic Insights 🧠"
+        immediate: "当下的关键 🎯",
+        strategic: "长线的位势 🗺️",
+        seasonal: "季节的顺风 ✨",
+        advanced: "策略的洞见 🧠"
       }
     }
   };
