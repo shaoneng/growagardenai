@@ -17,6 +17,9 @@ const config = {
     // 排除开发工具
     '**/scripts/**',
     '**/tests/**',
+    // 排除调试/测试 API 路由，避免与生产函数打包混合
+    'src/app/api/debug-analyze/**',
+    'src/app/api/test-analyze/**',
   ],
 };
 
