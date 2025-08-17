@@ -73,16 +73,17 @@ export default function RootLayout({
       {/* 4. body 使用Inter字体作为基础 */}
       <body className="font-sans">
         <I18nProvider>
-          <AppProvider>
-            <OnboardingProvider>
-              <FavoritesProvider>
-                <ToastProvider>
+          {/* ToastProvider 必须包裹使用 useToastContext 的所有组件（包括 AppProvider） */}
+          <ToastProvider>
+            <AppProvider>
+              <OnboardingProvider>
+                <FavoritesProvider>
                   <GlobalNavigation />
                   {children}
-                </ToastProvider>
-              </FavoritesProvider>
-            </OnboardingProvider>
-          </AppProvider>
+                </FavoritesProvider>
+              </OnboardingProvider>
+            </AppProvider>
+          </ToastProvider>
         </I18nProvider>
       </body>
     </html>
