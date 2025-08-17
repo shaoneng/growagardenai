@@ -128,8 +128,9 @@ export class FallbackReportGenerator {
 
     private static generatePlayerSummary(items: DetailedItem[], gold: number, gamePhase: string): string {
         const analysis = this.analyzeItems(items);
+        const phaseCN = gamePhase === 'Early Game' ? '前期' : gamePhase === 'Mid Game' ? '中期' : '后期';
 
-        return `你处于${gamePhase}阶段，拥有金币${gold}，已选择${analysis.diversity}类道具。${analysis.hasMultiHarvest
+        return `你处于${phaseCN}阶段，拥有金币${gold}，已选择${analysis.diversity}类道具。${analysis.hasMultiHarvest
             ? "多次收获类道具展现了你的长线思维。"
             : "可考虑增加可多次收获的道具，以获得更稳健的回报。"
             } 当前应当${gamePhase === "Early Game" ? "夯实基础" : gamePhase === "Mid Game" ? "稳步扩张" : "精益求精，追求极致效率"}。`;
@@ -275,8 +276,9 @@ export class FallbackReportGenerator {
 
     private static generateConclusion(items: DetailedItem[], gold: number, gamePhase: string): string {
         const analysis = this.analyzeItems(items);
+        const phaseCN = gamePhase === 'Early Game' ? '前期' : gamePhase === 'Mid Game' ? '中期' : '后期';
 
-        return `你的${gamePhase.toLowerCase()}策略体现出${analysis.diversity > 3 ? "良好的分散度" : "聚焦与专注"}，当前资源为金币 ${gold}。${analysis.hasMultiHarvest
+        return `你的${phaseCN}策略体现出${analysis.diversity > 3 ? "良好的分散度" : "聚焦与专注"}，当前资源为金币 ${gold}。${analysis.hasMultiHarvest
                 ? "多次收获类配置展现长期主义与稳定现金流。"
                 : "可考量引入可多次收获的配置以平滑收益曲线。"
             } 建议在有序推进中保持弹性，拥抱新的机会窗口。`;

@@ -138,7 +138,10 @@ export class AIServiceManager {
       }
       
       // 清理和验证响应以确保Cloudflare兼容性
-      const cleanedResult = this.sanitizeAIResponse(rawResult, requestId);
+      let cleanedResult = this.sanitizeAIResponse(rawResult, requestId);
+
+      // 本地化兜底：将残留英文固定短语与阶段名转换为中文
+      cleanedResult = this.localizeChinese(cleanedResult, requestId);
       this.validateAIResponse(cleanedResult, requestId);
       
       // 进行提示语遵循性检查（语言与个性化要点）
@@ -180,6 +183,102 @@ export class AIServiceManager {
       }
     } catch (e) {
       console.warn(`⚠️ AI Service [${requestId}]: Prompt adherence check skipped due to error:`, e);
+    }
+  }
+
+  /**
+   * 将报告中的常见英文短语与阶段名本地化为中文（兜底修正UI一致性）
+   */
+  private static localizeChinese(result: AnalysisResult, requestId: string): AnalysisResult {
+    try {
+      const map: Record<string, string> = {
+        // 阶段名
+        'Early Game': '前期',
+        'Mid Game': '中期',
+        'Late Game': '后期',
+        'mid game': '中期',
+        // 常见分节
+        'Priority Actions': '优先行动',
+        'Strategic Planning': '战略规划',
+        'Optimization Tips': '效率优化',
+        'Strategic Assessment': '策略裁断',
+        'Player Profile': '玩家画像',
+        // 常见要点/标签
+        'Plan for growth season': '顺势育新',
+        'Maximize productivity': '峰值增效',
+        'Prepare for harvest': '收束与储备',
+        'Strategic planning': '静思布局',
+        'Optimize synergies': '优化协同',
+        'Scale strategically': '策略性扩张',
+        'Manage resources wisely': '精明管控资源',
+        'Focus on efficiency': '优先效率',
+        'Start with basics': '从基础入手',
+        'Focus on learning and building your foundation step by step.': '循序渐进，打牢地基。',
+        'Expand strategically while maintaining what you\'ve built.': '稳步扩张，巩固所建。',
+        'Optimize for maximum efficiency and explore advanced techniques.': '精细打磨，追求极致。',
+        'Take advantage of the growing season!': '把握生长季的东风。',
+        'Make the most of peak productivity!': '善用产能峰值的时机。',
+        'Prepare for a successful harvest!': '为丰收做好收束与储备。',
+        'Use this planning time wisely!': '利用静季完善长线布局。',
+        'High Priority': '优先',
+        'Resource Management': '资源管理',
+        'Efficiency': '效率',
+        'Foundation': '基础',
+        'Learning': '学习',
+        'Basics': '基础',
+        'Seasonal': '季节',
+        'Planning': '规划',
+        'Growth': '成长',
+        'Synergy': '协同',
+        'Optimization': '优化',
+        'Scaling': '扩张',
+        'Balance': '平衡',
+        'Sustainability': '可持续'
+      };
+
+      const replaceAll = (text?: string) => {
+        if (!text) return text as any;
+        let out = text;
+        for (const [en, cn] of Object.entries(map)) {
+          out = out.replace(new RegExp(en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), cn);
+        }
+        return out;
+      };
+
+      const localized: AnalysisResult = {
+        ...result,
+        mainTitle: replaceAll(result.mainTitle),
+        subTitle: replaceAll(result.subTitle),
+        playerProfile: {
+          ...result.playerProfile,
+          title: replaceAll(result.playerProfile?.title),
+          archetype: replaceAll(result.playerProfile?.archetype),
+          summary: replaceAll(result.playerProfile?.summary)
+        },
+        midBreakerQuote: replaceAll(result.midBreakerQuote),
+        sections: (result.sections || []).map(s => ({
+          ...s,
+          title: replaceAll(s.title),
+          points: (s.points || []).map(p => ({
+            ...p,
+            action: replaceAll(p.action),
+            reasoning: replaceAll(p.reasoning),
+            tags: (p.tags || []).map(t => replaceAll(t) || t),
+            synergy: (p.synergy || [])?.map(t => replaceAll(t) || t)
+          }))
+        })),
+        footerAnalysis: {
+          ...result.footerAnalysis,
+          title: replaceAll(result.footerAnalysis?.title),
+          conclusion: replaceAll(result.footerAnalysis?.conclusion),
+          callToAction: replaceAll(result.footerAnalysis?.callToAction)
+        }
+      };
+
+      return localized;
+    } catch (e) {
+      console.warn(`⚠️ AI Service [${requestId}]: Localization fallback failed:`, e);
+      return result;
     }
   }
 
