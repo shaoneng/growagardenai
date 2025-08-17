@@ -1,12 +1,35 @@
-// 简化的测试 API 路由
-import { NextRequest, NextResponse } from 'next/server';
+// 简化的测试 API 路由 - Cloudflare Pages优化版本
+export const runtime = 'edge';
+
+import { NextRequest } from 'next/server';
+import { CloudflareJSONHandler } from '@/lib/cloudflare-json-handler';
 
 export async function POST(req: NextRequest) {
-  console.log('🧪 Test API: Starting simple test...');
+  const requestId = `test_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+  console.log(`🧪 Test API [${requestId}]: Starting simple test...`);
   
   try {
-    const body = await req.json();
-    console.log('📊 Test API: Received data:', body);
+    // 使用Cloudflare优化的请求解析
+    let body;
+    try {
+      const rawBody = await req.text();
+      if (!rawBody.trim()) {
+        return CloudflareJSONHandler.createErrorResponse(
+          new Error('Empty request body'),
+          400,
+          requestId
+        );
+      }
+      body = JSON.parse(rawBody);
+    } catch (parseError) {
+      return CloudflareJSONHandler.createErrorResponse(
+        new Error('Invalid JSON in request body'),
+        400,
+        requestId
+      );
+    }
+    
+    console.log(`📊 Test API [${requestId}]: Received data:`, body);
     
     // 返回简单的测试响应
     const testResponse = {
@@ -45,14 +68,22 @@ export async function POST(req: NextRequest) {
       }
     };
     
-    console.log('✅ Test API: Returning test response');
-    return NextResponse.json(testResponse, { status: 200 });
+    // 验证响应结构
+    const validation = CloudflareJSONHandler.validateResponseStructure(testResponse);
+    if (!validation.valid) {
+      console.error(`❌ Test API [${requestId}]: Invalid response structure:`, validation.errors);
+      return CloudflareJSONHandler.createErrorResponse(
+        new Error(`Invalid response structure: ${validation.errors.join(', ')}`),
+        500,
+        requestId
+      );
+    }
+    
+    console.log(`✅ Test API [${requestId}]: Returning test response`);
+    return CloudflareJSONHandler.createResponse(testResponse, 200, { requestId });
     
   } catch (error) {
-    console.error('❌ Test API Error:', error);
-    return NextResponse.json({ 
-      error: 'Test API failed', 
-      details: error instanceof Error ? error.message : 'Unknown error' 
-    }, { status: 500 });
+    console.error(`❌ Test API [${requestId}]: Error:`, error);
+    return CloudflareJSONHandler.createErrorResponse(error, 500, requestId);
   }
 }
