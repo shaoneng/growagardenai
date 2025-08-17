@@ -1,4 +1,5 @@
-// 🔧 调试版本的分析 API
+// 🔧 调试版本的分析 API（Edge Runtime）
+export const runtime = 'edge';
 import { NextRequest } from 'next/server';
 import { ResponseBuilder, RequestValidator, APIMonitor } from '@/lib/api/response';
 import { ErrorHandler, ErrorType } from '@/lib/errors';

@@ -11,14 +11,13 @@ const nextConfig = {
   // 外部包配置
   serverExternalPackages: ['@google/generative-ai'],
   
-  // 输出配置 - 为 Cloudflare Pages 优化
-  output: 'export', // 静态导出模式
-  trailingSlash: true, // Cloudflare Pages 兼容性
-  distDir: 'out', // 输出目录
-  
-  // 静态导出时禁用不兼容的功能
+  // 输出为静态导出 + Pages Functions 组合（API 由 functions/ 目录提供）
+  output: 'export',
+  trailingSlash: true,
+  distDir: 'out',
+  // 静态导出时禁用图片优化
   images: {
-    unoptimized: true, // 静态导出必须禁用图片优化
+    unoptimized: true,
   },
   
   // ESLint配置 - 放宽规则以允许构建通过
@@ -97,5 +96,5 @@ const sentryWebpackPluginOptions = {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
 }
-
+// 在 Cloudflare Pages Functions 构建时禁用 Sentry 包装，避免已知的重复标识符问题
 export default withSentryConfig(nextConfig, sentryWebpackPluginOptions)

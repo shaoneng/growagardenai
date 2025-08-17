@@ -1,7 +1,7 @@
 // /src/app/layout.tsx
 import type { Metadata } from "next";
 // 1. 引入 Google Fonts
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google"; // Disabled in offline build to avoid font download
 import Script from "next/script";
 import "./globals.css";
 import I18nProvider from "./components/layout/I18nProvider";
@@ -11,12 +11,12 @@ import { OnboardingProvider } from "@/contexts/OnboardingContext";
 import { ToastProvider } from "./components/layout/ToastProvider";
 import GlobalNavigation from "./components/layout/GlobalNavigation";
 
-// 2. 配置字体 - 使用更兼容的字体
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
+// 2. 配置字体 - 离线环境禁用 next/font 下载
+// const inter = Inter({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700"],
+//   variable: "--font-inter",
+// });
 
 const GTM_ID = 'GTM-K6Z5MPFM';
 
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     // 3. 将字体变量应用到html标签
-    <html lang="zh-CN" className={`${inter.variable}`}>
+    <html lang="zh-CN">
       <head>
         {/* Font Awesome CDN */}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />

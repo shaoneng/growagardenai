@@ -792,6 +792,14 @@
     "multi_harvest": false
   },
   {
+    "id": 99,
+    "name": "veinpetal",
+    "display_name": "Veinpetal",
+    "tier": "Legendary",
+    "source": "All",
+    "multi_harvest": false
+  },
+  {
     "id": 100,
     "name": "enkaku",
     "display_name": "Enkaku",
@@ -1072,6 +1080,446 @@
     "multi_harvest": false
   },
   {
+    "id": 135,
+    "name": "carrot",
+    "display_name": "Carrot",
+    "tier": "Common",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 136,
+    "name": "strawberry",
+    "display_name": "Strawberry",
+    "tier": "Common",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 137,
+    "name": "blueberry",
+    "display_name": "Blueberry",
+    "tier": "Uncommon",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 138,
+    "name": "orange_tulip",
+    "display_name": "Orange Tulip",
+    "tier": "Uncommon",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 139,
+    "name": "tomato",
+    "display_name": "Tomato",
+    "tier": "Rare",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 140,
+    "name": "corn",
+    "display_name": "Corn",
+    "tier": "Rare",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 141,
+    "name": "daffodil",
+    "display_name": "Daffodil",
+    "tier": "Rare",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 142,
+    "name": "watermelon",
+    "display_name": "Watermelon",
+    "tier": "Legendary",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 143,
+    "name": "pumpkin",
+    "display_name": "Pumpkin",
+    "tier": "Legendary",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 144,
+    "name": "apple",
+    "display_name": "Apple",
+    "tier": "Legendary",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 145,
+    "name": "bamboo",
+    "display_name": "Bamboo",
+    "tier": "Legendary",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 146,
+    "name": "coconut",
+    "display_name": "Coconut",
+    "tier": "Mythical",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 147,
+    "name": "cactus",
+    "display_name": "Cactus",
+    "tier": "Mythical",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 148,
+    "name": "dragon_fruit",
+    "display_name": "Dragon Fruit",
+    "tier": "Mythical",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 149,
+    "name": "mango",
+    "display_name": "Mango",
+    "tier": "Mythical",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 150,
+    "name": "grape",
+    "display_name": "Grape",
+    "tier": "Divine",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 151,
+    "name": "mushroom",
+    "display_name": "Mushroom",
+    "tier": "Divine",
+    "source": "Sam’s Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 152,
+    "name": "pepper",
+    "display_name": "Pepper",
+    "tier": "Divine",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 153,
+    "name": "cacao",
+    "display_name": "Cacao",
+    "tier": "Divine",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 154,
+    "name": "beanstalk",
+    "display_name": "Beanstalk",
+    "tier": "Prismatic",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 155,
+    "name": "ember_lily",
+    "display_name": "Ember Lily",
+    "tier": "Prismatic",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 156,
+    "name": "sugar_apple",
+    "display_name": "Sugar Apple",
+    "tier": "Prismatic",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 157,
+    "name": "burning_bud",
+    "display_name": "Burning Bud",
+    "tier": "Prismatic",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 158,
+    "name": "giant_pinecone",
+    "display_name": "Giant Pinecone",
+    "tier": "Prismatic",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 159,
+    "name": "elder_strawberry",
+    "display_name": "Elder Strawberry",
+    "tier": "Prismatic",
+    "source": "Sam’s Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 160,
+    "name": "cauliflower",
+    "display_name": "Cauliflower",
+    "tier": "Rare",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 161,
+    "name": "rafflesia",
+    "display_name": "Rafflesia",
+    "tier": "Legendary",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": false
+  },
+  {
+    "id": 162,
+    "name": "green_apple",
+    "display_name": "Green Apple",
+    "tier": "Legendary",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 163,
+    "name": "avocado",
+    "display_name": "Avocado",
+    "tier": "Legendary",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 164,
+    "name": "banana",
+    "display_name": "Banana",
+    "tier": "Legendary",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 165,
+    "name": "pineapple",
+    "display_name": "Pineapple",
+    "tier": "Mythical",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 166,
+    "name": "kiwi",
+    "display_name": "Kiwi",
+    "tier": "Mythical",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 167,
+    "name": "bell_pepper",
+    "display_name": "Bell Pepper",
+    "tier": "Mythical",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 168,
+    "name": "prickly_pear",
+    "display_name": "Prickly Pear",
+    "tier": "Mythical",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 169,
+    "name": "loquat",
+    "display_name": "Loquat",
+    "tier": "Divine",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 170,
+    "name": "feijoa",
+    "display_name": "Feijoa",
+    "tier": "Divine",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 171,
+    "name": "pitcher_plant",
+    "display_name": "Pitcher Plant",
+    "tier": "Divine",
+    "source": "Summer Seed Merchant",
+    "multi_harvest": true
+  },
+  {
+    "id": 172,
+    "name": "delphinium",
+    "display_name": "Delphinium",
+    "tier": "Rare",
+    "source": "Georgia's Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 173,
+    "name": "lily_of_the_valley",
+    "display_name": "Lily Of The Valley",
+    "tier": "Mythical",
+    "source": "Georgia's Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 174,
+    "name": "travelers_fruit",
+    "display_name": "Traveler's Fruit",
+    "tier": "Divine",
+    "source": "Georgia's Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 175,
+    "name": "chocolate_carrot",
+    "display_name": "Chocolate Carrot",
+    "tier": "Common",
+    "source": "Easter Event 2025",
+    "multi_harvest": false
+  },
+  {
+    "id": 176,
+    "name": "red_lollipop",
+    "display_name": "Red Lollipop",
+    "tier": "Uncommon",
+    "source": "Easter Event 2025",
+    "multi_harvest": false
+  },
+  {
+    "id": 177,
+    "name": "candy_sunflower",
+    "display_name": "Candy Sunflower",
+    "tier": "Rare",
+    "source": "Easter Event 2025",
+    "multi_harvest": false
+  },
+  {
+    "id": 178,
+    "name": "easter_egg",
+    "display_name": "Easter Egg",
+    "tier": "Mythical",
+    "source": "Easter Event 2025",
+    "multi_harvest": true
+  },
+  {
+    "id": 179,
+    "name": "candy_blossom",
+    "display_name": "Candy Blossom",
+    "tier": "Divine",
+    "source": "Easter Event 2025",
+    "multi_harvest": true
+  },
+  {
+    "id": 180,
+    "name": "blood_banana",
+    "display_name": "Blood Banana",
+    "tier": "Mythical",
+    "source": "Blood Moon Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 181,
+    "name": "moon_melon",
+    "display_name": "Moon Melon",
+    "tier": "Mythical",
+    "source": "Blood Moon Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 182,
+    "name": "celestiberry",
+    "display_name": "Celestiberry",
+    "tier": "Mythical",
+    "source": "Twilight Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 183,
+    "name": "moon_mango",
+    "display_name": "Moon Mango",
+    "tier": "Mythical",
+    "source": "Twilight Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 184,
+    "name": "lavender",
+    "display_name": "Lavender",
+    "tier": "Uncommon",
+    "source": "Queen Bee Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 185,
+    "name": "nectarshade",
+    "display_name": "Nectarshade",
+    "tier": "Rare",
+    "source": "Queen Bee Shop",
+    "multi_harvest": false
+  },
+  {
+    "id": 186,
+    "name": "nectarine",
+    "display_name": "Nectarine",
+    "tier": "Mythical",
+    "source": "Queen Bee Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 187,
+    "name": "hive_fruit",
+    "display_name": "Hive Fruit",
+    "tier": "Divine",
+    "source": "Queen Bee Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 188,
+    "name": "liberty_lily",
+    "display_name": "Liberty Lily",
+    "tier": "Rare",
+    "source": "July 4th Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 189,
+    "name": "firework_flower",
+    "display_name": "Firework Flower",
+    "tier": "Legendary",
+    "source": "July 4th Shop",
+    "multi_harvest": false
+  },
+  {
     "id": 190,
     "name": "zenflare",
     "display_name": "Zenflare",
@@ -1088,11 +1536,467 @@
     "multi_harvest": true
   },
   {
+    "id": 192,
+    "name": "sakura_bush",
+    "display_name": "Sakura Bush",
+    "tier": "Legendary",
+    "source": "Zen Shop",
+    "multi_harvest": true
+  },
+  {
     "id": 193,
     "name": "spiked_mango",
     "display_name": "Spiked Mango",
     "tier": "Mythical",
     "source": "Zen Shop",
+    "multi_harvest": true
+  },
+  {
+    "id": 194,
+    "name": "manuka_flower",
+    "display_name": "Manuka Flower",
+    "tier": "Uncommon",
+    "source": "Crafting Station",
+    "multi_harvest": false
+  },
+  {
+    "id": 195,
+    "name": "bee_balm",
+    "display_name": "Bee Balm",
+    "tier": "Rare",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 196,
+    "name": "peace_lily",
+    "display_name": "Peace Lily",
+    "tier": "Rare",
+    "source": "Crafting Station",
+    "multi_harvest": false
+  },
+  {
+    "id": 197,
+    "name": "horsetail",
+    "display_name": "Horsetail",
+    "tier": "Rare",
+    "source": "Crafting Station",
+    "multi_harvest": false
+  },
+  {
+    "id": 198,
+    "name": "dandelion",
+    "display_name": "Dandelion",
+    "tier": "Rare",
+    "source": "Crafting Station",
+    "multi_harvest": false
+  },
+  {
+    "id": 199,
+    "name": "aloe_vera",
+    "display_name": "Aloe Vera",
+    "tier": "Legendary",
+    "source": "Crafting Station",
+    "multi_harvest": false
+  },
+  {
+    "id": 200,
+    "name": "lingonberry",
+    "display_name": "Lingonberry",
+    "tier": "Legendary",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 201,
+    "name": "lumira",
+    "display_name": "Lumira",
+    "tier": "Legendary",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 202,
+    "name": "amber_spine",
+    "display_name": "Amber Spine",
+    "tier": "Mythical",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 203,
+    "name": "guanabana",
+    "display_name": "Guanabana",
+    "tier": "Mythical",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 204,
+    "name": "honeysuckle",
+    "display_name": "Honeysuckle",
+    "tier": "Mythical",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 205,
+    "name": "grand_volcania",
+    "display_name": "Grand Volcania",
+    "tier": "Divine",
+    "source": "Crafting Station",
+    "multi_harvest": true
+  },
+  {
+    "id": 206,
+    "name": "raspberry",
+    "display_name": "Raspberry",
+    "tier": "Rare",
+    "source": "Normal Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 207,
+    "name": "pineapple",
+    "display_name": "Pineapple",
+    "tier": "Mythical",
+    "source": "Normal Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 208,
+    "name": "peach",
+    "display_name": "Peach",
+    "tier": "Mythical",
+    "source": "Normal Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 209,
+    "name": "papaya",
+    "display_name": "Papaya",
+    "tier": "Legendary",
+    "source": "Exotic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 210,
+    "name": "banana",
+    "display_name": "Banana",
+    "tier": "Legendary",
+    "source": "Exotic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 211,
+    "name": "passionfruit",
+    "display_name": "Passionfruit",
+    "tier": "Mythical",
+    "source": "Exotic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 212,
+    "name": "soul_fruit",
+    "display_name": "Soul Fruit",
+    "tier": "Divine",
+    "source": "Exotic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 213,
+    "name": "cursed_fruit",
+    "display_name": "Cursed Fruit",
+    "tier": "Divine",
+    "source": "Exotic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 214,
+    "name": "cranberry",
+    "display_name": "Cranberry",
+    "tier": "Legendary",
+    "source": "Basic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 215,
+    "name": "durian",
+    "display_name": "Durian",
+    "tier": "Legendary",
+    "source": "Basic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 216,
+    "name": "eggplant",
+    "display_name": "Eggplant",
+    "tier": "Mythical",
+    "source": "Basic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 217,
+    "name": "lotus",
+    "display_name": "Lotus",
+    "tier": "Divine",
+    "source": "Basic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 218,
+    "name": "venus_fly_trap",
+    "display_name": "Venus Fly Trap",
+    "tier": "Divine",
+    "source": "Basic Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 219,
+    "name": "nightshade",
+    "display_name": "Nightshade",
+    "tier": "Uncommon",
+    "source": "Night Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 220,
+    "name": "glowshroom",
+    "display_name": "Glowshroom",
+    "tier": "Rare",
+    "source": "Night Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 221,
+    "name": "mint",
+    "display_name": "Mint",
+    "tier": "Rare",
+    "source": "Night Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 222,
+    "name": "moonflower",
+    "display_name": "Moonflower",
+    "tier": "Legendary",
+    "source": "Night Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 223,
+    "name": "starfruit",
+    "display_name": "Starfruit",
+    "tier": "Legendary",
+    "source": "Night Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 224,
+    "name": "moonglow",
+    "display_name": "Moonglow",
+    "tier": "Mythical",
+    "source": "Night Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 225,
+    "name": "moon_blossom",
+    "display_name": "Moon Blossom",
+    "tier": "Divine",
+    "source": "Night Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 226,
+    "name": "rose",
+    "display_name": "Rose",
+    "tier": "Uncommon",
+    "source": "Flower Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 227,
+    "name": "foxglove",
+    "display_name": "Foxglove",
+    "tier": "Rare",
+    "source": "Flower Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 228,
+    "name": "lilac",
+    "display_name": "Lilac",
+    "tier": "Legendary",
+    "source": "Flower Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 229,
+    "name": "pink_lily",
+    "display_name": "Pink Lily",
+    "tier": "Mythical",
+    "source": "Flower Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 230,
+    "name": "purple_dahlia",
+    "display_name": "Purple Dahlia",
+    "tier": "Mythical",
+    "source": "Flower Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 231,
+    "name": "sunflower",
+    "display_name": "Sunflower",
+    "tier": "Divine",
+    "source": "Flower Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 232,
+    "name": "crocus",
+    "display_name": "Crocus",
+    "tier": "Uncommon",
+    "source": "Crafters Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 233,
+    "name": "succulent",
+    "display_name": "Succulent",
+    "tier": "Rare",
+    "source": "Crafters Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 234,
+    "name": "violet_corn",
+    "display_name": "Violet Corn",
+    "tier": "Legendary",
+    "source": "Crafters Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 235,
+    "name": "bendboo",
+    "display_name": "Bendboo",
+    "tier": "Mythical",
+    "source": "Crafters Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 236,
+    "name": "cocovine",
+    "display_name": "Cocovine",
+    "tier": "Mythical",
+    "source": "Crafters Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 237,
+    "name": "dragon_pepper",
+    "display_name": "Dragon Pepper",
+    "tier": "Divine",
+    "source": "Crafters Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 238,
+    "name": "wild_carrot",
+    "display_name": "Wild Carrot",
+    "tier": "Uncommon",
+    "source": "Summer Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 239,
+    "name": "pear",
+    "display_name": "Pear",
+    "tier": "Rare",
+    "source": "Summer Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 240,
+    "name": "cantaloupe",
+    "display_name": "Cantaloupe",
+    "tier": "Legendary",
+    "source": "Summer Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 241,
+    "name": "parasol_flower",
+    "display_name": "Parasol Flower",
+    "tier": "Mythical",
+    "source": "Summer Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 242,
+    "name": "rosy_delight",
+    "display_name": "Rosy Delight",
+    "tier": "Divine",
+    "source": "Summer Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 243,
+    "name": "elephant_ears",
+    "display_name": "Elephant Ears",
+    "tier": "Prismatic",
+    "source": "Summer Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 244,
+    "name": "stonebite",
+    "display_name": "Stonebite",
+    "tier": "Uncommon",
+    "source": "Ancient Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 245,
+    "name": "paradise_petal",
+    "display_name": "Paradise Petal",
+    "tier": "Rare",
+    "source": "Ancient Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 246,
+    "name": "horned_dinoshroom",
+    "display_name": "Horned Dinoshroom",
+    "tier": "Legendary",
+    "source": "Ancient Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 247,
+    "name": "boneboo",
+    "display_name": "Boneboo",
+    "tier": "Legendary",
+    "source": "Ancient Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 248,
+    "name": "firefly_fern",
+    "display_name": "Firefly Fern",
+    "tier": "Mythical",
+    "source": "Ancient Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 249,
+    "name": "fossilight",
+    "display_name": "Fossilight",
+    "tier": "Divine",
+    "source": "Ancient Seed Pack",
     "multi_harvest": true
   },
   {
@@ -1110,6 +2014,14 @@
     "tier": "Rare",
     "source": "Zen Seed Pack",
     "multi_harvest": true
+  },
+  {
+    "id": 252,
+    "name": "taro_flower",
+    "display_name": "Taro Flower",
+    "tier": "Legendary",
+    "source": "Zen Seed Pack",
+    "multi_harvest": false
   },
   {
     "id": 253,
@@ -1136,6 +2048,54 @@
     "multi_harvest": true
   },
   {
+    "id": 256,
+    "name": "onion",
+    "display_name": "Onion",
+    "tier": "Uncommon",
+    "source": "Gourmet Seed Pack",
+    "multi_harvest": false
+  },
+  {
+    "id": 257,
+    "name": "jalapeno",
+    "display_name": "Jalapeno",
+    "tier": "Rare",
+    "source": "Gourmet Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 258,
+    "name": "crown_melon",
+    "display_name": "Crown Melon",
+    "tier": "Legendary",
+    "source": "Gourmet Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 259,
+    "name": "sugarglaze",
+    "display_name": "Sugarglaze",
+    "tier": "Mythical",
+    "source": "Gourmet Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 260,
+    "name": "tall_asparagus",
+    "display_name": "Tall Asparagus",
+    "tier": "Mythical",
+    "source": "Gourmet Seed Pack",
+    "multi_harvest": true
+  },
+  {
+    "id": 261,
+    "name": "grand_tomato",
+    "display_name": "Grand Tomato",
+    "tier": "Divine",
+    "source": "Gourmet Seed Pack",
+    "multi_harvest": true
+  },
+  {
     "id": 262,
     "name": "purple_cabbage",
     "display_name": "Purple Cabbage",
@@ -1152,10 +2112,34 @@
     "multi_harvest": false
   },
   {
+    "id": 264,
+    "name": "blue_lollipop",
+    "display_name": "Blue Lollipop",
+    "tier": "Uncommon",
+    "source": "Other",
+    "multi_harvest": false
+  },
+  {
     "id": 265,
     "name": "noble_flower",
     "display_name": "Noble Flower",
     "tier": "Rare",
+    "source": "Other",
+    "multi_harvest": true
+  },
+  {
+    "id": 266,
+    "name": "lemon",
+    "display_name": "Lemon",
+    "tier": "Mythical",
+    "source": "Other",
+    "multi_harvest": true
+  },
+  {
+    "id": 267,
+    "name": "cherry_blossom",
+    "display_name": "Cherry Blossom",
+    "tier": "Divine",
     "source": "Other",
     "multi_harvest": true
   },
@@ -1166,5 +2150,13 @@
     "tier": "Divine",
     "source": "Other",
     "multi_harvest": false
+  },
+  {
+    "id": 269,
+    "name": "bone_blossom",
+    "display_name": "Bone Blossom",
+    "tier": "Transcendent",
+    "source": "Other",
+    "multi_harvest": true
   }
 ]

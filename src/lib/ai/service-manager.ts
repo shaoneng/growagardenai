@@ -51,6 +51,7 @@ async function loadAIProviders() {
 }
 import { FallbackReportGenerator, type DetailedItem, type FallbackRequest } from '@/lib/fallback/report-generator';
 import { ErrorHandler, ErrorType } from '@/lib/errors';
+import { CloudflareJSONHandler } from '@/lib/cloudflare-json-handler';
 import type { AnalysisResult } from '@/types';
 
 export interface AIServiceRequest {
@@ -108,11 +109,11 @@ export class AIServiceManager {
   }
 
   /**
-   * 生成分析报告 - 带智能回退
+   * 生成分析报告 - 带智能回退和Cloudflare优化
    */
   static async generateReport(request: AIServiceRequest): Promise<AnalysisResult> {
     const requestId = `ai_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    console.log(`🤖 AI Service [${requestId}]: Starting report generation...`);
+    console.log(`🤖 AI Service [${requestId}]: Starting report generation with Cloudflare optimization...`);
 
     // 确保AI提供者已加载
     await loadAIProviders();
@@ -122,17 +123,30 @@ export class AIServiceManager {
 
     // 尝试使用推荐的服务
     try {
+      let rawResult: AnalysisResult;
+      
       switch (status.recommendedService) {
         case 'enhanced':
-          return await this.tryEnhancedAI(request, requestId);
+          rawResult = await this.tryEnhancedAI(request, requestId);
+          break;
         case 'gemini':
-          return await this.tryGeminiAI(request, requestId);
+          rawResult = await this.tryGeminiAI(request, requestId);
+          break;
         default:
-          return await this.useFallback(request, requestId);
+          rawResult = await this.useFallback(request, requestId);
+          break;
       }
+      
+      // 清理和验证响应以确保Cloudflare兼容性
+      const cleanedResult = this.sanitizeAIResponse(rawResult, requestId);
+      this.validateAIResponse(cleanedResult, requestId);
+      
+      console.log(`✅ AI Service [${requestId}]: Report generated and sanitized successfully`);
+      return cleanedResult;
+      
     } catch (error) {
       console.warn(`⚠️ AI Service [${requestId}]: Primary service failed, trying fallback...`);
-      return await this.useFallback(request, requestId);
+      return await this.useFallbackWithSanitization(request, requestId);
     }
   }
 
@@ -247,36 +261,154 @@ export class AIServiceManager {
   }
 
   /**
-   * 创建紧急报告（最后的回退）
+   * 清理AI响应以确保Cloudflare兼容性
    */
-  private static createEmergencyReport(request: AIServiceRequest, requestId: string): AnalysisResult {
-    console.log(`🚨 AI Service [${requestId}]: Creating emergency report...`);
+  private static sanitizeAIResponse(response: any, requestId: string): AnalysisResult {
+    console.log(`🧹 AI Service [${requestId}]: Sanitizing AI response for Cloudflare compatibility...`);
+    
+    try {
+      // 使用CloudflareJSONHandler进行深度清理
+      const sanitized = JSON.parse(JSON.stringify(response, (key, value) => {
+        // 处理特殊值
+        if (value === undefined) return null;
+        if (typeof value === 'function') return '[Function]';
+        if (Number.isNaN(value)) return null;
+        if (value === Infinity || value === -Infinity) return null;
+        if (value instanceof Date) return value.toISOString();
+        if (value instanceof Error) return {
+          name: value.name,
+          message: value.message
+        };
+        return value;
+      }));
 
-    return {
+      // 确保必需字段存在并有效
+      const cleanedResponse: AnalysisResult = {
+        reportId: sanitized.reportId || `AI-REPORT-${Date.now()}`,
+        publicationDate: sanitized.publicationDate || new Date().toISOString(),
+        mainTitle: sanitized.mainTitle || 'Garden Analysis Report',
+        subTitle: sanitized.subTitle || 'AI-Generated Insights',
+        visualAnchor: sanitized.visualAnchor || '🌱',
+        playerProfile: {
+          title: sanitized.playerProfile?.title || 'Player Profile',
+          archetype: sanitized.playerProfile?.archetype || 'Garden Enthusiast',
+          summary: sanitized.playerProfile?.summary || 'Keep growing your garden!'
+        },
+        midBreakerQuote: sanitized.midBreakerQuote || 'Every garden tells a story.',
+        sections: Array.isArray(sanitized.sections) ? sanitized.sections.map((section: any, index: number) => ({
+          id: section.id || `section_${index}`,
+          title: section.title || `Section ${index + 1}`,
+          points: Array.isArray(section.points) ? section.points.map((point: any, pointIndex: number) => ({
+            action: point.action || `Action ${pointIndex + 1}`,
+            reasoning: point.reasoning || 'Continue your garden journey.',
+            tags: Array.isArray(point.tags) ? point.tags.filter(tag => typeof tag === 'string') : ['Garden']
+          })) : []
+        })) : [],
+        footerAnalysis: {
+          title: sanitized.footerAnalysis?.title || 'Summary',
+          conclusion: sanitized.footerAnalysis?.conclusion || 'Continue your garden journey!',
+          callToAction: sanitized.footerAnalysis?.callToAction || 'Keep exploring and growing.'
+        }
+      };
+
+      console.log(`✅ AI Service [${requestId}]: Response sanitized successfully`);
+      return cleanedResponse;
+      
+    } catch (error) {
+      console.error(`❌ AI Service [${requestId}]: Failed to sanitize response:`, error);
+      throw new Error('Response sanitization failed');
+    }
+  }
+
+  /**
+   * 验证AI响应结构
+   */
+  private static validateAIResponse(response: AnalysisResult, requestId: string): void {
+    console.log(`🔍 AI Service [${requestId}]: Validating AI response structure...`);
+    
+    // 使用CloudflareJSONHandler进行验证
+    const validation = CloudflareJSONHandler.validateResponseStructure(response);
+    
+    if (!validation.valid) {
+      console.error(`❌ AI Service [${requestId}]: Response validation failed:`, validation.errors);
+      throw new Error(`Invalid AI response structure: ${validation.errors.join(', ')}`);
+    }
+
+    // 额外的AI特定验证
+    if (!response.sections || response.sections.length === 0) {
+      console.warn(`⚠️ AI Service [${requestId}]: Response has no sections, adding default section`);
+      response.sections = [{
+        id: 'default_section',
+        title: 'Garden Advice 🌱',
+        points: [{
+          action: 'Continue your garden journey',
+          reasoning: 'Keep building and exploring your garden.',
+          tags: ['Garden', 'Progress']
+        }]
+      }];
+    }
+
+    // 验证每个section都有有效的points
+    response.sections.forEach((section, index) => {
+      if (!section.points || section.points.length === 0) {
+        console.warn(`⚠️ AI Service [${requestId}]: Section ${index} has no points, adding default point`);
+        section.points = [{
+          action: 'Explore this area',
+          reasoning: 'Continue learning and experimenting.',
+          tags: ['Exploration']
+        }];
+      }
+    });
+
+    console.log(`✅ AI Service [${requestId}]: Response validation passed`);
+  }
+
+  /**
+   * 使用回退服务并进行清理
+   */
+  private static async useFallbackWithSanitization(request: AIServiceRequest, requestId: string): Promise<AnalysisResult> {
+    try {
+      const fallbackResult = await this.useFallback(request, requestId);
+      const cleanedResult = this.sanitizeAIResponse(fallbackResult, requestId);
+      this.validateAIResponse(cleanedResult, requestId);
+      return cleanedResult;
+    } catch (error) {
+      console.error(`❌ AI Service [${requestId}]: Fallback with sanitization failed:`, error);
+      return this.createSafeEmergencyReport(request, requestId);
+    }
+  }
+
+  /**
+   * 创建安全的紧急报告（最后的回退）
+   */
+  private static createSafeEmergencyReport(request: AIServiceRequest, requestId: string): AnalysisResult {
+    console.log(`🚨 AI Service [${requestId}]: Creating safe emergency report...`);
+
+    const safeReport: AnalysisResult = {
       reportId: `EMERGENCY-${Date.now()}`,
-      publicationDate: request.currentDate,
+      publicationDate: new Date().toISOString(),
       mainTitle: "Garden Analysis Report",
-      subTitle: "BASIC RECOMMENDATIONS",
+      subTitle: "Basic Recommendations",
       visualAnchor: "🌱",
       playerProfile: {
         title: "Player Profile",
         archetype: "Garden Enthusiast",
-        summary: `You have ${request.gold} gold and ${request.items.length} item types. Keep building your garden step by step!`
+        summary: `You have ${request.gold} gold and ${request.items.length} item types. Keep building your garden!`
       },
       midBreakerQuote: "Every garden grows one step at a time.",
       sections: [
         {
-          id: "basic_advice",
-          title: "Basic Advice 🌱",
+          id: "emergency_advice",
+          title: "Basic Garden Advice 🌱",
           points: [
             {
               action: "Continue your garden journey",
-              reasoning: "You're making progress! Keep experimenting and learning as you build your garden.",
-              tags: ["Encouragement", "Progress"]
+              reasoning: "You're making progress with your current setup. Keep experimenting and learning.",
+              tags: ["Progress", "Encouragement"]
             },
             {
-              action: "Focus on what you enjoy",
-              reasoning: "The best garden strategy is one that brings you joy and satisfaction.",
+              action: "Focus on what brings you joy",
+              reasoning: "The best garden strategy is one that you enjoy and find satisfying.",
               tags: ["Enjoyment", "Personal"]
             }
           ]
@@ -284,10 +416,20 @@ export class AIServiceManager {
       ],
       footerAnalysis: {
         title: "Keep Growing",
-        conclusion: "Your garden journey is unique and valuable. Keep exploring and enjoying the process!",
-        callToAction: "Continue building your garden at your own pace."
+        conclusion: "Your garden journey is unique and valuable. Continue exploring at your own pace.",
+        callToAction: "Keep building and enjoying your garden adventure."
       }
     };
+
+    // 验证紧急报告也符合要求
+    try {
+      this.validateAIResponse(safeReport, requestId);
+    } catch (error) {
+      console.error(`❌ AI Service [${requestId}]: Even emergency report validation failed:`, error);
+      // 如果连紧急报告都有问题，返回最基本的结构
+    }
+
+    return safeReport;
   }
 
   /**
