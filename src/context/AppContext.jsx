@@ -197,13 +197,18 @@ export function AppProvider({ children }) {
         })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `API request failed with status ${response.status}`);
+      const rawText = await response.text();
+      let data;
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        throw new Error(rawText || `API request failed with status ${response.status}`);
       }
 
-      const data = await response.json();
-      
+      if (!response.ok) {
+        throw new Error(data.error || data.message || rawText || `API request failed with status ${response.status}`);
+      }
+
       // 检查API响应格式 - 数据可能在data字段中
       const reportData = data.data || data;
       
