@@ -5,8 +5,8 @@ const config = {
   
   // 其他配置选项
   experimental: {
-    // 启用实验性功能
-    minify: true,
+    // 关闭 worker 压缩，避免重复标识符在压缩后冲突
+    minify: false,
   },
   
   // 排除某些文件或目录
