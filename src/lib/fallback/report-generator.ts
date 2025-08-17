@@ -42,7 +42,7 @@ export class FallbackReportGenerator {
             subTitle: modeConfig.subtitle,
             visualAnchor: modeConfig.emoji,
             playerProfile: {
-                title: "Player Profile",
+                title: "玩家画像",
                 archetype: this.determineArchetype(items, gold),
                 summary: this.generatePlayerSummary(items, gold, gamePhase)
             },
@@ -50,22 +50,22 @@ export class FallbackReportGenerator {
             sections: [
                 {
                     id: "immediate_actions",
-                    title: "Priority Actions 🎯",
+                    title: "优先行动 🎯",
                     points: this.generateImmediateActions(items, gold, modeConfig)
                 },
                 {
                     id: "strategic_planning",
-                    title: "Strategic Planning 🗺️",
+                    title: "战略规划 🗺️",
                     points: this.generateStrategicActions(items, gold, season, modeConfig)
                 },
                 {
                     id: "optimization_tips",
-                    title: "Optimization Tips ✨",
+                    title: "效率优化 ✨",
                     points: this.generateOptimizationTips(items, gold, gamePhase, modeConfig)
                 }
             ],
             footerAnalysis: {
-                title: "Strategic Assessment",
+                title: "策略裁断",
                 conclusion: this.generateConclusion(items, gold, gamePhase),
                 callToAction: this.generateCallToAction(gamePhase, season)
             }
@@ -81,20 +81,20 @@ export class FallbackReportGenerator {
     private static getModeConfiguration(mode: string) {
         const configs = {
             beginner: {
-                title: "Your Garden Journey Begins",
-                subtitle: "SIMPLE STEPS TO SUCCESS",
+                title: "你的花园之旅启程",
+                subtitle: "简单清晰的起步动作",
                 emoji: "🌱",
                 complexity: "simple"
             },
             expert: {
-                title: "Advanced Strategic Analysis",
-                subtitle: "OPTIMIZATION & EFFICIENCY FOCUS",
+                title: "进阶战略分析",
+                subtitle: "优化与效率并举",
                 emoji: "📊",
                 complexity: "advanced"
             },
             balanced: {
-                title: "Garden Strategy Report",
-                subtitle: "BALANCED GROWTH APPROACH",
+                title: "花园策略报告",
+                subtitle: "均衡发展的路径",
                 emoji: "🎯",
                 complexity: "balanced"
             }
@@ -119,28 +119,28 @@ export class FallbackReportGenerator {
     private static determineArchetype(items: DetailedItem[], gold: number): string {
         const analysis = this.analyzeItems(items);
 
-        if (gold > 1000 && analysis.diversity > 5) return "Strategic Investor";
-        if (analysis.hasMultiHarvest) return "Efficiency Expert";
-        if (analysis.diversity > 3) return "Diversified Grower";
-        if (gold < 200) return "Ambitious Beginner";
-        return "Garden Strategist";
+        if (gold > 1000 && analysis.diversity > 5) return "战略型投资者";
+        if (analysis.hasMultiHarvest) return "效率专家";
+        if (analysis.diversity > 3) return "多元化种植者";
+        if (gold < 200) return "有志的新手";
+        return "花园策士";
     }
 
     private static generatePlayerSummary(items: DetailedItem[], gold: number, gamePhase: string): string {
         const analysis = this.analyzeItems(items);
 
-        return `You're in the ${gamePhase} with ${gold} gold and ${analysis.diversity} different item types. ${analysis.hasMultiHarvest
-            ? "Your multi-harvest crops show smart long-term thinking."
-            : "Consider adding some multi-harvest crops for steady returns."
-            } Focus on ${gamePhase === "Early Game" ? "building your foundation" : gamePhase === "Mid Game" ? "expanding strategically" : "optimizing for maximum efficiency"}.`;
+        return `你处于${gamePhase}阶段，拥有金币${gold}，已选择${analysis.diversity}类道具。${analysis.hasMultiHarvest
+            ? "多次收获类道具展现了你的长线思维。"
+            : "可考虑增加可多次收获的道具，以获得更稳健的回报。"
+            } 当前应当${gamePhase === "Early Game" ? "夯实基础" : gamePhase === "Mid Game" ? "稳步扩张" : "精益求精，追求极致效率"}。`;
     }
 
     private static getSeasonalQuote(season: string): string {
         const quotes = {
-            Spring: "Every garden begins with a single seed and the courage to plant it.",
-            Summer: "In the peak of growth, wise gardeners prepare for tomorrow's harvest.",
-            Autumn: "The fruits of patience and planning are sweetest when shared.",
-            Winter: "In quiet seasons, the best strategies take root and grow strong."
+            Spring: "一粒种子，点亮整座春天。",
+            Summer: "盛长之际，亦为明日的收成布局。",
+            Autumn: "耐心与规划的果实，最宜分享。",
+            Winter: "静默之季，伟大的策略在土壤中扎根。"
         };
 
         return quotes[season as keyof typeof quotes] || "Success grows from the seeds of smart planning and patient cultivation.";
@@ -156,36 +156,36 @@ export class FallbackReportGenerator {
             );
 
             actions.push({
-                action: `Focus on ${topItem.name}`,
-                reasoning: `You have ${topItem.quantity} units of ${topItem.name}, making it your strongest asset. ${topItem.properties.includes('multi-harvest')
-                    ? "This multi-harvest crop will provide ongoing returns."
-                    : "Maximize its potential through strategic placement and timing."
+                action: `聚焦 ${topItem.name}`,
+                reasoning: `你拥有 ${topItem.quantity} 份 ${topItem.name}，是你当前最强势的资产。${topItem.properties.includes('multi-harvest')
+                    ? "其可多次收获的属性将带来持续回报。"
+                    : "通过布局与时机管理，可进一步放大价值。"
                     }`,
-                tags: ["High Priority", "Resource Management"]
+                tags: ["优先", "资源管理"]
             });
         }
 
         // 基于金币的建议
         if (gold > 500) {
             actions.push({
-                action: "Invest in expansion",
-                reasoning: `With ${gold} gold available, you have good resources for strategic investments. Consider diversifying your portfolio or upgrading existing assets.`,
-                tags: ["Investment", "Growth"]
+                action: "投入扩张",
+                reasoning: `当前金币 ${gold} 足以支持策略性投资。考虑适度分散或升级既有资产。`,
+                tags: ["投资", "增长"]
             });
         } else {
             actions.push({
-                action: "Focus on efficiency",
-                reasoning: `With ${gold} gold, prioritize high-return activities and avoid unnecessary expenses. Build your foundation steadily.`,
-                tags: ["Efficiency", "Foundation"]
+                action: "优先效率",
+                reasoning: `在金币 ${gold} 的前提下，优先高回报动作，避免不必要支出，稳步夯实基础。`,
+                tags: ["效率", "基础"]
             });
         }
 
         // 基于复杂度的建议
         if (modeConfig.complexity === "simple") {
             actions.push({
-                action: "Start with basics",
-                reasoning: "Master the fundamentals first. Focus on understanding core mechanics before exploring advanced strategies.",
-                tags: ["Learning", "Basics"]
+                action: "从基础入手",
+                reasoning: "先掌握核心机制，再逐步尝试进阶策略。",
+                tags: ["学习", "基础"]
             });
         }
 
@@ -198,24 +198,24 @@ export class FallbackReportGenerator {
         // 季节性建议
         const seasonalAdvice = {
             Spring: {
-                action: "Plan for growth season",
-                reasoning: "Spring offers the best planting opportunities. Focus on establishing new crops and expanding your garden layout.",
-                tags: ["Seasonal", "Planning", "Growth"]
+                action: "顺势育新",
+                reasoning: "春季播种窗口最佳，宜确立作物基础并优化布局。",
+                tags: ["季节", "规划", "成长"]
             },
             Summer: {
-                action: "Maximize productivity",
-                reasoning: "Summer's peak growing conditions are perfect for high-yield strategies. Optimize your harvesting schedule.",
-                tags: ["Seasonal", "Productivity", "Optimization"]
+                action: "峰值增效",
+                reasoning: "夏季生长旺盛，适合高产策略，优化收获节奏。",
+                tags: ["季节", "产能", "优化"]
             },
             Autumn: {
-                action: "Prepare for harvest",
-                reasoning: "Autumn is harvest time. Focus on collecting resources and preparing for the quieter winter season.",
-                tags: ["Seasonal", "Harvest", "Preparation"]
+                action: "收束与储备",
+                reasoning: "秋季收成在即，聚焦资源回收与冬季储备。",
+                tags: ["季节", "收获", "预备"]
             },
             Winter: {
-                action: "Strategic planning",
-                reasoning: "Winter's slower pace is perfect for planning next year's strategy and making infrastructure improvements.",
-                tags: ["Seasonal", "Strategy", "Infrastructure"]
+                action: "静思布局",
+                reasoning: "冬季节奏舒缓，适合梳理策略与改善基础设施。",
+                tags: ["季节", "策略", "基建"]
             }
         };
 
@@ -245,29 +245,29 @@ export class FallbackReportGenerator {
         // 基于游戏阶段的建议
         if (gamePhase === "Early Game") {
             tips.push({
-                action: "Build strong foundations",
-                reasoning: "Early game success comes from establishing reliable income sources and learning core mechanics thoroughly.",
-                tags: ["Foundation", "Learning"]
+                action: "夯实地基",
+                reasoning: "前期成功依赖于建立稳定收益来源并系统掌握核心机制。",
+                tags: ["基础", "学习"]
             });
         } else if (gamePhase === "Mid Game") {
             tips.push({
-                action: "Scale strategically",
-                reasoning: "Mid game is about smart expansion. Balance growth with stability, and don't overextend your resources.",
-                tags: ["Scaling", "Balance"]
+                action: "策略性扩张",
+                reasoning: "中期强调聪明扩张，在增长与稳定间取得平衡，避免资源过度外延。",
+                tags: ["扩张", "平衡"]
             });
         } else {
             tips.push({
-                action: "Pursue perfection",
-                reasoning: "Late game allows for fine-tuning and optimization. Focus on maximizing efficiency and exploring advanced strategies.",
-                tags: ["Optimization", "Advanced"]
+                action: "追求极致",
+                reasoning: "后期适合精细化打磨与优化，围绕效率极大化探索进阶策略。",
+                tags: ["优化", "进阶"]
             });
         }
 
         // 资源管理建议
         tips.push({
-            action: "Manage resources wisely",
-            reasoning: `With ${gold} gold and ${items.length} item types, balance immediate needs with long-term investments for sustainable growth.`,
-            tags: ["Resource Management", "Sustainability"]
+            action: "精明管控资源",
+            reasoning: `在金币 ${gold} 与 ${items.length} 类道具的约束下，平衡当下所需与长线投入，以实现可持续增长。`,
+            tags: ["资源管理", "可持续"]
         });
 
         return tips;
@@ -276,24 +276,23 @@ export class FallbackReportGenerator {
     private static generateConclusion(items: DetailedItem[], gold: number, gamePhase: string): string {
         const analysis = this.analyzeItems(items);
 
-        return `Your ${gamePhase.toLowerCase()} strategy shows ${analysis.diversity > 3 ? "good diversification" : "focused approach"
-            } with ${gold} gold in resources. ${analysis.hasMultiHarvest
-                ? "Your multi-harvest investments demonstrate smart long-term thinking."
-                : "Consider adding multi-harvest options for steady income."
-            } Continue building systematically while staying adaptable to new opportunities.`;
+        return `你的${gamePhase.toLowerCase()}策略体现出${analysis.diversity > 3 ? "良好的分散度" : "聚焦与专注"}，当前资源为金币 ${gold}。${analysis.hasMultiHarvest
+                ? "多次收获类配置展现长期主义与稳定现金流。"
+                : "可考量引入可多次收获的配置以平滑收益曲线。"
+            } 建议在有序推进中保持弹性，拥抱新的机会窗口。`;
     }
 
     private static generateCallToAction(gamePhase: string, season: string): string {
         const actions = {
-            "Early Game": "Focus on learning and building your foundation step by step.",
-            "Mid Game": "Expand strategically while maintaining what you've built.",
-            "Late Game": "Optimize for maximum efficiency and explore advanced techniques."
+            "Early Game": "循序渐进，打牢地基。",
+            "Mid Game": "稳步扩张，巩固所建。",
+            "Late Game": "精细打磨，追求极致。"
         };
 
-        const seasonalNote = season === "Spring" ? " Take advantage of the growing season!" :
-            season === "Summer" ? " Make the most of peak productivity!" :
-                season === "Autumn" ? " Prepare for a successful harvest!" :
-                    " Use this planning time wisely!";
+        const seasonalNote = season === "Spring" ? " 把握生长季的东风。" :
+            season === "Summer" ? " 善用产能峰值的时机。" :
+                season === "Autumn" ? " 为丰收做好收束与储备。" :
+                    " 利用静季完善长线布局。";
 
         return actions[gamePhase as keyof typeof actions] + seasonalNote;
     }

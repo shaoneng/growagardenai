@@ -141,12 +141,45 @@ export class AIServiceManager {
       const cleanedResult = this.sanitizeAIResponse(rawResult, requestId);
       this.validateAIResponse(cleanedResult, requestId);
       
+      // 进行提示语遵循性检查（语言与个性化要点）
+      this.checkPromptAdherence(cleanedResult, request, requestId);
+
       console.log(`✅ AI Service [${requestId}]: Report generated and sanitized successfully`);
       return cleanedResult;
       
     } catch (error) {
       console.warn(`⚠️ AI Service [${requestId}]: Primary service failed, trying fallback...`);
       return await this.useFallbackWithSanitization(request, requestId);
+    }
+  }
+
+  /**
+   * 检查报告是否遵循提示语关键要求（中文输出、个性化、可执行）
+   */
+  private static checkPromptAdherence(result: AnalysisResult, request: AIServiceRequest, requestId: string) {
+    try {
+      const hasCJK = (s?: string) => !!s && /[\u4e00-\u9fa5]/.test(s);
+      const items = (request.items || []).map(i => i.name.toLowerCase());
+      const goldStr = String(request.gold);
+
+      const langOk = hasCJK(result.mainTitle) && hasCJK(result.subTitle) && hasCJK(result.playerProfile?.summary || '')
+        && result.sections.every(sec => hasCJK(sec.title));
+
+      const personalizationOk = result.sections.some(sec =>
+        (sec.points || []).some(p => {
+          const content = `${p.action} ${p.reasoning}`.toLowerCase();
+          return items.some(n => content.includes(n)) || content.includes(goldStr);
+        })
+      );
+
+      if (!langOk) {
+        console.warn(`⚠️ AI Service [${requestId}]: Language adherence check failed (expected Chinese content).`);
+      }
+      if (!personalizationOk) {
+        console.warn(`⚠️ AI Service [${requestId}]: Personalization check failed (advice may not reference items or gold).`);
+      }
+    } catch (e) {
+      console.warn(`⚠️ AI Service [${requestId}]: Prompt adherence check skipped due to error:`, e);
     }
   }
 
@@ -286,28 +319,28 @@ export class AIServiceManager {
       const cleanedResponse: AnalysisResult = {
         reportId: sanitized.reportId || `AI-REPORT-${Date.now()}`,
         publicationDate: sanitized.publicationDate || new Date().toISOString(),
-        mainTitle: sanitized.mainTitle || 'Garden Analysis Report',
-        subTitle: sanitized.subTitle || 'AI-Generated Insights',
+        mainTitle: sanitized.mainTitle || '花园策略报告',
+        subTitle: sanitized.subTitle || 'AI 生成洞察',
         visualAnchor: sanitized.visualAnchor || '🌱',
         playerProfile: {
-          title: sanitized.playerProfile?.title || 'Player Profile',
-          archetype: sanitized.playerProfile?.archetype || 'Garden Enthusiast',
-          summary: sanitized.playerProfile?.summary || 'Keep growing your garden!'
+          title: sanitized.playerProfile?.title || '玩家画像',
+          archetype: sanitized.playerProfile?.archetype || '花园爱好者',
+          summary: sanitized.playerProfile?.summary || '继续精进你的花园之路。'
         },
-        midBreakerQuote: sanitized.midBreakerQuote || 'Every garden tells a story.',
+        midBreakerQuote: sanitized.midBreakerQuote || '每一座花园，都是耐心的诗篇。',
         sections: Array.isArray(sanitized.sections) ? sanitized.sections.map((section: any, index: number) => ({
           id: section.id || `section_${index}`,
-          title: section.title || `Section ${index + 1}`,
+          title: section.title || `章节 ${index + 1}`,
           points: Array.isArray(section.points) ? section.points.map((point: any, pointIndex: number) => ({
-            action: point.action || `Action ${pointIndex + 1}`,
-            reasoning: point.reasoning || 'Continue your garden journey.',
-            tags: Array.isArray(point.tags) ? point.tags.filter(tag => typeof tag === 'string') : ['Garden']
+            action: point.action || `建议 ${pointIndex + 1}`,
+            reasoning: point.reasoning || '循序渐进，稳扎稳打。',
+            tags: Array.isArray(point.tags) ? point.tags.filter(tag => typeof tag === 'string') : ['花园']
           })) : []
         })) : [],
         footerAnalysis: {
-          title: sanitized.footerAnalysis?.title || 'Summary',
-          conclusion: sanitized.footerAnalysis?.conclusion || 'Continue your garden journey!',
-          callToAction: sanitized.footerAnalysis?.callToAction || 'Keep exploring and growing.'
+          title: sanitized.footerAnalysis?.title || '策略裁断',
+          conclusion: sanitized.footerAnalysis?.conclusion || '你的花园故事仍在继续。',
+          callToAction: sanitized.footerAnalysis?.callToAction || '保持好奇，持续耕耘。'
         }
       };
 
