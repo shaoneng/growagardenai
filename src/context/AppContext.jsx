@@ -82,24 +82,21 @@ export function AppProvider({ children }) {
           expertOptions: expertOptions
         })
       });
-
-      if (!response.ok) {
-        let errorData;
-        try {
-          errorData = await response.json();
-        } catch (jsonError) {
-          console.error('Failed to parse error response as JSON:', jsonError);
-          throw new Error(`API request failed with status ${response.status}`);
-        }
-        throw new Error(errorData.error || `API request failed with status ${response.status}`);
-      }
-
+      const rawText = await response.text();
       let data;
       try {
-        data = await response.json();
-      } catch (jsonError) {
-        console.error('Failed to parse API response as JSON:', jsonError);
-        throw new Error('Invalid JSON response from server. Please try again.');
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('Invalid content-type');
+        }
+        data = JSON.parse(rawText);
+      } catch (parseError) {
+        console.error('Non-JSON response from server:', rawText);
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || data.message || `API request failed with status ${response.status}`);
       }
 
       // 验证响应数据的完整性
@@ -197,12 +194,22 @@ export function AppProvider({ children }) {
         })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `API request failed with status ${response.status}`);
+      const rawText = await response.text();
+      let data;
+      try {
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('Invalid content-type');
+        }
+        data = JSON.parse(rawText);
+      } catch (parseError) {
+        console.error('Non-JSON response from server:', rawText);
+        throw new Error(`API request failed with status ${response.status}`);
       }
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || data.message || `API request failed with status ${response.status}`);
+      }
       
       // 检查API响应格式 - 数据可能在data字段中
       const reportData = data.data || data;
