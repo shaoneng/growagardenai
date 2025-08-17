@@ -2,6 +2,7 @@
 "use client";
 
 import { createContext, useContext, useState } from 'react';
+import { useToastContext } from '@/app/components/layout/ToastProvider';
 import { useRouter } from 'next/navigation';
 
 const AppContext = createContext();
@@ -19,6 +20,7 @@ export function AppProvider({ children }) {
     timeHorizon: 'medium'
   });
   const router = useRouter();
+  const toast = useToastContext();
 
   const handleItemSelection = (item, action = 'add') => {
     const newSelectedItems = new Map(selectedItems);
@@ -84,14 +86,16 @@ export function AppProvider({ children }) {
       });
 
       if (!response.ok) {
-        let errorData;
+        let serverMsg = `HTTP ${response.status}`;
         try {
-          errorData = await response.json();
-        } catch (jsonError) {
-          console.error('Failed to parse error response as JSON:', jsonError);
-          throw new Error(`API request failed with status ${response.status}`);
-        }
-        throw new Error(errorData.error || `API request failed with status ${response.status}`);
+          const errorData = await response.json();
+          serverMsg = errorData?.message || errorData?.error || serverMsg;
+        } catch {}
+        toast.error('生成失败', `服务器返回错误：${serverMsg}`);
+        // 尝试本地回退生成
+        const fallback = await generateViaLocalFallback(itemsToAnalyze, Number(effectiveGold), effectiveGameDate, currentDate, interactionMode, expertOptions);
+        if (fallback) return;
+        throw new Error(serverMsg);
       }
 
       let data;
@@ -99,7 +103,10 @@ export function AppProvider({ children }) {
         data = await response.json();
       } catch (jsonError) {
         console.error('Failed to parse API response as JSON:', jsonError);
-        throw new Error('Invalid JSON response from server. Please try again.');
+        toast.error('响应解析失败', '服务器返回了无效的 JSON');
+        const fallback = await generateViaLocalFallback(itemsToAnalyze, Number(effectiveGold), effectiveGameDate, currentDate, interactionMode, expertOptions);
+        if (fallback) return;
+        throw new Error('Invalid JSON response from server.');
       }
 
       // 验证响应数据的完整性
@@ -112,6 +119,9 @@ export function AppProvider({ children }) {
       
       if (!reportData.mainTitle || !reportData.sections) {
         console.warn('Incomplete response data:', data);
+        toast.warning('数据不完整', '尝试使用回退报告');
+        const fallback = await generateViaLocalFallback(itemsToAnalyze, Number(effectiveGold), effectiveGameDate, currentDate, interactionMode, expertOptions);
+        if (fallback) return;
         throw new Error('Incomplete report data received from server');
       }
 
@@ -139,7 +149,7 @@ export function AppProvider({ children }) {
 
     } catch (error) {
       console.error("Failed to generate analysis:", error);
-      alert(`Failed to get analysis:\n${error.message}`);
+      toast.error('生成失败', error?.message || '请求失败');
     } finally {
       setIsLoading(false);
     }
@@ -198,8 +208,15 @@ export function AppProvider({ children }) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `API request failed with status ${response.status}`);
+        let serverMsg = `HTTP ${response.status}`;
+        try {
+          const errorData = await response.json();
+          serverMsg = errorData?.message || errorData?.error || serverMsg;
+        } catch {}
+        toast.error('生成失败', `服务器返回错误：${serverMsg}`);
+        const fallback = await generateViaLocalFallback(itemsToAnalyze, Number(gold), inGameDate, currentDate, interactionMode, expertOptions);
+        if (fallback) return;
+        throw new Error(serverMsg);
       }
 
       const data = await response.json();
@@ -209,6 +226,9 @@ export function AppProvider({ children }) {
       
       if (!reportData.mainTitle || !reportData.sections) {
         console.warn('Incomplete response data:', data);
+        toast.warning('数据不完整', '尝试使用回退报告');
+        const fallback = await generateViaLocalFallback(itemsToAnalyze, Number(gold), inGameDate, currentDate, interactionMode, expertOptions);
+        if (fallback) return;
         throw new Error('Incomplete report data received from server');
       }
       
@@ -236,9 +256,46 @@ export function AppProvider({ children }) {
 
     } catch (error) {
       console.error("Failed to generate analysis:", error);
-      alert(`Failed to generate analysis:\n${error.message}`);
+      toast.error('生成失败', error?.message || '请求失败');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // 本地回退生成：优先使用增强/基础 Gemini；若不可用，返回规则回退报告
+  const generateViaLocalFallback = async (
+    itemsToAnalyze,
+    goldAmount,
+    gameDate,
+    currentDate,
+    mode,
+    expertOpts
+  ) => {
+    try {
+      const detailedItemsList = Object.entries(itemsToAnalyze).map(([id, quantity]) => ({
+        name: `Item ${id}`,
+        quantity,
+        properties: []
+      }));
+
+      const { AIServiceManager } = await import('@/lib/ai/service-manager');
+      const reportObject = await AIServiceManager.generateReport({
+        items: detailedItemsList,
+        gold: Number(goldAmount),
+        inGameDate: gameDate,
+        currentDate,
+        interactionMode: mode,
+        expertOptions: expertOpts
+      });
+
+      toast.info('已切换回退模式', 'AI 服务不可用或接口失败');
+      reportObject.reportId = `GGSB-${Date.now()}`;
+      setReportData(reportObject);
+      router.push('/report-summary');
+      return true;
+    } catch (e) {
+      console.error('Local fallback generation failed:', e);
+      return false;
     }
   };
 

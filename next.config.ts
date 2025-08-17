@@ -11,11 +11,7 @@ const nextConfig = {
   // 外部包配置
   serverExternalPackages: ['@google/generative-ai'],
   
-  // 输出为静态导出 + Pages Functions 组合（API 由 functions/ 目录提供）
-  output: 'export',
-  trailingSlash: true,
-  distDir: 'out',
-  // 静态导出时禁用图片优化
+  // Cloudflare Pages (next-on-pages) 构建，不使用静态导出
   images: {
     unoptimized: true,
   },

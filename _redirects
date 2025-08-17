@@ -10,5 +10,8 @@
 # API 路由重定向（如果需要）
 # /api/v1/* /api/:splat 301
 
-# SPA 回退 - 必须放在最后
+# API 路由应由 Pages Functions/Next 处理，不要被 SPA 回退拦截
+/api/* /api/:splat 200
+
+# SPA 回退 - 必须放在最后（避免匹配 /api/*）
 /* /index.html 200
